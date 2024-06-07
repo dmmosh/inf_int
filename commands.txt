@@ -1,0 +1,1 @@
+clang++ -c -fPIC ./src/utils.cc -o inf_int.o && clang++ -shared -o libinf_int.so inf_int.o && sudo cp ./libinf_int.so /usr/lib && sudo cp ./src/inf_int.h /usr/include && clang++ -linf_int -std=c++20 ./src/test.cpp -o test && git-all && ./test

@@ -17,7 +17,7 @@ if the last bit is 0
 int main(void){
     char hi = -128;
 
-    char size = ~0;
+    char size = ~0 >> 1;
     std::cout << (int)size;
     test();
 

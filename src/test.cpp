@@ -17,9 +17,11 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
+    int8 size = 0;
+    size = ~size;
+    size = (int8)size >> 1;
 
-
-    std::cout << BITS((int8)((~(int8)0)>>1));
+    std::cout << size;
     test();
 
 

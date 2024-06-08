@@ -19,7 +19,7 @@ int main(void){
 
 
 
-    std::cout << (int8)(1 << 3);
+    std::cout << (int8)(1 << 6);
     test();
 
 

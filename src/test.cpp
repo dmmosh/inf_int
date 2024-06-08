@@ -6,7 +6,7 @@
 
 #define N '\n'
 #define BITS(x) std::bitset<8>(x)
-#define int8 uint8_t
+#define int8 int8_t
 #define SIGNED_MAX(x) (~(-1 << (sizeof(x) * 8 - 1)))
 
 

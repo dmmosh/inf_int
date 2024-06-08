@@ -2,13 +2,13 @@
 #include <iostream>
 #include <limits>
 #include <bits/stdc++.h>
-
+#include <bitset>
 
 #define N '\n'
 
 
 int main(void){
-    std::cout << INT_MIN << N << (int)pow(2,31) << N << INT_MAX << N << (int)pow(2,31);
+    std::cout << std::bitset<8>(3);
     test();
 
 

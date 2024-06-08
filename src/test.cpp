@@ -15,10 +15,12 @@ if the last bit is 0
 */
 
 int main(void){
-    char hi = -128;
+    int8 hi = -128;
 
-    char size = ~0 >> 1;
-    std::cout << (int)size;
+    int8 size = 0;
+    size = ~size >> 1;
+
+    std::cout << size;
     test();
 
 

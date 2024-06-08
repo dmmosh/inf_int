@@ -16,7 +16,7 @@ if the last bit is 0
 int main(void){
     int8 hi = 23;
 
-    std::cout << sizeof(hi);
+    std::cout << sizeof(int);
     test();
 
 

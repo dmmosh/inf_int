@@ -9,7 +9,7 @@
 
 
 int main(void){
-    std::cout << BITS(3) << N << BITS(-4) << N <<  BITS(-1);
+    std::cout << BITS(3) << N << BITS(4) << N <<  BITS(7);
     test();
 
 

@@ -21,7 +21,7 @@ int main(void){
     size = ~size;
     size = (int8)size >> 1;
 
-    std::cout << size;
+    std::cout << (int)size;
     test();
 
 

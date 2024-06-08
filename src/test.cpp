@@ -17,7 +17,7 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    std::cout << (~((int8)0) >> 1);
+    std::cout << (char)(~((int8)0) >> 1);
     test();
 
 

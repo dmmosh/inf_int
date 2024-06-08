@@ -19,7 +19,7 @@ int main(void){
 
 
 
-    std::cout << BITS((int8)((~0) -10));
+    std::cout << BITS((int8)((~0)>>1));
     test();
 
 

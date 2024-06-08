@@ -18,7 +18,7 @@ int main(void){
     char hi = -128;
 
     char size = ~0;
-    std::cout << size;
+    std::cout << (int)size;
     test();
 
 

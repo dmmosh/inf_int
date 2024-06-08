@@ -5,7 +5,7 @@
 #include <bitset>
 
 #define N '\n'
-#define BITS(x) std::bitset<16>(x)
+#define BITS(x) std::bitset<8>(x)
 #define int8 std::int_fast8_t
 
 
@@ -17,7 +17,8 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    std::cout << (char)(~((int8)0) >> 1);
+    int8 size = ~0;
+    std::cout << BITS(8);
     test();
 
 

@@ -17,9 +17,9 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    int8 size = 0;
 
-    std::cout << size;
+
+    std::cout << ~(1 << sizeof(hi)*8-1);
     test();
 
 

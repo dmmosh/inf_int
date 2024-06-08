@@ -14,7 +14,7 @@ if the last bit is 0
 */
 
 int main(void){
-    int8 hi = 127;
+    int8 hi = -127;
 
     std::cout << BITS(hi);
     test();

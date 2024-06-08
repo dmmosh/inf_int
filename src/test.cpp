@@ -17,7 +17,7 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    std::cout << std::numeric_limits<int8>::min();
+    std::cout << (~((int8)0) >> 1);
     test();
 
 

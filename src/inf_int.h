@@ -6,6 +6,10 @@
 
 void test();
 
+class inf_int{
+    public:
+    inf_int();
+};
 
 
 #endif //__INF_INT_H__

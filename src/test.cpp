@@ -14,9 +14,9 @@ if the last bit is 0
 */
 
 int main(void){
-    int8 hi = 23;
+    int8 hi = -23;
 
-    std::cout << sizeof(int);
+    std::cout << BITS(hi);
     test();
 
 

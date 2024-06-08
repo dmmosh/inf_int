@@ -7,10 +7,12 @@
 #include <bitset>
 
 #define BITS(x) std::bitset<8>(x)
+#define int8 std::int_fast8_t
 
 void test();
 
 class inf_int{
+    int8 buffer;
     public:
     inf_int();
 };

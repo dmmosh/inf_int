@@ -8,13 +8,14 @@
 #define BITS(x) std::bitset<16>(x)
 #define int8 std::int_fast8_t
 
+
 /*
 if the last bit is a 1 (negative, substract) then use & operator
 if the last bit is 0
 */
 
 int main(void){
-    int8 hi = -20;
+    int8 hi = -200;
 
     std::cout << BITS(hi);
     test();

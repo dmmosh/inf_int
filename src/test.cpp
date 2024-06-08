@@ -6,7 +6,7 @@
 
 #define N '\n'
 #define BITS(x) std::bitset<8>(x)
-#define int8 std::int_fast8_t
+#define int8 signed char
 
 
 /*
@@ -19,7 +19,7 @@ int main(void){
 
 
 
-    std::cout << int8(~(1 << 7));
+    std::cout << (int8)(~(1 << 7));
     test();
 
 

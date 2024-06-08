@@ -23,7 +23,7 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    std::cout << (int)hi;
+    std::cout << (int)max(hi);
     test();
 
 

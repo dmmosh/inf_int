@@ -18,7 +18,7 @@ int main(void){
     int8 hi = -128;
 
     int8 size = ~0;
-    std::cout << BITS(8);
+    std::cout << BITS(size);
     test();
 
 

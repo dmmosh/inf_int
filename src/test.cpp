@@ -8,7 +8,7 @@
 
 
 int main(void){
-    std::cout << std::bitset<8>(3);
+    std::cout << std::bitset<8>(-3);
     test();
 
 

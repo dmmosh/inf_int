@@ -8,7 +8,7 @@
 
 
 int main(void){
-    std::cout << (INT_MIN == -pow(2,32)) << N << (INT_MAX == pow(2,32));
+    std::cout << (INT_MIN == -pow(2,31)) << N << (INT_MAX == pow(2,31));
     test();
 
 

@@ -19,7 +19,7 @@ int main(void){
 
 
 
-    std::cout << (int)(~(1 << (sizeof(hi)*8-1)));
+    std::cout << (int)(~(1 << 7));
     test();
 
 

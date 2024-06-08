@@ -7,6 +7,7 @@
 #define N '\n'
 #define BITS(x) std::bitset<8>(x)
 #define int8 signed char
+#define SIGNED_MAX(x) (~(-1 << (sizeof(x) * 8 - 1)))
 
 
 /*
@@ -17,11 +18,7 @@ if the last bit is 0
 int main(void){
     int8 hi = -128;
 
-    int8 size = 0;
-    size = ~size;
-    size = (int8)size >> 1;
-
-    std::cout << (int)size;
+    std::cout << SIGNED_MAX(hi);
     test();
 
 

@@ -12,9 +12,8 @@ if the last bit is 0
 */
 
 int main(void){
-    inf_int<int> a = 7;
+    inf_int<int> a = 14;
 
-    a = 12;
 
     std::cout << a << N;
 

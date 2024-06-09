@@ -17,7 +17,7 @@ inline constexpr T max(const T& input){
 
 template <typename T>
 inline constexpr T min(const T& input){
-    return 1 << (sizeof(input) * 8);
+    return 1 << (sizeof(input) * 8 -1);
 }
 
 /*

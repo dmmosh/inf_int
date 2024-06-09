@@ -38,4 +38,37 @@ class inf_int{
 
 
 
+// template class implementations (all of them)
+template <typename T>
+inf_int<T>::inf_int():
+buffer(0)
+{
+    return;
+};
+
+template <typename T>
+inf_int<T>::inf_int(const T& init_val):
+buffer(init_val),
+base(2)
+{
+    return;
+};
+
+
+template <typename T>
+inf_int<T>::inf_int(const inf_int& init_val):
+buffer(init_val.buffer),
+base(init_val.base)
+{   
+    return;
+};
+
+
+template<class T> template<typename U>
+inf_int<T>& inf_int<T>::operator+=(const U& add){
+    this->buffer += add;
+    return *this;
+}; 
+
+
 #endif //__INF_INT_H__

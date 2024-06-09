@@ -6,8 +6,6 @@
 
 #define N '\n'
 #define BITS(x) std::bitset<8>(x)
-#define int8 int8_t
-#define SIGNED_MAX(x) (~(-1 << (sizeof(x) * 8 - 1)))
 
 
 template <typename T>
@@ -26,9 +24,9 @@ if the last bit is 0
 */
 
 int main(void){
-    int8 hi = -2;
+    int8_t hi = -2;
 
-    int8 hi2 = (~1);
+    int8_t hi2 = ~(1 << sizeof(int8_t)*8 -1 );
     std::cout << BITS(hi2) << N;
     std::cout << (int)max(hi) << N <<  (int)min(hi) << N ; 
     test();

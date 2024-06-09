@@ -11,7 +11,7 @@
 
 
 template <typename T>
-inline constexpr int max(const T& input){
+inline constexpr T max(const T& input){
     return (T)std::numeric_limits<T>::max();
 }
 

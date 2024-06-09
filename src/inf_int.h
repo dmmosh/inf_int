@@ -37,18 +37,12 @@ class inf_int{
     // operator overloading
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
+    template<typename U>
+    inf_int<T>& operator=(const U& value); 
+    inf_int<T>& operator=(const inf_int& value); 
     
 };
 
-
-template<typename T>
-std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
-    if (inf.base == 2){
-        cout << inf.buffer;
-        return cout;
-    }
-
-};
 
 
 // template class implementations (all of them)
@@ -77,10 +71,32 @@ base(init_val.base)
 };
 
 
+
+template<typename T>
+std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
+    if (inf.base == 2){
+        cout << inf.buffer;
+        return cout;
+    }
+
+};
+
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
     this->buffer += add;
     return *this;
+}; 
+
+template<class T> template<typename U>
+inf_int<T>& inf_int<T>::operator=(const U& value){
+    this->buffer = value; 
+
+}; 
+
+template<class T>
+inf_int<T>& inf_int<T>::operator=(const inf_int& value){
+    this->buffer = value.buffer; 
+    this->base = value.base;
 }; 
 
 

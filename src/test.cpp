@@ -26,7 +26,7 @@ if the last bit is 0
 */
 
 int main(void){
-    int8 hi = -128;
+    int8 hi = -2;
 
     std::cout << (int)max(hi) << N << (int)min(hi);
     test();

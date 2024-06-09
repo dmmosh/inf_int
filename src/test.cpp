@@ -29,7 +29,7 @@ int main(void){
     int8 hi = -2;
 
     int8 hi2 = (~0);
-    std::cout << (int)hi2 << N;
+    std::cout << BITS(hi2) << N;
     std::cout << (int)max(hi) << N <<  (int)min(hi) << N ; 
     test();
 

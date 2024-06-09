@@ -15,6 +15,11 @@ inline constexpr T max(const T& input){
     return (T)std::numeric_limits<T>::max();
 }
 
+template <typename T>
+inline constexpr T min(const T& input){
+    return (T)std::numeric_limits<T>::min();
+}
+
 /*
 if the last bit is a 1 (negative, substract) then use & operator
 if the last bit is 0
@@ -23,7 +28,7 @@ if the last bit is 0
 int main(void){
     long hi = -2;
 
-    std::cout << max(hi);
+    std::cout << max(hi) << N <<  min(hi) << N ; 
     test();
 
 

@@ -28,7 +28,7 @@ int main(void){
 
     long hi2 = ~((1 << (sizeof(hi)*8-1)) );
     std::cout << BITS(hi2) << N;
-    std::cout << (int)max(hi) << N <<  (int)min(hi) << N ; 
+    std::cout << BITS((int)max(hi)) << N <<  (int)min(hi) << N ; 
     test();
 
 

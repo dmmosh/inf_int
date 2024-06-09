@@ -5,6 +5,7 @@
 #include <limits>
 #include <bits/stdc++.h>
 #include <bitset>
+#include <memory>
 #define N '\n'
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 
@@ -24,15 +25,20 @@ void test();
 
 template<typename T>
 class inf_int{
-    //constructors
     public:
     T buffer; // the buffer 
     T base; // the base, starting 0 
+    std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
 
+    //constructors
     inf_int();
     inf_int(const T& init_val);
     inf_int(const inf_int& init_val);
 
+    //functions
+    void bound_check();
+    inline void base_up(); 
+    inline void base_down(); 
 
     // operator overloading
     template<typename U>
@@ -48,7 +54,8 @@ class inf_int{
 // template class implementations (all of them)
 template <typename T>
 inf_int<T>::inf_int():
-buffer(0)
+buffer(0),
+extra_base(nullptr)
 {
     return;
 };
@@ -56,7 +63,8 @@ buffer(0)
 template <typename T>
 inf_int<T>::inf_int(const T& init_val):
 buffer(init_val),
-base(2)
+base(2),
+extra_base(nullptr)
 {
     return;
 };
@@ -65,10 +73,29 @@ base(2)
 template <typename T>
 inf_int<T>::inf_int(const inf_int& init_val):
 buffer(init_val.buffer),
-base(init_val.base)
+base(init_val.base),
+extra_base(nullptr)
 {   
     return;
 };
+
+
+
+template <typename T>
+inline void inf_int<T>::base_up() {
+    if (base == max) {
+        extra_base = std::make_unique<inf_int<T>>(base);
+    } else {
+        base++;
+    }
+};
+
+template <typename T>
+inline void inf_int<T>::base_down() {
+    if (base>1) base--;
+};
+
+
 
 
 
@@ -78,7 +105,7 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
         cout << inf.buffer;
         return cout;
     }
-    
+
 };
 
 template<class T> template<typename U>
@@ -100,6 +127,9 @@ inf_int<T>& inf_int<T>::operator=(const inf_int& value){
     this->base = value.base;
     return *this;
 }; 
+
+
+
 
 
 #endif //__INF_INT_H__

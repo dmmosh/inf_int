@@ -26,7 +26,7 @@ if the last bit is 0
 int main(void){
     int8_t hi = -2;
 
-    int8_t hi2 = ~((1 << sizeof(int8_t)*8) -1 );
+    int8_t hi2 = ~((1 << sizeof(int8_t)*8) );
     std::cout << BITS(hi2) << N;
     std::cout << (int)max(hi) << N <<  (int)min(hi) << N ; 
     test();

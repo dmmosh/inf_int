@@ -24,6 +24,7 @@ void test();
 
 template<typename T>
 class inf_int{
+    private:
     T buffer; // the buffer 
     T base; // the base, starting 0 
     public:

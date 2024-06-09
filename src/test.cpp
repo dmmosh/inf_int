@@ -16,5 +16,5 @@ int main(void){
     std::cout << BITS(max(hi)) << N << max(hi) << N <<  min(hi) << N ; 
     test();
 
-
+    inf_int<int> a();
 }

@@ -13,9 +13,10 @@ if the last bit is 0
 
 int main(void){
     inf_int<int> a = 14;
+    inf_int<int> b = a;
 
 
-    std::cout << a << N;
+    std::cout << b << N;
 
     int8_t hi = -2;
 

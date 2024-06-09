@@ -36,5 +36,5 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 
 
 void test() {
-    std::cout << "hello test";
+    std::cout << "dsmkndlkvfdfnkjnkjnjk test";
 };

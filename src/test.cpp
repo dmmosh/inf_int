@@ -5,7 +5,7 @@
 #include <bitset>
 
 #define N '\n'
-#define BITS(x) std::bitset<8>(x)
+#define BITS(x) std::bitset<64>(x)
 
 
 template <typename T>

@@ -12,12 +12,7 @@
 
 template <typename T>
 inline constexpr int max(const T& input){
-    return (~(-1 << (sizeof(input) * 8 - 1)));
-}
-
-template <typename T>
-inline constexpr int min(const T& input){
-    return (1 << (sizeof(input) * 8 ));
+    return (T)std::numeric_limits<T>::max();
 }
 
 /*
@@ -28,7 +23,7 @@ if the last bit is 0
 int main(void){
     long hi = -2;
 
-    std::cout << (-1U >> 1) << N;
+    std::cout << max(hi);
     test();
 
 

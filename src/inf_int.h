@@ -24,18 +24,31 @@ void test();
 
 template<typename T>
 class inf_int{
-    private:
+    //constructors
+    public:
     T buffer; // the buffer 
     T base; // the base, starting 0 
-    public:
+
     inf_int();
     inf_int(const T& init_val);
     inf_int(const inf_int& init_val);
 
+
+    // operator overloading
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
+    
 };
 
+
+template<typename T>
+std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
+    if (inf.base == 2){
+        cout << inf.buffer;
+        return cout;
+    }
+
+};
 
 
 // template class implementations (all of them)

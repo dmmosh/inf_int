@@ -78,7 +78,7 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
         cout << inf.buffer;
         return cout;
     }
-
+    
 };
 
 template<class T> template<typename U>
@@ -90,13 +90,15 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator=(const U& value){
     this->buffer = value; 
-
+    this->base = 2;
+    return *this;
 }; 
 
 template<class T>
 inf_int<T>& inf_int<T>::operator=(const inf_int& value){
     this->buffer = value.buffer; 
     this->base = value.base;
+    return *this;
 }; 
 
 

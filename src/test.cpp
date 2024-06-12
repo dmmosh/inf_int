@@ -27,8 +27,17 @@ int main(void){
     int x = 16;
     test();
 
-    int8_t b = 11;
 
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N;
+    int8_t b = 11;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
+
+    b = 100;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
+
+    b = 0;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
+
+    b = 40;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
 
 }

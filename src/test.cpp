@@ -29,6 +29,6 @@ int main(void){
 
     int8_t b = 11;
 
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, 2,3)) << N;
+    std::cout << N << BITS(b) << N << BITS(base_convert(11, 2,3)) << N;
 
 }

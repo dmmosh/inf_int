@@ -29,7 +29,7 @@ int main(void){
 
     int8_t b = 11;
     int pos=(int)log2(b);
-    std::cout << N << pos << N;
+    std::cout << N << ((int)log2(b)) << N;
 
     std::cout << N << BITS(b) << N << BITS(base_convert(11, 2,3)) << N;
 

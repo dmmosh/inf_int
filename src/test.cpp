@@ -27,7 +27,7 @@ int main(void){
     int x = 16;
     test();
 
-    int8_t b = 11;
+    int_least8_t b = 11;
     int c = 11;
 
     std::cout << N << BITS(b) << N << BITS(base_convert(c, 2, 3)) << N;

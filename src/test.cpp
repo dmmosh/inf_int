@@ -28,7 +28,8 @@ int main(void){
     test();
 
     int8_t b = 11;
+    int c = 11;
 
-    std::cout << N << BITS(b) << N << BITS(base_convert(b,INT8(2),INT8(3))) << N;
+    std::cout << N << BITS(b) << N << BITS(base_convert(c, 2, 3)) << N;
 
 }

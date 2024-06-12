@@ -30,8 +30,10 @@ inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& ba
     return true;
 };
 
-template <typename T, typename U, typename S>
-constexpr T base_convert(T val, const U& base_cur, const S& base_new){
+
+// base conversion NOTE: data types of all have to match, make sure to CAST 
+template <typename T>
+constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
 
     

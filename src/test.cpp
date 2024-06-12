@@ -28,7 +28,7 @@ int main(void){
     test();
 
     int8_t b = 11;
-    int pos=(int)log2((double)x);
+    int pos=(int)log2((double)b);
     std::cout << N << pos << N;
 
     std::cout << N << BITS(b) << N << BITS(base_convert(11, 2,3)) << N;

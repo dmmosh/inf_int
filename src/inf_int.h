@@ -20,6 +20,11 @@ inline constexpr T min(const T& input){
     return (T)std::numeric_limits<T>::min();
 }
 
+template <typename T, typename U>
+bool overflow(const T& val1, const T& base1, const U& val2, const U& base2){
+    return true;
+};
+
 
 void test();
 
@@ -44,6 +49,13 @@ class inf_int{
     // operator overloading
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
+    inf_int<T>& operator+=(const inf_int& value); 
+
+
+    template<typename U>
+    inf_int<T>& operator+(const U& value); 
+    inf_int<T>& operator+(const inf_int& value); 
+
     template<typename U>
     inf_int<T>& operator=(const U& value); 
     inf_int<T>& operator=(const inf_int& value); 
@@ -116,7 +128,22 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 }; 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator=(const U& value){
+inf_int<T>& inf_int<T>::operator+(const U& value) {
+    if (overflow(this->buffer, this->base, value, 2)) {
+        this->buffer += value;
+    };
+    return *this;
+}; 
+
+
+template<class T>
+inf_int<T>& inf_int<T>::operator+(const inf_int& value) {
+
+}; 
+
+
+template<class T> template<typename U>
+inf_int<T>& inf_int<T>::operator=(const U& value) {
     this->buffer = value; 
     this->base = 2;
     return *this;

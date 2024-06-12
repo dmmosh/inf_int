@@ -47,16 +47,37 @@ inline constexpr T base_convert(T val, const T& base_cur, const T& base_new){
                 //static_cast<T>(pow(base_new, i));
             
             
-            T add_num = 0; //number to add to output , maybe remove
-            T j = i;
-            while(temp){
-                
-                if ()
-            }
 
+            T j = i;
+            while(j && temp){
+                auto add_num = pow(base_new, j);
+                if (add_num <= temp){
+                    out+= 
+                    temp -= add_num;
+                }  
+                j--;
+            }
         }
+        i--;
 
     }
+
+
+    T i = sizeof(val)*8 -2; // length of the bits
+    // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
+    // the numbers will also never increase in bit length, 
+    // therefore new number will always have leftmost turned on bit on/right of the old
+
+    // iterates to the first bit on val 
+    while ( i < -1 && (1<<i)^val) {
+        i--;
+    }
+    
+
+    // does operations on the rest 
+
+
+
 
 
 };

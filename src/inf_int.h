@@ -8,6 +8,7 @@
 #include <memory>
 #define N '\n'
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
+#define LEFT_BIT(x) sizeof(x)*8-__builtin_clz(x)
 
 
 template <typename T>
@@ -20,6 +21,7 @@ inline constexpr T min(const T& input){
     return (T)std::numeric_limits<T>::min();
 }
 
+
 template <typename T, typename U> // if overflow, returns -1 if not returns the addition
 inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
 
@@ -28,55 +30,32 @@ inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& ba
 };
 
 template <typename T>
-inline constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
 
-    //iterates through bits starting from 2nd to last and ending at first
-    for (size_t i = bit_len-2; i < -1; i++) 
-    {
-        if (val & (1<<i)){
-            static_cast<T>(pow(base_new, i));
-        }
-    }
-
-    // ALWAYS ROUND DOWN
-    T i = sizeof(val)*8 -2; // length of the bits
-    while (val && i < -1){ //iterates through the bits
-        T temp = (1<<i); // value on current bit
-        if (val & temp){ //if bits align
-                //static_cast<T>(pow(base_new, i));
-            
-            
-
-            T j = i;
-            while(j && temp){
-                auto add_num = pow(base_new, j);
-                if (add_num <= temp){
-                    out+= 
-                    temp -= add_num;
-                }  
-                j--;
-            }
-        }
-        i--;
-
-    }
-
-
-    T i = sizeof(val)*8 -2; // length of the bits
-    // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
-    // the numbers will also never increase in bit length, 
-    // therefore new number will always have leftmost turned on bit on/right of the old
-
-    // iterates to the first bit on val 
-    while ( i < -1 && (1<<i)^val) {
-        i--;
-    }
     
 
-    // does operations on the rest 
+    if (base_new > base_cur) { // base up conversion, TODO: implement a base down conversion
 
+        T i = LEFT_BIT(val)-1; // length of the bits
+        // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
+        // the numbers will also never increase in bit length, 
+        // therefore new number will always have leftmost turned on bit on/right of the old
+        // clz command runtime is O(1)
 
+        // iterate through the out number
+        while(val >0 && i<-1) {
+            T minus = static_cast<T>(pow(base_new, i));
+            if(minus <= val){
+                val-=minus;
+                out += 1<< i;
+            }
+            i--;
+        }
+    
+    }
+
+    return out;
 
 
 

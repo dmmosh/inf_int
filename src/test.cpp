@@ -27,6 +27,6 @@ int main(void){
     int x = 16;
     test();
 
-    std::cout << x << N << sizeof(x)*8-__builtin_clz(x) << N;
+    std::cout << base_convert(8, 2, 3);
 
 }

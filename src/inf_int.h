@@ -20,8 +20,10 @@ inline constexpr T min(const T& input){
     return (T)std::numeric_limits<T>::min();
 }
 
-template <typename T, typename U>
-bool overflow(const T& val1, const T& base1, const U& val2, const U& base2){
+template <typename T, typename U> // if overflow, returns -1 if not returns the addition
+inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
+    
+
     return true;
 };
 
@@ -129,9 +131,10 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(const U& value) {
-    if (overflow(this->buffer, this->base, value, 2)) {
-        this->buffer += value;
-    };
+    T sum = add(this->buffer, this->base, value, 2);
+    
+    this->buffer = sum;
+
     return *this;
 }; 
 

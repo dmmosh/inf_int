@@ -9,6 +9,7 @@
 #define N '\n'
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define LEFT_BIT(x) sizeof(x)*8-__builtin_clz(x)
+#define INT8(x) static_cast<int8_t>(x)
 
 
 template <typename T>

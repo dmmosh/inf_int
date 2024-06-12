@@ -25,7 +25,8 @@ int main(void){
     std::cout << BITS(max(hi)) << N << max(hi) << N <<  min(hi) << N ; 
 
     int x = 16;
-    std::cout << x << N << 31-__builtin_clz(x) << N;
     test();
+
+    std::cout << x << N << sizeof(x)*8-__builtin_clz(x) << N;
 
 }

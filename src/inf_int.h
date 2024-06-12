@@ -28,6 +28,7 @@ class inf_int{
     public:
     T buffer; // the buffer 
     T base; // the base, starting 0 
+    bool round_up; // round up or down
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
 
     //constructors

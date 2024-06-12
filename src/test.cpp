@@ -27,9 +27,8 @@ int main(void){
     int x = 16;
     test();
 
-    int_least8_t b = 11;
-    int c = 11;
+    int8_t b = 11;
 
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, static_cast<int_least8_t>(2), static_cast<int_least8_t>(3))) << N;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, 2,3)) << N;
 
 }

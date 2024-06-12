@@ -30,8 +30,8 @@ inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& ba
     return true;
 };
 
-template <typename T>
-constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+template <typename T, typename U, typename S>
+constexpr T base_convert(T val, const U& base_cur, const S& base_new){
     T out = 0;
 
     
@@ -45,7 +45,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     // iterate through the out number
     while(val >0 && i >= 0) {
         //std::cout << val << i;
-        auto minus = static_cast<T>(pow(base_new, i));
+        auto minus = pow(base_new, i);
         if(minus <= val){
             val-=minus;
             out += 1<< i;

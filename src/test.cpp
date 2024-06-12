@@ -28,7 +28,7 @@ int main(void){
     test();
 
     int8_t b = 11;
-    std::cout << N << log2(b) << N;
+    std::cout << N << (int8_t)log2(b) << N;
 
     std::cout << N << BITS(b) << N << BITS(base_convert(11, 2,3)) << N;
 

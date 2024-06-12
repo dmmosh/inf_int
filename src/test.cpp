@@ -27,6 +27,6 @@ int main(void){
     int x = 16;
     test();
 
-    std::cout << LEFT_BIT(8);
+    std::cout << base_convert(8,2,3);
 
 }

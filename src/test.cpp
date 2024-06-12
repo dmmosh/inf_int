@@ -27,6 +27,6 @@ int main(void){
     int x = 16;
     test();
 
-    std::cout << base_convert(8,2,3);
+    std::cout << base_convert(11,2,3);
 
 }

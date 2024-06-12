@@ -32,7 +32,7 @@ int main(void){
     std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
 
     b = 100;
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
+    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(4))) << N << N;
 
     b = 0;
     std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;

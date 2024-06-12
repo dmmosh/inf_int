@@ -35,7 +35,6 @@ inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& ba
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
-
     
     //ONLY BASE UP FOR NOW
 

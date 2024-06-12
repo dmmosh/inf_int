@@ -34,26 +34,23 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
 
     
+    //ONLY BASE UP FOR NOW
 
-    if (base_new > base_cur) { // base up conversion, TODO: implement a base down conversion
-
-        T i = LEFT_BIT(val)-1; // length of the bits
-        // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
-        // the numbers will also never increase in bit length, 
-        // therefore new number will always have leftmost turned on bit on/right of the old
-        // clz command runtime is O(1)
-
-        // iterate through the out number
-        while(val >0 && i<-1) {
-            T minus = static_cast<T>(pow(base_new, i));
-            if(minus <= val){
-                val-=minus;
-                out += 1<< i;
-            }
-            i--;
+    T i = LEFT_BIT(val)-1; // length of the bits
+    // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
+    // the numbers will also never increase in bit length, 
+    // therefore new number will always have leftmost turned on bit on/right of the old
+    // clz command runtime is O(1)
+    // iterate through the out number
+    while(val >0 && i< -1) {
+        T minus = static_cast<T>(pow(base_new, i));
+        if(minus <= val){
+            val-=minus;
+            out += 1<< i;
         }
-    
+        i--;
     }
+    
 
     return out;
 

@@ -15,3 +15,6 @@ def sum(base, num_bits):
 sum(2,8)
 sum(3,8)
 sum(4,8)
+sum(5,8)
+sum(6,8)
+

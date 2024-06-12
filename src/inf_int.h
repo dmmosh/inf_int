@@ -22,10 +22,47 @@ inline constexpr T min(const T& input){
 
 template <typename T, typename U> // if overflow, returns -1 if not returns the addition
 inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
-    
+
 
     return true;
 };
+
+template <typename T>
+inline constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+    T out = 0;
+
+    //iterates through bits starting from 2nd to last and ending at first
+    for (size_t i = bit_len-2; i < -1; i++) 
+    {
+        if (val & (1<<i)){
+            static_cast<T>(pow(base_new, i));
+        }
+    }
+
+    // ALWAYS ROUND DOWN
+    T i = sizeof(val)*8 -2; // length of the bits
+    while (val && i < -1){ //iterates through the bits
+        T temp = (1<<i); // value on current bit
+        if (val & temp){ //if bits align
+                //static_cast<T>(pow(base_new, i));
+            
+            
+            T add_num = 0; //number to add to output , maybe remove
+            T j = i;
+            while(temp){
+                
+                if ()
+            }
+
+        }
+
+    }
+
+
+};
+
+
+
 
 
 void test();

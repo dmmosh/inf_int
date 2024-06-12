@@ -8,7 +8,7 @@
 #include <memory>
 #define N '\n'
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
-#define LEFT_BIT(x) sizeof(x)*8-__builtin_clz(x)
+#define LEFT_BIT(x) ((int)log2(x))
 #define INT8(x) static_cast<int8_t>(x)
 
 
@@ -39,7 +39,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     
     //ONLY BASE UP FOR NOW
 
-    T i = LEFT_BIT(val)-1; // length of the bits
+    T i = LEFT_BIT(val); // length of the bits
     // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
     // the numbers will also never increase in bit length, 
     // therefore new number will always have leftmost turned on bit on/right of the old

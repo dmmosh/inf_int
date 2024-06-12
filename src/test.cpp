@@ -16,8 +16,9 @@ int main(void){
 
     a = 12;
 
+    a = a +10;
 
-    std::cout << a+10 << N;
+    std::cout << a << N;
 
     int8_t hi = -2;
 

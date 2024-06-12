@@ -42,8 +42,8 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     // therefore new number will always have leftmost turned on bit on/right of the old
     // clz command runtime is O(1)
     // iterate through the out number
-    std::cout << val << i;
     while(val >0 && i<= 0) {
+        std::cout << val << i;
         T minus = static_cast<T>(pow(base_new, i));
         if(minus <= val){
             val-=minus;

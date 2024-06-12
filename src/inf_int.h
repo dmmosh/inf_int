@@ -49,6 +49,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
             out += 1<< i;
         }
         i--;
+        out++;
     }
     
 

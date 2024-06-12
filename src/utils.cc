@@ -3,5 +3,5 @@
 
 
 void test() {
-    std::cout << "dsmkndlkvfdfnkjnkjnjk test";
+    std::cout << "dsmkndlkvfdfnkjnkjnjk test\n";
 };

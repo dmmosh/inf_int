@@ -279,7 +279,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
     U max_val = max<T, U>(*this); // temp max val variable
     while(max_val < value) { // keep iterating until a base that can hold the value is found
-    std::cout << "test" << N;
+        std::cout << "test" << N;
         this->base++;
         max_val = max<T, U>(*this);
     }

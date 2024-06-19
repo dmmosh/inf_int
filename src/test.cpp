@@ -15,8 +15,8 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<int8_t> a = 200;
+    int8_t a = -1;
 
-    std::cout << a.get_buffer<int>() << N;
+    std::cout << LEFT_BIT(a) << N;
 
 }

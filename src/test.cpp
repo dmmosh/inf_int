@@ -17,6 +17,6 @@ int main(void){
 
     inf_int<int8_t> a = 200;
 
-    std::cout << sizeof(a.get_buffer()) << N;
+    std::cout << sizeof(a.get_buffer())*8-1 << N;
 
 }

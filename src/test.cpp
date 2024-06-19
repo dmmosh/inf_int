@@ -15,5 +15,5 @@ int main(void){
 
     inf_int<int8_t> a = 10;
 
-    std::cout << a.get_buffer() << N;
+    std::cout << a.get_buffer<int>() << N;
 }

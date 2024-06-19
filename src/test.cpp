@@ -16,7 +16,7 @@ int main(void){
     //inf_int<int8_t> a = 1000;
 
     int8_t a = -1;
-    
-    std::cout << LEFT_BIT<int>(a) << N;
+
+    std::cout << (int)LEFT_BIT(a) << N;
 
 }

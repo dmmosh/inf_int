@@ -277,11 +277,21 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
     this->base = 2; // restarts the base
-    while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){
-        value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
+
+    U max_val = max<U>(*this); // temp max val variable
+    while(max_val < value) { // keep iterating until a base that can hold the value is found
         this->base++;
+        max_val = max<U>(*this);
     }
-    this->buffer = value; 
+    
+    this->buffer = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
+
+
+    // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){
+    //     value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
+    //     this->base++;
+    // }
+    //this->buffer = value; 
 
     return *this;
 }; 

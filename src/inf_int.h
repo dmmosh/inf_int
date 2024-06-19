@@ -97,7 +97,10 @@ void test();
 template<typename T>
 class inf_int{
     T buffer; // the buffer 
-    T base; // the base, starting 0 
+    T base; // the base, starting 0 , NEVER CALL RAW
+    // why ?
+    // possibility the base itself will overflow , hence shifting to extra base 
+    // always use base() function when dealing with the base
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
 
     public: 
@@ -113,6 +116,9 @@ class inf_int{
     inline void base_up(); // moves bases up
     inline void base_down();  // moves bases down
 
+    template <typename U>
+    inline U value();
+
     inline T get_buffer(); // outs the buffer
     inline T get_base(); // outs the base
 
@@ -120,6 +126,7 @@ class inf_int{
     inline U get_buffer(); // outs the buffer in a data type
 
     template<typename U>
+    // never call base raw
     inline U get_base(); // outs the base in a data type
 
     // OPERATOR OVERLOADING
@@ -136,7 +143,7 @@ class inf_int{
     template<typename U>
     inf_int<T>& operator=(U value); 
     inf_int<T>& operator=(const inf_int& value); 
-
+    
 };  
 
 
@@ -214,10 +221,24 @@ inline U inf_int<T>::get_buffer(){
 };
 
 
+// NEVER CALL BASE RAW
 template <typename T>
 template <typename U>
 inline U inf_int<T>::get_base() {
     return static_cast<U>(this->base);
+};
+
+template <typename T>
+template <typename U>
+inline U inf_int<T>::value() {
+    U out;
+    int8_t i = LEFT_BIT(this->buffer);
+    while(i <= 0){
+        if ((1 << i) & this->buffer) 
+            out+= static_cast<U>(pow(i, static_cast<U>(this->base())));
+        i--;
+    }
+    return out;
 };
 
 

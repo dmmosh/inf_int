@@ -240,7 +240,7 @@ inline U inf_int<T>::value() {
     int8_t i = LEFT_BIT(this->buffer);
 
     while (i >= 0) {
-        if ((1<<0) & this->buffer){
+        if ((1<<i) & this->buffer){
             out+= 1;
         }
 

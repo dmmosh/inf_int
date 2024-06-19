@@ -17,6 +17,6 @@ int main(void){
 
     inf_int<int8_t> a = 1000000;
 
-    std::cout << BITS(a.get_buffer()) << N;
+    std::cout << a.get_base() << N << BITS(a.get_buffer()) << N;
 
 }

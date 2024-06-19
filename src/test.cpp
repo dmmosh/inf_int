@@ -17,5 +17,6 @@ int main(void){
 
     int8_t a = 10;
 
-    std::cout << pow(3,sizeof(a)*8-1) << N;
+    std::cout << ~(static_cast<int8_t>(0)) << N;
+
 }

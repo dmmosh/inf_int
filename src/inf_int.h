@@ -95,7 +95,8 @@ class inf_int{
     template<typename U>
     inline U get_base(); // outs the base in a data type
 
-    // operator overloading
+    // OPERATOR OVERLOADING
+    
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
     inf_int<T>& operator+=(const inf_int& value); 

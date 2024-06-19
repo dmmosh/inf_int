@@ -17,5 +17,5 @@ int main(void){
 
     int8_t a = 10;
 
-    std::cout << BITS(a) << N;
+    std::cout << sizeof(a)*8 << N;
 }

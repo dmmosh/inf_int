@@ -15,17 +15,19 @@
 
 template <typename T>
 inline constexpr T max(const T& input){
-    return (T)std::numeric_limits<T>::max();
+    return static_cast<T>(std::numeric_limits<T>::max());
 }
 
 template <typename T>
 inline constexpr T min(const T& input){
-    return (T)std::numeric_limits<T>::min();
+    return static_cast<T>(std::numeric_limits<T>::min());
 }
 
+
+// max value of a given infinite integer
 template <typename T, typename U>
 inline constexpr U max(const inf_int<T>& input){
-    
+    return static_cast<U>(  );
 };
 
 

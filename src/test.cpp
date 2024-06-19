@@ -17,5 +17,5 @@ int main(void){
 
     int8_t a = 10;
 
-    std::cout << sizeof(a)*8 << N;
+    std::cout << pow(2,sizeof(a)*8) << N;
 }

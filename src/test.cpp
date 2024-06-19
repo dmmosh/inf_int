@@ -17,6 +17,6 @@ int main(void){
 
     int8_t a = -1;
 
-    std::cout << LEFT_BIT(a) << N;
+    std::cout << LEFT_BIT<int>(a) << N;
 
 }

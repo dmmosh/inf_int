@@ -23,6 +23,12 @@ inline constexpr T min(const T& input){
     return (T)std::numeric_limits<T>::min();
 }
 
+template <typename T, typename U>
+inline constexpr U max(const inf_int<T>& input){
+    
+};
+
+
 
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 

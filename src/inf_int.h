@@ -255,10 +255,10 @@ inline U inf_int<T>::value() {
 template <typename T>
 inline std::string inf_int<T>::info(){
     return 
-            "\nVAL:\t" + std::to_string(this->value<int>()) +
+            "\nVAL:\t" + std::to_string(this->value<long long>()) +
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
             "\nBASE:\t" + std::to_string(this->get_base<int>()) +
-            "\nMAX:\t" + std::to_string(max<T, int>(*this)) + 
+            "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
             "\n";
 };
 

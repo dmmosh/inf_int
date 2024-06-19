@@ -239,7 +239,7 @@ inline U inf_int<T>::value() {
 
     while(i>=0){
         if ( this->buffer & static_cast<T>(1<<i)) {
-            out = pow(static_cast<U>(this->get_base()), i);
+            out = out + pow(static_cast<U>(this->get_base()), i);
         }
         
         i--;

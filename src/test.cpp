@@ -13,7 +13,7 @@ if the last bit is 0
 
 int main(void){
 
-    inf_int<int8_t> a = 128;
+    inf_int<int8_t> a = 1000;
 
     std::cout << a.get_buffer<int>() << N;
 }

@@ -236,9 +236,17 @@ template <typename U>
 inline U inf_int<T>::value() {
     U out;
     int8_t i = LEFT_BIT(this->buffer);
+
+    while(i>=0){
+        if ( this->buffer & (1<<i)) {
+            out += pow(static_cast<U>(this->get_base()), i);
+        }
+
+        i--;
+    }
     
 
-    return pow(static_cast<U>(this->get_base()), i);
+    return out;
 
 };
 

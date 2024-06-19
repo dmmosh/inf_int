@@ -159,7 +159,7 @@ extra_base(nullptr)
 {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
-    while(LEFT_BIT(value) > sizeof(this->buffer)*8-1){
+    while(LEFT_BIT(value) > sizeof(this->buffer)*8-2){
         value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
         this->base++;
     }

@@ -283,7 +283,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
         max_val = max<T, U>(*this);
     }
 
-    this->buffer = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
+    this->buffer = base_convert(value, static_cast<U>(2), static_cast<U>(this->base));
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

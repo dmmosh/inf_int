@@ -258,7 +258,7 @@ inline std::string inf_int<T>::info(){
             "\nVAL:\t" + std::to_string(this->value<int>()) +
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
             "\nBASE:\t" + std::to_string(this->get_base<int>()) +
-            "\nMAX VAL:\t" + std::to_string(max<T, int>(*this)) + 
+            "\nMAX:\t" + std::to_string(max<T, int>(*this)) + 
             "\n";
 };
 

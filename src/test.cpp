@@ -19,6 +19,6 @@ int main(void){
     a = 1100000000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
 
-    std::cout << a.get_base<int>() << N << BITS(a.get_buffer()) << N << max<int8_t, int>(a) << N << a.value<long>() << N ;
+    std::cout << a.info() ;
 
 }

@@ -6,6 +6,7 @@
 #include <bits/stdc++.h>
 #include <bitset>
 #include <memory>
+#include <string>
 #define N '\n'
 
 // macros
@@ -128,6 +129,8 @@ class inf_int{
     // never call base raw
     inline U get_base(); // outs the base in a data type
 
+    inline std::string info();
+
     // OPERATOR OVERLOADING
 
     template<typename U>
@@ -248,6 +251,17 @@ inline U inf_int<T>::value() {
     return out;
 
 };
+
+template <typename T>
+inline std::string inf_int<T>::info(){
+    return 
+            "\nVAL:\t" + std::to_string(this->value<int>()) +
+            "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
+            "\nBASE:\t" + std::to_string(this->get_base<int>()) +
+            "\nMAX VAL:\t" + std::to_string(max<T, int>(*this)) + 
+            "\n";
+};
+
 
 
 template<typename T>

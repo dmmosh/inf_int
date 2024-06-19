@@ -11,6 +11,33 @@
 #define LEFT_BIT(x) ((int8_t)log2(x))
 #define INT8(x) static_cast<int8_t>(x)
 
+template<typename T> class inf_int;
+
+// MAX AND MIN, O(1) time
+
+template <typename T>
+inline constexpr T max(const T& input){
+    return static_cast<T>(std::numeric_limits<T>::max());
+}
+
+template <typename T>
+inline constexpr T min(const T& input){
+    return static_cast<T>(std::numeric_limits<T>::min());
+}
+
+
+// max value of a given infinite integer
+template <typename T, typename U>
+inline constexpr U max(const inf_int<T>& input){
+    // (base^(bit length - 1) -1 / base -1)
+    // ex x^7 -1 / x-1 
+
+    return static_cast<U>((pow(input.base(), sizeof(input.buffer)*8-1)-1)/(input.base()-1));
+};
+
+
+
+
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
@@ -99,7 +126,7 @@ class inf_int{
 
 
 
-// CONSTRUCTORS
+// template class implementations (all of them)
 template <typename T>
 inf_int<T>::inf_int():
 buffer(0),
@@ -136,28 +163,6 @@ extra_base(nullptr)
     return;
 };
 
-
-// MAX AND MIN, O(1) time
-
-template <typename T>
-inline constexpr T max(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::max());
-}
-
-template <typename T>
-inline constexpr T min(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::min());
-}
-
-
-// max value of a given infinite integer
-template <typename T, typename U>
-inline constexpr U max(const inf_int<T>& input){
-    // (base^(bit length - 1) -1 / base -1)
-    // ex x^7 -1 / x-1 
-
-    return static_cast<U>((pow(input.base(), sizeof(input.buffer)*8-1)-1)/(input.base()-1));
-};
 
 
 // FUNCTIONS

@@ -11,6 +11,7 @@
 #define LEFT_BIT(x) ((int8_t)log2(x))
 #define INT8(x) static_cast<int8_t>(x)
 
+// MAX AND MIN, O(1) time
 
 template <typename T>
 inline constexpr T max(const T& input){
@@ -22,13 +23,6 @@ inline constexpr T min(const T& input){
     return (T)std::numeric_limits<T>::min();
 }
 
-
-template <typename T, typename U> // if overflow, returns -1 if not returns the addition
-inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
-
-
-    return true;
-};
 
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
@@ -60,27 +54,46 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 };
 
 
+template <typename T, typename U> // if overflow, returns -1 if not returns the addition
+inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
 
 
+    return true;
+};
+
+// FUNCTION DECLARATIONS
+// if theres another template other than T, then dont use friend keyword
 
 void test();
 
+
 template<typename T>
 class inf_int{
-    public:
     T buffer; // the buffer 
     T base; // the base, starting 0 
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
 
+    public: 
     //constructors
     inf_int();
-    inf_int(const T& init_val);
+
+    template <typename U>
+    inf_int(U value);
     inf_int(const inf_int& init_val);
 
-    //functions
+    // FUNCTIONS    
     void bound_check();
-    inline void base_up(); 
-    inline void base_down(); 
+    inline void base_up(); // moves bases up
+    inline void base_down();  // moves bases down
+
+    inline T get_buffer(); // outs the buffer
+    inline T get_base(); // outs the base
+
+    template<typename U>
+    inline U get_buffer(); // outs the buffer in a data type
+
+    template<typename U>
+    inline U get_base(); // outs the base in a data type
 
     // operator overloading
     template<typename U>
@@ -95,8 +108,8 @@ class inf_int{
     template<typename U>
     inf_int<T>& operator=(U value); 
     inf_int<T>& operator=(const inf_int& value); 
-    
-};
+
+};  
 
 
 
@@ -109,26 +122,35 @@ extra_base(nullptr)
     return;
 };
 
-template <typename T>
-inf_int<T>::inf_int(const T& init_val):
-buffer(init_val),
+template <typename T> 
+template <typename U> 
+inf_int<T>::inf_int(U value):
+buffer(max(this->buffer)),
 base(2),
 extra_base(nullptr)
 {
+    while(value > this->buffer){
+        value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
+        this->base++;
+    }
+    this->buffer = value; 
+
     return;
 };
 
 
 template <typename T>
 inf_int<T>::inf_int(const inf_int& init_val):
-buffer(init_val.buffer),
-base(init_val.base),
+buffer(init_val.buffer()),
+base(init_val.base()),
 extra_base(nullptr)
 {   
     return;
 };
 
 
+
+// FUNCTIONS
 
 template <typename T>
 inline void inf_int<T>::base_up() {
@@ -144,20 +166,42 @@ inline void inf_int<T>::base_down() {
     };
 };
 
+template <typename T>
+inline T inf_int<T>::get_buffer(){
+    return this->buffer;
+};
 
 
+template <typename T>
+inline T inf_int<T>::get_base() {
+    return this->base;
+};
+
+template <typename T>
+template <typename U>
+inline U inf_int<T>::get_buffer(){
+    return static_cast<U>(this->buffer);
+};
+
+
+template <typename T>
+template <typename U>
+inline U inf_int<T>::get_base() {
+    return static_cast<U>(this->base);
+};
 
 
 template<typename T>
 std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
-    if (inf.base == 2){
-        cout << inf.buffer;
+    if (inf.get_base == 2){
+        cout << inf.get_buffer;
         return cout;
     }
 
 };
 
-template<class T> template<typename U>
+template<typename T>
+template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
     this->buffer += add;
     return *this;
@@ -181,16 +225,13 @@ template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator=(U value) {
     this->base = 2;
 
-    
     // increases the value until it fits in the data type
     while(value > max(this->buffer)){
         this->base++;
         value = base_convert(value, static_cast<U>(2), static_cast<U>(this->base));
     }
 
-
     this->buffer = value; 
-
     return *this;
 }; 
 

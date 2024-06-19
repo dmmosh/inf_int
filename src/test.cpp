@@ -12,12 +12,8 @@ if the last bit is 0
 */
 
 int main(void){
-    test();
-    std::cout << N;
 
-    inf_int<int> a = 10;
+    inf_int<int8_t> a = 10;
 
-    std::cout << a << N;
-
-
+    std::cout << a.get_buffer() << N;
 }

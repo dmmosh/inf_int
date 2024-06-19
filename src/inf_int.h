@@ -238,7 +238,7 @@ inline U inf_int<T>::value() {
     int8_t i = LEFT_BIT(this->buffer);
 
     while(i>=0){
-        if ( this->buffer & (1<<i)) {
+        if ( this->buffer & static_cast<T>(1<<i)) {
             out += pow(static_cast<U>(this->get_base()), i);
         }
 

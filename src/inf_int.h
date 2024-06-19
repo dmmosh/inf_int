@@ -277,10 +277,10 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     // usually executes once
     this->base = 2; // restarts the base
 
-    U max_val = max<U>(*this); // temp max val variable
+    U max_val = max<T, U>(*this); // temp max val variable
     while(max_val < value) { // keep iterating until a base that can hold the value is found
         this->base++;
-        max_val = max<U>(*this);
+        max_val = max<T, U>(*this);
     }
 
     this->buffer = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));

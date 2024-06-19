@@ -278,13 +278,14 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     this->buffer = 0;
     this->base = 2; // restarts the base
 
+    // iterates until a base that can hold the number is found
     U max_val = max<T, U>(*this); // temp max val variable
     while(max_val < value) { // keep iterating until a base that can hold the value is found
-        this->base++;
-        max_val = max<T, U>(*this);
+        this->base++; // increases the base
+        max_val = max<T, U>(*this); // makes new max val
     }
 
-    this->buffer = base_convert(value, static_cast<U>(2), static_cast<U>(this->base));
+    this->buffer = base_convert(value, static_cast<U>(2), static_cast<U>(this->base)); // makes the buffer
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

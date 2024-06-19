@@ -13,7 +13,8 @@
 #define INT8(x) static_cast<int8_t>(x)
 
 template <typename T>
-inline constexpr T LEFT_BIT(const T& input){
+inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
+    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     return static_cast<T>(log2(input));
 }
 

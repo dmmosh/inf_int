@@ -45,6 +45,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     // therefore new number will always have leftmost turned on bit on/right of the old
     // clz command runtime is O(1)
     // iterate through the out number
+
     while(val >0 && i >= 0) {
         //std::cout << val << i;
         auto minus = pow(base_new, i);
@@ -69,7 +70,6 @@ class inf_int{
     public:
     T buffer; // the buffer 
     T base; // the base, starting 0 
-    bool round_up; // round up or down
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
 
     //constructors
@@ -93,7 +93,7 @@ class inf_int{
     inf_int<T>& operator+(const inf_int& value); 
 
     template<typename U>
-    inf_int<T>& operator=(const U& value); 
+    inf_int<T>& operator=(U value); 
     inf_int<T>& operator=(const inf_int& value); 
     
 };
@@ -132,16 +132,16 @@ extra_base(nullptr)
 
 template <typename T>
 inline void inf_int<T>::base_up() {
-    if (base == max) {
-        extra_base = std::make_unique<inf_int<T>>(base);
-    } else {
-        base++;
-    }
+    this->buffer = base_convert(this->buffer, this->base, this->base+1);
+    this->base++;
 };
 
 template <typename T>
 inline void inf_int<T>::base_down() {
-    if (base>1) base--;
+    if (this->base >2) {
+        this->buffer = base_convert(this->buffer, this->base, this->base-1);
+        this->base--;
+    };
 };
 
 
@@ -166,9 +166,7 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(const U& value) {
     T sum = add(this->buffer, this->base, value, 2);
-    
     this->buffer = sum;
-
     return *this;
 }; 
 
@@ -180,9 +178,19 @@ inf_int<T>& inf_int<T>::operator+(const inf_int& value) {
 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator=(const U& value) {
-    this->buffer = value; 
+inf_int<T>& inf_int<T>::operator=(U value) {
     this->base = 2;
+
+    
+    // increases the value until it fits in the data type
+    while(value > max(this->buffer)){
+        this->base++;
+        value = base_convert(value, static_cast<U>(2), static_cast<U>(this->base));
+    }
+
+
+    this->buffer = value; 
+
     return *this;
 }; 
 

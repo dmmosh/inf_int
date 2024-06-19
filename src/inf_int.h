@@ -11,33 +11,10 @@
 #define LEFT_BIT(x) ((int8_t)log2(x))
 #define INT8(x) static_cast<int8_t>(x)
 
-// MAX AND MIN, O(1) time
-
-template <typename T>
-inline constexpr T max(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::max());
-}
-
-template <typename T>
-inline constexpr T min(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::min());
-}
-
-
-// max value of a given infinite integer
-template <typename T, typename U>
-inline constexpr U max(const inf_int<T>& input){
-    return static_cast<U>(  );
-};
-
-
-
-
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
-    
     //ONLY BASE UP FOR NOW
 
     int8_t i = LEFT_BIT(val); // length of the bits
@@ -122,7 +99,7 @@ class inf_int{
 
 
 
-// template class implementations (all of them)
+// CONSTRUCTORS
 template <typename T>
 inf_int<T>::inf_int():
 buffer(0),
@@ -134,11 +111,13 @@ extra_base(nullptr)
 template <typename T> 
 template <typename U> 
 inf_int<T>::inf_int(U value):
-buffer(max(this->buffer)),
+buffer(0),
 base(2),
 extra_base(nullptr)
 {
-    while(value > this->buffer){
+    // loops while the left bit of the value is bigger than the leftmost bit in buffer
+    // usually executes once
+    while(LEFT_BIT(value) > sizeof(this->buffer)*8-1){
         value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
         this->base++;
     }
@@ -157,6 +136,28 @@ extra_base(nullptr)
     return;
 };
 
+
+// MAX AND MIN, O(1) time
+
+template <typename T>
+inline constexpr T max(const T& input){
+    return static_cast<T>(std::numeric_limits<T>::max());
+}
+
+template <typename T>
+inline constexpr T min(const T& input){
+    return static_cast<T>(std::numeric_limits<T>::min());
+}
+
+
+// max value of a given infinite integer
+template <typename T, typename U>
+inline constexpr U max(const inf_int<T>& input){
+    // (base^(bit length - 1) -1 / base -1)
+    // ex x^7 -1 / x-1 
+
+    return static_cast<U>((pow(input.base(), sizeof(input.buffer)*8-1)-1)/(input.base()-1));
+};
 
 
 // FUNCTIONS
@@ -232,15 +233,14 @@ inf_int<T>& inf_int<T>::operator+(const inf_int& value) {
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator=(U value) {
-    this->base = 2;
-
-    // increases the value until it fits in the data type
-    while(value > max(this->buffer)){
+    // loops while the left bit of the value is bigger than the leftmost bit in buffer
+    // usually executes once
+    while(LEFT_BIT(value) > sizeof(this->buffer)*8-1){
         value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
         this->base++;
     }
-
     this->buffer = value; 
+
     return *this;
 }; 
 

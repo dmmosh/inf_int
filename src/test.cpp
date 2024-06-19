@@ -15,8 +15,8 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    int8_t a = 10;
+    inf_int<int8_t> a = 10;
 
-    std::cout << ~(static_cast<int8_t>(0)) << N;
+    std::cout << a.get_buffer<int>() << N;
 
 }

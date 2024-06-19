@@ -17,5 +17,5 @@ int main(void){
 
     int8_t a = 10;
 
-    std::cout << LEFT_BIT(a) << N;
+    std::cout << (int)LEFT_BIT(a) << N;
 }

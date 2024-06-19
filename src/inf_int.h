@@ -239,7 +239,7 @@ inline U inf_int<T>::value() {
 
     
 
-    return ((1<<i) & this->buffer);
+    return ((1<<0) & this->buffer);
 
 };
 

@@ -275,11 +275,11 @@ template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator=(U value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
+    this->buffer = 0;
     this->base = 2; // restarts the base
 
     U max_val = max<T, U>(*this); // temp max val variable
     while(max_val < value) { // keep iterating until a base that can hold the value is found
-        std::cout << "test" << N;
         this->base++;
         max_val = max<T, U>(*this);
     }

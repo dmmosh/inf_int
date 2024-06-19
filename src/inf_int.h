@@ -17,12 +17,21 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
         return static_cast<T>(log2(input));
-
     } else if (input <0){ // cant have negative logs
         return static_cast<T>(sizeof(input)*8-1);
     };
     return -1; // if input is 0
+}
 
+template <typename T, typename U>
+inline constexpr U LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
+    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
+    if (input >0) { // if input is over 0
+        return static_cast<U>(log2(input));
+    } else if (input <0){ // cant have negative logs
+        return static_cast<U>(sizeof(input)*8-1);
+    };
+    return -1; // if input is 0
 }
 
 template<typename T> class inf_int; // class definition

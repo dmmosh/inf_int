@@ -17,6 +17,6 @@ int main(void){
 
     inf_int<int8_t> a = 127;
 
-    std::cout << LEFT_BIT<int>(sizeof(a.get_buffer())*8-2) << N;
+    std::cout << sizeof(a.get_buffer())*8-2 << N;
 
 }

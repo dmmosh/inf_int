@@ -305,7 +305,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
     // iterates until a base that can hold the number is found
     U max_val = max<T, U>(*this); // temp max val variable
-    while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
+    while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val
         this->base++; // increases the base
         max_val = max<T, U>(*this); // makes new max val
     }

@@ -12,32 +12,12 @@ if the last bit is 0
 */
 
 int main(void){
-    inf_int<int> a = 14;
+    test();
+    std::cout << N;
 
-    a = 12;
-
-    a = a +10;
+    inf_int<int8_t> a = 10;
 
     std::cout << a << N;
 
-    int8_t hi = -2;
-
-    std::cout << BITS(max(hi)) << N << max(hi) << N <<  min(hi) << N ; 
-
-    int x = 16;
-    test();
-
-
-    int8_t b = 11;
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
-
-    b = 100;
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(4))) << N << N;
-
-    b = 0;
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
-
-    b = 40;
-    std::cout << N << BITS(b) << N << BITS(base_convert(b, INT8(2),INT8(3))) << N << N;
 
 }

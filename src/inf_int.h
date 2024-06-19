@@ -151,6 +151,7 @@ class inf_int{
 template <typename T>
 inf_int<T>::inf_int():
 buffer(0),
+base(2),
 extra_base(nullptr)
 {
     return;
@@ -163,13 +164,16 @@ buffer(0),
 base(2),
 extra_base(nullptr)
 {
-    // loops while the left bit of the value is bigger than the leftmost bit in buffer
-    // usually executes once
-    while(LEFT_BIT(value) > sizeof(this->buffer)*8-2){
-        value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
-        this->base++;
+    if(!value) return;
+
+    // iterates until a base that can hold the number is found
+    U max_val = max<T, U>(*this); // temp max val variable
+    while(max_val < value) { // keep iterating until a base that can hold the value is found
+        this->base++; // increases the base
+        max_val = max<T, U>(*this); // makes new max val
     }
-    this->buffer = value; 
+
+    this->buffer = base_convert(value, static_cast<U>(2), static_cast<U>(this->base)); // makes the buffer
 
     return;
 };
@@ -238,6 +242,7 @@ inline U inf_int<T>::value() {
         i--;
     }
     return out;
+
 };
 
 
@@ -277,6 +282,8 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     // usually executes once
     this->buffer = 0;
     this->base = 2; // restarts the base
+
+    if(!value) return *this; // base case, if 0 
 
     // iterates until a base that can hold the number is found
     U max_val = max<T, U>(*this); // temp max val variable

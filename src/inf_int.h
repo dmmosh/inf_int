@@ -234,12 +234,20 @@ inline U inf_int<T>::get_base() {
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
+    if (!this->buffer) return static_cast<U>(0);
+
     U out;
     int8_t i = LEFT_BIT(this->buffer);
 
-    
+    while (i >= 0) {
+        if ((1<<0) & this->buffer){
+            out+= 1;
+        }
 
-    return ((1<<0) & this->buffer);
+        i--;
+    }
+
+    return out;
 
 };
 

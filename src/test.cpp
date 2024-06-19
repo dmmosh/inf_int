@@ -18,6 +18,6 @@ int main(void){
     inf_int<int8_t> a = 2000;
 
 
-    std::cout << a.get_base<int>() << N << BITS(a.get_buffer()) << N << (pow(a.get_base(), sizeof(a.get_buffer())*8-1)-1)/(a.get_base()-1) << N ;
+    std::cout << a.get_base<int>() << N << BITS(a.get_buffer()) << N << max<int8_t, int>(a) << N ;
 
 }

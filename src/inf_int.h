@@ -43,11 +43,11 @@ inline constexpr T min(const T& input){
 
 // max value of a given infinite integer
 template <typename T, typename U>
-inline constexpr U max(const inf_int<T>& input){
+inline constexpr U max(inf_int<T>& input){
     // (base^(bit length - 1) -1 / base -1)
     // ex x^7 -1 / x-1 
 
-    return static_cast<U>((pow(input.base(), sizeof(input.buffer)*8-1)-1)/(input.base()-1));
+    return static_cast<U>((pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
 };
 
 
@@ -96,14 +96,13 @@ void test();
 
 template<typename T>
 class inf_int{
+    public: 
     T buffer; // the buffer 
     T base; // the base, starting 0 , NEVER CALL RAW
     // why ?
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
-
-    public: 
     //constructors
     inf_int();
 
@@ -178,8 +177,8 @@ extra_base(nullptr)
 
 template <typename T>
 inf_int<T>::inf_int(const inf_int& init_val):
-buffer(init_val.buffer()),
-base(init_val.base()),
+buffer(init_val.get_buffer()),
+base(init_val.get_base()),
 extra_base(nullptr)
 {   
     return;
@@ -244,7 +243,7 @@ inline U inf_int<T>::value() {
 
 template<typename T>
 std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
-    if (inf.base() == 2){
+    if (inf.get_base() == 2){
         cout << inf.buffer;
         return cout;
     }

@@ -96,7 +96,7 @@ class inf_int{
     inline U get_base(); // outs the base in a data type
 
     // OPERATOR OVERLOADING
-    
+
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
     inf_int<T>& operator+=(const inf_int& value); 
@@ -228,8 +228,8 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
     // increases the value until it fits in the data type
     while(value > max(this->buffer)){
+        value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
         this->base++;
-        value = base_convert(value, static_cast<U>(2), static_cast<U>(this->base));
     }
 
     this->buffer = value; 

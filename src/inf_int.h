@@ -236,7 +236,7 @@ template <typename U>
 inline U inf_int<T>::value() {
     if (!this->buffer) return static_cast<U>(0);
 
-    U out;
+    U out = 0;
     int8_t i = LEFT_BIT(this->buffer);
 
     while (i >= 0) {

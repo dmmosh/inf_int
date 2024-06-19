@@ -244,8 +244,8 @@ inline U inf_int<T>::value() {
 
 template<typename T>
 std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
-    if (inf.get_base == 2){
-        cout << inf.get_buffer;
+    if (inf.base() == 2){
+        cout << inf.buffer;
         return cout;
     }
 
@@ -283,7 +283,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
         this->base++;
         max_val = max<U>(*this);
     }
-    
+
     this->buffer = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
 
 

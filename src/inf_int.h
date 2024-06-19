@@ -7,11 +7,20 @@
 #include <bitset>
 #include <memory>
 #define N '\n'
+
+// macros
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
-#define LEFT_BIT(x) ((int8_t)log2(x))
 #define INT8(x) static_cast<int8_t>(x)
 
-template<typename T> class inf_int;
+template <typename T>
+inline constexpr T LEFT_BIT(const T& input){
+    return static_cast<T>(log2(input));
+}
+
+template<typename T> class inf_int; // class definition
+
+
+
 
 // MAX AND MIN, O(1) time
 

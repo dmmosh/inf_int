@@ -144,7 +144,9 @@ class inf_int{
 
     template<typename U>
     inf_int<T>& operator+(U value); 
-    inf_int<T>& operator+(const inf_int& value); 
+    template<class U>
+    inf_int<T>& operator+(inf_int<U> value);
+
 
     template<typename U>
     inf_int<T>& operator=(U value); 
@@ -275,14 +277,16 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
-    if (this->get_base() != 2) // if the base ISNT 2
-        value = base_convert<U>(value, static_cast<U>(2), this->get_base<U>());
     
     if(overflow<T>(this->buffer, value)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
-        value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
         this->base++;
     }
+
+    if (this->get_base() != 2) // if the base ISNT 2, convert
+        value = base_convert<U>(value, 2, this->get_base<U>());
+
+
     this->buffer += value;
 
     return *this;
@@ -290,8 +294,21 @@ inf_int<T>& inf_int<T>::operator+(U value) {
 
 
 template<class T>
-inf_int<T>& inf_int<T>::operator+(const inf_int& value) {
+template<class U>
+inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
+    
+    if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
+        this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
+        //value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
+        this->base++;
+    }
+    
+    if(this->get_base<T>() != value.get_base()) // if the bases dont match, convert
+        value.buffer = base_convert<U>(value.buffer, value.get_base(), this->get_base<U>());
 
+    this->buffer += value.buffer;
+
+    return *this;
 }; 
 
 

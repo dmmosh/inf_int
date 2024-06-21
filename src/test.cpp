@@ -24,6 +24,8 @@ int main(void){
 
     a = b;
 
+    a = (b+b+b);
+
 
     //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;

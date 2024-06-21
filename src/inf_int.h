@@ -242,12 +242,12 @@ inline U inf_int<T>::value() {
     U out = 0; //output number
     uint8_t i = LEFT_BIT(this->buffer); // i iterate over bits
 
-    while (i >= 0) { // while i is 0 or more
-        if ((1<<i) & this->buffer) {
-            out+= pow(this->get_base<U>(), i); //adds the power
-        }
-        i--;
-    }
+    // while (i >= 0) { // while i is 0 or more
+    //     if ((1<<i) & this->buffer) {
+    //         out+= pow(this->get_base<U>(), i); //adds the power
+    //     }
+    //     i--;
+    // }
 
     return out;
 

@@ -18,7 +18,7 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<unsigned int> a = 20;
+    inf_int<int8_t> a = 20;
 
     a+=30;
 

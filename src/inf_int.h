@@ -17,9 +17,9 @@ template <typename T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
-        return static_cast<T>(log2(input));
+        return log2(input);
     } else if (input <0){ // cant have negative logs
-        return static_cast<T>(sizeof(input)*8-1);
+        return sizeof(input)*8-1;
     };
     return -1; // if input is 0
 }
@@ -117,7 +117,7 @@ class inf_int{
     inline void base_down();  // moves bases down
 
     template <typename U>
-    U value();
+    inline U value();
 
     inline T get_buffer(); // outs the buffer
     inline T get_base(); // outs the base
@@ -236,15 +236,16 @@ inline U inf_int<T>::get_base() {
 
 template <class T>
 template <typename U>
-U inf_int<T>::value() {
-    if (!this->buffer) return static_cast<U>(0); // base case
+inline U inf_int<T>::value() {
+    if (this->buffer == 0) return static_cast<U>(0); // base case
 
     U out = 0; //output number
     uint8_t i = LEFT_BIT(this->buffer); // i iterate over bits
 
     while (i >= 0) { // while i is 0 or more
-        if ((1<<i) & this->buffer) 
-            out+= static_cast<U>(pow(this->get_base<U>(), i)); //adds the power
+        if ((1<<i) & this->buffer) {
+            out+= pow(this->get_base<U>(), i); //adds the power
+        }
         i--;
     }
 

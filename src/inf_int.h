@@ -25,11 +25,11 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 }
 
 // checks if theres been an overflow
-template <typename T>
-inline constexpr bool overflow(T to, T from){
-    if(to > 0 && from > 0 && to+from <0){ //if last bit is on if it shouldnt be
+template <typename T, typename U>
+inline constexpr bool overflow(T to, U from){
+    if(to > 0 && from > 0 && static_cast<T>(to+from) <0){ //if last bit is on if it shouldnt be
         return true;
-    } else if (to < 0 && from < 0 && to+from > 0){
+    } else if (to < 0 && from < 0 && static_cast<T>(to+from) > 0){
         return true;
     }
     return false;
@@ -144,9 +144,9 @@ class inf_int{
 
 
     template<typename U>
-    inf_int<T>& operator+(U value); 
+    inf_int<T>& operator+(const U& value); 
     template<class U>
-    inf_int<T>& operator+(inf_int<U> value);
+    inf_int<T>& operator+(const inf_int<U>& value);
 
 
     template<typename U>
@@ -283,18 +283,17 @@ inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
 }; 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator+(U value) {
+inf_int<T>& inf_int<T>::operator+(const U& value) {
     
-    if(overflow<T>(this->buffer, value)) { // if theres an overflow, move bases up
+    if(overflow<T, U>(this->buffer, value)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
         this->base++;
     }
 
     if (this->get_base() != 2) // if the base ISNT 2, convert
-        value = base_convert<U>(value, 2, this->get_base<U>());
-
-
-    this->buffer += value;
+        this->buffer+= base_convert<U>(value, 2, this->get_base<U>());
+    else 
+        this->buffer += value;
 
     return *this;
 }; 
@@ -302,7 +301,7 @@ inf_int<T>& inf_int<T>::operator+(U value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
+inf_int<T>& inf_int<T>::operator+(const inf_int<U>& value) {
     
     if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
@@ -311,9 +310,9 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
     }
     
     if(this->get_base<T>() != value.get_base()) // if the bases dont match, convert
-        value.buffer = base_convert<U>(value.buffer, value.get_base(), this->get_base<U>());
-
-    this->buffer += value.buffer; //add the bases
+        this->buffer += base_convert<U>(value.buffer, value.get_base(), this->get_base<U>());
+    else 
+        this->buffer += value.buffer; //add the bases
 
     return *this;
 }; 

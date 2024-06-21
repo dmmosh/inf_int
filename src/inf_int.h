@@ -13,7 +13,7 @@
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
 
-template <class T>
+template <typename T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
@@ -31,12 +31,12 @@ template<class T> class inf_int; // class definition
 
 // MAX AND MIN, O(1) time
 
-template <class T>
+template <typename T>
 inline constexpr T max(const T& input){
     return static_cast<T>(std::numeric_limits<T>::max());
 }
 
-template <class T>
+template <typename T>
 inline constexpr T min(const T& input){
     return static_cast<T>(std::numeric_limits<T>::min());
 }
@@ -55,7 +55,7 @@ inline constexpr U max(inf_int<T>& input){
 
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
-template <class T>
+template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
@@ -254,11 +254,7 @@ inline U inf_int<T>::value() {
 
 template <class T>
 inline std::string inf_int<T>::info(){
-    return  ("\nVAL:\t" + std::to_string(this->value<long long>()) +
-            "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
-            "\nBASE:\t" + std::to_string(this->get_base<int>()) +
-            "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
-            "\n");
+    return  "sdfhku";
 };
 
 

@@ -22,10 +22,10 @@ int main(void){
     inf_int<unsigned int> b = 40;
 
 
-    a = a + a + a;
+    a+= a + a + a;
 
 
-    //a = 2000;
+    //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
 
     std::cout << a.info() ;

@@ -258,16 +258,19 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=( U& add){
-    return inf_int<T>(*this) + add;
+
+    return *this + add;
 }; 
 
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
-    return inf_int<T>(*this) + add;
+
+    return *this + add;
 }; 
 
-template<class T> template<typename U>
+template<class T> 
+template<typename U>
 inf_int<T>& inf_int<T>::operator+(U& value) {
     inf_int<T> out = *this;
     

@@ -117,7 +117,7 @@ class inf_int{
     inline void base_down();  // moves bases down
 
     template <typename U>
-    inline U value();
+    U value();
 
     inline T get_buffer(); // outs the buffer
     inline T get_base(); // outs the base
@@ -236,7 +236,7 @@ inline U inf_int<T>::get_base() {
 
 template <class T>
 template <typename U>
-inline U inf_int<T>::value() {
+U inf_int<T>::value() {
     if (!this->buffer) return static_cast<U>(0); // base case
 
     U out = 0; //output number

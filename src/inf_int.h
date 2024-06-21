@@ -286,19 +286,20 @@ inf_int<T>& inf_int<T>::operator+(U& value) {
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
+    inf_int<T> out = value;
     
-    if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
-        this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
+    if(overflow<T>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
+        out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
         //value = base_convert<U>(value, this->get_base(), this->get_base()+1);
-        this->base++;
+        out.base++;
     }
     
     if(this->get_base() != value.get_base()) // if the bases dont match, convert
-        this->buffer += base_convert<U>(value.buffer, value.get_base(), this->get_base());
+        out.buffer += base_convert<U>(value.buffer, value.get_base(), out.get_base());
     else 
-        this->buffer += value.buffer; //add the bases
+        out.buffer += value.buffer; //add the bases
 
-    return *this;
+    return out;
 }; 
 
 

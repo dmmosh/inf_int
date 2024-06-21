@@ -24,7 +24,7 @@ int main(void){
 
     a = b;
 
-    a = (b+b+b);
+    b = a + a;
 
 
     //a = 2000;vd

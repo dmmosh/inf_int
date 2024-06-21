@@ -108,13 +108,14 @@ class inf_int{
     // always use base() function when dealing with the base
     bool base_breach; // if base has been overflowed itself
     // TODO: change some code to utilize base breach for true super duper infinity and beyond
-    std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
     //constructors
     inf_int();
 
     template <typename U>
     inf_int(U value);
-    inf_int(const inf_int& init_val);
+
+    template <class U>
+    inf_int(inf_int<U> init_val);
 
     // FUNCTIONS    
     void bound_check();
@@ -136,19 +137,19 @@ class inf_int{
     template<typename U>
     inf_int<T>& operator+=(U add); 
     template<class U>
-    inf_int<T>& operator+=(inf_int<U>& add);
+    inf_int<T>& operator+=(inf_int<U> add);
 
 
     template<typename U>
     inf_int<T>& operator+(U value); 
     template<class U>
-    inf_int<T>& operator+(inf_int<U>& value);
+    inf_int<T>& operator+(inf_int<U> value);
 
 
     template<typename U>
     inf_int<T>& operator=(U value); 
     template<class U>
-    inf_int<T>& operator=(inf_int<U>& value); 
+    inf_int<T>& operator=(inf_int<U> value); 
     
 };  
 
@@ -158,8 +159,7 @@ class inf_int{
 template <class T>
 inf_int<T>::inf_int():
 buffer(0),
-base(2),
-extra_base(nullptr)
+base(2)
 {
     return;
 };
@@ -168,8 +168,7 @@ template <class T>
 template <typename U> 
 inf_int<T>::inf_int(U value):
 buffer(0),
-base(2),
-extra_base(nullptr)
+base(2)
 {
     if(!value) return;
 
@@ -178,10 +177,10 @@ extra_base(nullptr)
 
 
 template <class T>
-inf_int<T>::inf_int(const inf_int& init_val):
-buffer(init_val.buffer),
-base(init_val.base),
-extra_base(nullptr)
+template <class U>
+inf_int<T>::inf_int(inf_int<U> init_val):
+buffer(init_val.get_buffer()),
+base(init_val.get_base())
 {   
     return;
 };
@@ -263,7 +262,7 @@ inf_int<T>& inf_int<T>::operator+=( U add){
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
+inf_int<T>& inf_int<T>::operator+=( inf_int<U> add){
     return (*this + (add));
 }; 
 
@@ -286,7 +285,7 @@ inf_int<T>& inf_int<T>::operator+(U value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
+inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
     
     if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
@@ -333,7 +332,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator=(inf_int<U>& value){
+inf_int<T>& inf_int<T>::operator=(inf_int<U> value){
     this->base = value.get_base();
     this->buffer = value.get_buffer();
     this->base_breach = value.base_breach;

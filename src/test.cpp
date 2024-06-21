@@ -19,10 +19,10 @@ int main(void){
     //inf_int<int8_t> a = 1000;
 
     inf_int<int8_t> a = 20;
-    inf_int<unsigned int> b = 40;
+    inf_int<int8_t> b = 40;
 
 
-    a = b;
+    a = b + b + b +b ;
 
 
     //a = 2000;vd

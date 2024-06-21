@@ -124,30 +124,25 @@ class inf_int{
     template <typename U>
     inline U value();
 
-    inline T get_buffer(); // outs the buffer
-    inline T get_base(); // outs the base
+    inline T get_buffer(); // outs the buffer in a data type
 
-    template<typename U>
-    inline U get_buffer(); // outs the buffer in a data type
-
-    template<typename U>
     // never call base raw
-    inline U get_base(); // outs the base in a data type
+    inline T get_base(); // outs the base in a data type
 
     inline std::string info();
 
     // OPERATOR OVERLOADING
 
     template<typename U>
-    inf_int<T>& operator+=(const U& add); 
-    template<typename U>
-    inf_int<T>& operator+=(const inf_int<U>& add);
-
-
-    template<typename U>
-    inf_int<T>& operator+(const U& value); 
+    inf_int<T>& operator+=(U& add); 
     template<class U>
-    inf_int<T>& operator+(const inf_int<U>& value);
+    inf_int<T>& operator+=(inf_int<U>& add);
+
+
+    template<typename U>
+    inf_int<T>& operator+(U value); 
+    template<class U>
+    inf_int<T>& operator+(inf_int<U>& value);
 
 
     template<typename U>
@@ -208,29 +203,17 @@ inline void inf_int<T>::base_down() {
     };
 };
 
+
 template <class T>
 inline T inf_int<T>::get_buffer(){
-    return this->buffer;
-};
-
-
-template <class T>
-inline T inf_int<T>::get_base() {
-    return this->base;
-};
-
-template <class T>
-template <typename U>
-inline U inf_int<T>::get_buffer(){
-    return static_cast<U>(this->buffer);
+    return static_cast<T>(this->buffer);
 };
 
 
 // NEVER CALL BASE RAW
 template <class T>
-template <typename U>
-inline U inf_int<T>::get_base() {
-    return static_cast<U>(this->base);
+inline T inf_int<T>::get_base() {
+    return static_cast<T>(this->base);
 };
 
 template <typename T>
@@ -243,7 +226,7 @@ inline U inf_int<T>::value() {
 
     while (i >= 0) { // while i is 0 or more
         if ((1<<i) & this->buffer) 
-            out+= static_cast<U>(pow(this->get_base<U>(), i)); //adds the power
+            out+= static_cast<U>(pow(this->get_base(), i)); //adds the power
         i--;
     }
 
@@ -255,7 +238,7 @@ template <class T>
 inline std::string inf_int<T>::info(){
     return  "\nVAL:\t" + std::to_string(this->value<long long>()) +
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
-            "\nBASE:\t" + std::to_string(this->get_base<long long>()) +
+            "\nBASE:\t" + std::to_string(this->get_base()) +
             "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
             "\n";
 };
@@ -273,26 +256,26 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 
 template<class T>
 template<typename U>
-inf_int<T>& inf_int<T>::operator+=(const U& add){
-    return *this +add;
+inf_int<T>& inf_int<T>::operator+=( U& add){
+    return (*this +(add));
 }; 
 
 template<class T>
-template<typename U>
-inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
-    return *this + add;
+template<class U>
+inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
+    return (*this + (add));
 }; 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator+(const U& value) {
+inf_int<T>& inf_int<T>::operator+(U value) {
     
     if(overflow<T, U>(this->buffer, value)) { // if theres an overflow, move bases up
-        this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
+        this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
         this->base++;
     }
 
     if (this->get_base() != 2) // if the base ISNT 2, convert
-        this->buffer+= base_convert<U>(value, 2, this->get_base<U>());
+        this->buffer+= base_convert<U>(value, 2, this->get_base());
     else 
         this->buffer += value;
 
@@ -302,16 +285,16 @@ inf_int<T>& inf_int<T>::operator+(const U& value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(const inf_int<U>& value) {
+inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
     
     if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
-        this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
-        //value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
+        this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
+        //value = base_convert<U>(value, this->get_base(), this->get_base()+1);
         this->base++;
     }
     
-    if(this->get_base<T>() != value.get_base()) // if the bases dont match, convert
-        this->buffer += base_convert<U>(value.buffer, value.get_base(), this->get_base<U>());
+    if(this->get_base() != value.get_base()) // if the bases dont match, convert
+        this->buffer += base_convert<U>(value.buffer, value.get_base(), this->get_base());
     else 
         this->buffer += value.buffer; //add the bases
 
@@ -335,7 +318,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
         max_val = max<T, U>(*this); // makes new max val
     }
 
-    this->buffer = base_convert<U>(value, 2, this->get_base<U>()); // makes the buffer
+    this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

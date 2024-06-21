@@ -13,31 +13,7 @@
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
 
-template <typename T>
-inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
-    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
-    if (input >0) { // if input is over 0
-        return log2(input);
-    } else if (input <0){ // cant have negative logs
-        return sizeof(input)*8-1;
-    };
-    return -1; // if input is 0
-}
-
-// checks if theres been an overflow
-template <typename T, typename U>
-inline constexpr bool overflow(T to, U from){
-    if(to > 0 && from > 0 && static_cast<T>(to+from) <0){ //if last bit is on if it shouldnt be
-        return true;
-    } else if (to < 0 && from < 0 && static_cast<T>(to+from) > 0){
-        return true;
-    }
-    return false;
-};
-
 template<class T> class inf_int; // class definition
-
-
 // MAX AND MIN, O(1) time
 
 template <typename T>
@@ -58,6 +34,31 @@ inline constexpr U max(inf_int<T>& input){
     // ex x^7 -1 / x-1 
 
     return static_cast<U>((pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
+};
+
+
+template <typename T>
+inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
+    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
+    if (input >0) { // if input is over 0
+        return log2(input);
+    } else if (input <0){ // cant have negative logs
+        return sizeof(input)*8-1;
+    };
+    return -1; // if input is 0
+}
+
+// checks if theres been an overflow
+template <typename T, typename U>
+inline constexpr bool overflow(T to, U from){
+    if ((to+from > max(to)) || 
+        (to > 0 && from > 0 && to+from <0) || 
+        (to < 0 && from < 0 && to+from > 0)){
+        return true;
+    } 
+
+
+    return false;
 };
 
 

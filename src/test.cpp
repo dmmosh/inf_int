@@ -23,6 +23,7 @@ int main(void){
 
 
     a+= b;
+    a = b + b + b + b;
 
     a = b+20;
 

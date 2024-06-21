@@ -244,7 +244,7 @@ inline U inf_int<T>::value() {
 
     while (i >= 0) { // while i is 0 or more
         if ((1<<i) & this->buffer) 
-            out+= static_cast<U>(pow(static_cast<U>(this->get_base()), i)); //adds the power
+            out+= static_cast<U>(pow(this->get_base<U>(), i)); //adds the power
         i--;
     }
 

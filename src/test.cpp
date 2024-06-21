@@ -22,7 +22,7 @@ int main(void){
     inf_int<int8_t> b = 40;
 
 
-    a = b + b + b +b ;
+    a = b;
 
 
     //a = 2000;vd

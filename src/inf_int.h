@@ -182,6 +182,7 @@ inf_int<T>::inf_int(inf_int<U> init_val):
 buffer(init_val.get_buffer()),
 base(init_val.get_base())
 {   
+    *this = init_val;
     return;
 };
 
@@ -257,36 +258,37 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=( U& add){
-    return (*this +(add));
+    return inf_int<T>(*this) + add;
 }; 
 
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
-    return (*this + (add));
+    return inf_int<T>(*this) + add;
 }; 
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U& value) {
+    inf_int<T> out = *this;
     
-    if(overflow<T, U>(this->buffer, value)) { // if theres an overflow, move bases up
-        this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
-        this->base++;
+    if(overflow<T, U>(out.buffer, value)) { // if theres an overflow, move bases up
+        out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+        out.base++;
     }
 
-    if (this->get_base() != 2) // if the base ISNT 2, convert
-        this->buffer+= base_convert<U>(value, 2, this->get_base());
+    if (out.get_base() != 2) // if the base ISNT 2, convert
+        out.buffer+= base_convert<U>(value, 2, out.get_base());
     else 
-        this->buffer += value;
+        out.buffer += value;
 
-    return *this;
+    return out;
 }; 
 
 
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
-    inf_int<T> out = value;
+    inf_int<T> out = *this;
     
     if(overflow<T>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
         out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
@@ -294,7 +296,7 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
         out.base++;
     }
     
-    if(this->get_base() != value.get_base()) // if the bases dont match, convert
+    if(out.get_base() != value.get_base()) // if the bases dont match, convert
         out.buffer += base_convert<U>(value.buffer, value.get_base(), out.get_base());
     else 
         out.buffer += value.buffer; //add the bases
@@ -307,6 +309,7 @@ template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator=(U& value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
+    
     this->buffer = 0;
     this->base = 2; // restarts the base
 

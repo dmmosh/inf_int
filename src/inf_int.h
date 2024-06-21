@@ -293,7 +293,7 @@ template<class U>
 inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
     inf_int<T> out = *this;
     
-    if(overflow<T>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
+    if(overflow<T, U>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
         out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
         //value = base_convert<U>(value, this->get_base(), this->get_base()+1);
         out.base++;
@@ -308,7 +308,8 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
 }; 
 
 
-template<class T> template<typename U>
+template<class T> 
+template<typename U>
 inf_int<T>& inf_int<T>::operator=(U& value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once

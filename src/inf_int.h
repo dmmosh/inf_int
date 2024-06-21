@@ -240,7 +240,7 @@ inline U inf_int<T>::value() {
     if (!this->buffer) return static_cast<U>(0); // base case
 
     U out = 0; //output number
-    unsigned int i = LEFT_BIT(this->buffer); // i iterate over bits
+    uint8_t i = LEFT_BIT(this->buffer); // i iterate over bits
 
     while (i >= 0) { // while i is 0 or more
         if ((1<<i) & this->buffer) 

@@ -24,6 +24,6 @@ int main(void){
     //a = 2000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
 
-    std::cout << a.value<int>() ;
+    std::cout << a.info() ;
 
 }

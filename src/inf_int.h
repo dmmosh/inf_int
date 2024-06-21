@@ -13,7 +13,7 @@
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
 
-template <typename T>
+template <class T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
@@ -24,26 +24,26 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
-template<typename T> class inf_int; // class definition
+template<class T> class inf_int; // class definition
 
 
 
 
 // MAX AND MIN, O(1) time
 
-template <typename T>
+template <class T>
 inline constexpr T max(const T& input){
     return static_cast<T>(std::numeric_limits<T>::max());
 }
 
-template <typename T>
+template <class T>
 inline constexpr T min(const T& input){
     return static_cast<T>(std::numeric_limits<T>::min());
 }
 
 
 // max value of a given infinite integer
-template <typename T, typename U>
+template <class T, typename U>
 inline constexpr U max(inf_int<T>& input){
     // (base^(bit length - 1) -1 / base -1)
     // ex x^7 -1 / x-1 
@@ -55,7 +55,7 @@ inline constexpr U max(inf_int<T>& input){
 
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
-template <typename T>
+template <class T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
@@ -82,7 +82,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 };
 
 
-template <typename T, typename U> // if overflow, returns -1 if not returns the addition
+template <class T, typename U> // if overflow, returns -1 if not returns the addition
 inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
 
 
@@ -95,7 +95,7 @@ inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& ba
 void test();
 
 
-template<typename T>
+template<class T>
 class inf_int{
     public: 
     T buffer; // the buffer 
@@ -151,7 +151,7 @@ class inf_int{
 
 
 // template class implementations (all of them)
-template <typename T>
+template <class T>
 inf_int<T>::inf_int():
 buffer(0),
 base(2),
@@ -160,7 +160,7 @@ extra_base(nullptr)
     return;
 };
 
-template <typename T> 
+template <class T> 
 template <typename U> 
 inf_int<T>::inf_int(U value):
 buffer(0),
@@ -182,7 +182,7 @@ extra_base(nullptr)
 };
 
 
-template <typename T>
+template <class T>
 inf_int<T>::inf_int(const inf_int& init_val):
 buffer(init_val.get_buffer()),
 base(init_val.get_base()),
@@ -195,13 +195,13 @@ extra_base(nullptr)
 
 // FUNCTIONS
 
-template <typename T>
+template <class T>
 inline void inf_int<T>::base_up() {
     this->buffer = base_convert(this->buffer, this->base, this->base+1);
     this->base++;
 };
 
-template <typename T>
+template <class T>
 inline void inf_int<T>::base_down() {
     if (this->base >2) {
         this->buffer = base_convert(this->buffer, this->base, this->base-1);
@@ -209,18 +209,18 @@ inline void inf_int<T>::base_down() {
     };
 };
 
-template <typename T>
+template <class T>
 inline T inf_int<T>::get_buffer(){
     return this->buffer;
 };
 
 
-template <typename T>
+template <class T>
 inline T inf_int<T>::get_base() {
     return this->base;
 };
 
-template <typename T>
+template <class T>
 template <typename U>
 inline U inf_int<T>::get_buffer(){
     return static_cast<U>(this->buffer);
@@ -228,13 +228,13 @@ inline U inf_int<T>::get_buffer(){
 
 
 // NEVER CALL BASE RAW
-template <typename T>
+template <class T>
 template <typename U>
 inline U inf_int<T>::get_base() {
     return static_cast<U>(this->base);
 };
 
-template <typename T>
+template <class T>
 template <typename U>
 inline U inf_int<T>::value() {
     if (!this->buffer) return static_cast<U>(0); // base case
@@ -252,7 +252,7 @@ inline U inf_int<T>::value() {
 
 };
 
-template <typename T>
+template <class T>
 inline std::string inf_int<T>::info(){
     return 
             "\nVAL:\t" + std::to_string(this->value<long long>()) +
@@ -264,7 +264,7 @@ inline std::string inf_int<T>::info(){
 
 
 
-template<typename T>
+template<class T>
 std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
     if (inf.get_base() == 2){
         cout << inf.buffer;
@@ -273,7 +273,7 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 
 };
 
-template<typename T>
+template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
     this->buffer += add;

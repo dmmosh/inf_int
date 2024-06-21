@@ -254,7 +254,12 @@ inline U inf_int<T>::value() {
 
 template <class T>
 inline std::string inf_int<T>::info(){
-    return  std::to_string(this->value<int>());
+    //return  ("\nVAL:\t" + std::to_string(this->value<int>()) +
+    return (
+            "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
+            "\nBASE:\t" + std::to_string(this->get_base<int>()) +
+            "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
+            "\n");
 };
 
 

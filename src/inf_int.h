@@ -108,6 +108,8 @@ class inf_int{
     // why ?
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
+    bool base_breach; // if base has been overflowed itself
+    // TODO: change some code to utilize base breach for true super duper infinity and beyond
     std::unique_ptr<inf_int<T>> extra_base; //extra base, allocs only if need be
     //constructors
     inf_int();
@@ -252,7 +254,7 @@ template <class T>
 inline std::string inf_int<T>::info(){
     return  "\nVAL:\t" + std::to_string(this->value<long long>()) +
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
-            "\nBASE:\t" + std::to_string(this->get_base<int>()) +
+            "\nBASE:\t" + std::to_string(this->get_base<long long>()) +
             "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
             "\n";
 };
@@ -277,8 +279,15 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
-    value = base_convert(value, static_cast<U>(2), static_cast<U>(this->base()));
+    if (this->base() != 2) // if the base ISNT 2
+        value = base_convert<U>(value, static_cast<U>(2), this->get_base<U>());
     
+    if(overflow(this->buffer, value)) { // if theres an overflow, move bases up
+        this->buffer = base_convert(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
+        value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
+        this->base++;
+    }
+    this->buffer += value;
 
     return *this;
 }; 
@@ -306,7 +315,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
         max_val = max<T, U>(*this); // makes new max val
     }
 
-    this->buffer = base_convert(value, static_cast<U>(2), static_cast<U>(this->base)); // makes the buffer
+    this->buffer = base_convert(value, static_cast<U>(2), this->get_base<U>()); // makes the buffer
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

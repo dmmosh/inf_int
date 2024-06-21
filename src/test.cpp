@@ -25,7 +25,6 @@ int main(void){
     a+= b;
     a = b + b + b + b;
 
-    a = b+20;
 
     //a = 2000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;

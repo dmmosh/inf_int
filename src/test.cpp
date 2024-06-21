@@ -19,7 +19,7 @@ int main(void){
     //inf_int<int8_t> a = 1000;
 
     inf_int<int8_t> a;
-    a = 2;
+    a = 100;
 
     //a = 2000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;

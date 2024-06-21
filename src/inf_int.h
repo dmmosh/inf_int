@@ -296,7 +296,7 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
     if(overflow<T, U>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
         out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
         //value = base_convert<U>(value, this->get_base(), this->get_base()+1);
-        out.base++;
+        out.base++; //dsjkh
     }
     
     if(out.get_base() != value.get_base()) // if the bases dont match, convert

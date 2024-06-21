@@ -26,14 +26,13 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 
 // checks if theres been an overflow
 template <typename T>
-inline constexpr bool overflow(const T& to, const T& from){
+inline constexpr bool overflow(T to, T from){
     if(to > 0 && from > 0 && to+from <0){ //if last bit is on if it shouldnt be
         return true;
     } else if (to < 0 && from < 0 && to+from > 0){
         return true;
     } else if (to < 0 && from >0 )
     return false;
-
 };
 
 template<class T> class inf_int; // class definition
@@ -271,15 +270,15 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
-    return *this + add;
+    return *this +add;
 }; 
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
     if (this->get_base() != 2) // if the base ISNT 2
-        value = base_convert(value, static_cast<U>(2), this->get_base<U>());
+        value = base_convert<U>(value, static_cast<U>(2), this->get_base<U>());
     
-    if(overflow<T>(this->buffer, value)) { // if theres an overflow, move bases up
+    if(overflow<T>(this->buffer, static_cast<T>(value))) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
         value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
         this->base++;

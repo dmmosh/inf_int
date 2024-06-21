@@ -39,8 +39,6 @@ inline constexpr bool overflow(const T& to, const T& from){
 template<class T> class inf_int; // class definition
 
 
-
-
 // MAX AND MIN, O(1) time
 
 template <typename T>
@@ -273,18 +271,17 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
-    this->buffer += add;
-    return *this;
+    return *this + add;
 }; 
 
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
-    if (this->base() != 2) // if the base ISNT 2
-        value = base_convert<U>(value, static_cast<U>(2), this->get_base<U>());
+    if (this->get_base() != 2) // if the base ISNT 2
+        value = base_convert(value, static_cast<U>(2), this->get_base<U>());
     
-    if(overflow(this->buffer, value)) { // if theres an overflow, move bases up
+    if(overflow<T>(this->buffer, value)) { // if theres an overflow, move bases up
         this->buffer = base_convert(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
-        value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
+        value = base_convert(value, this->get_base<U>(), this->get_base<U>()+1);
         this->base++;
     }
     this->buffer += value;

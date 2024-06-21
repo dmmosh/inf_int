@@ -20,6 +20,8 @@ int main(void){
 
     inf_int<unsigned int> a = 20;
 
+    a+=30;
+
     //a = 2000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
 

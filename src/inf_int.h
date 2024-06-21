@@ -24,6 +24,18 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
+// checks if theres been an overflow
+template <typename T>
+inline constexpr bool overflow(const T& to, const T& from){
+    if(to > 0 && from > 0 && to+from <0){ //if last bit is on if it shouldnt be
+        return true;
+    } else if (to < 0 && from < 0 && to+from > 0){
+        return true;
+    } else if (to < 0 && from >0 )
+    return false;
+
+};
+
 template<class T> class inf_int; // class definition
 
 
@@ -82,13 +94,6 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 };
 
 
-template <class T, typename U> // if overflow, returns -1 if not returns the addition
-inline constexpr T add(const T& val1, const T& base1, const U& val2, const U& base2){
-
-
-    return true;
-};
-
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword
 
@@ -139,7 +144,7 @@ class inf_int{
 
 
     template<typename U>
-    inf_int<T>& operator+(const U& value); 
+    inf_int<T>& operator+(U value); 
     inf_int<T>& operator+(const inf_int& value); 
 
     template<typename U>
@@ -271,9 +276,10 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
 }; 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator+(const U& value) {
-    T sum = add(this->buffer, this->base, value, 2);
-    this->buffer = sum;
+inf_int<T>& inf_int<T>::operator+(U value) {
+    value = base_convert(value, static_cast<U>(2), static_cast<U>(this->base()));
+    
+
     return *this;
 }; 
 

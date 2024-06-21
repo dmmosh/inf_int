@@ -28,6 +28,6 @@ int main(void){
     //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
 
-    std::cout << a.info() ;
+    std::cout << a.info() << b.info();
 
 }

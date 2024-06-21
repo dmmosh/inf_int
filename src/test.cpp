@@ -22,7 +22,9 @@ int main(void){
     inf_int<unsigned int> b = 40;
 
 
-    a+= b + 10 +20 +10;
+    a+= b;
+
+    a = (b+20);
 
     //a = 2000;
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;

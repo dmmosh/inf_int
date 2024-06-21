@@ -147,7 +147,8 @@ class inf_int{
 
     template<typename U>
     inf_int<T>& operator=(U value); 
-    inf_int<T>& operator=(const inf_int& value); 
+    template<class U>
+    inf_int<T>& operator=(inf_int<U>& value); 
     
 };  
 
@@ -331,9 +332,13 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 }; 
 
 template<class T>
-inf_int<T>& inf_int<T>::operator=(const inf_int& value){
-    this->buffer = value.buffer; 
-    this->base = value.base;
+template<class U>
+inf_int<T>& inf_int<T>::operator=(inf_int<U>& value){
+    this->base = value.get_base();
+    this->buffer = value.get_buffer();
+    this->base_breach = value.base_breach;
+    
+    //TODO: add checking to make sure the base itself isnt an inf int
     return *this;
 }; 
 

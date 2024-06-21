@@ -254,7 +254,7 @@ inline U inf_int<T>::value() {
 
 template <class T>
 inline std::string inf_int<T>::info(){
-    return  "sdfhku";
+    return  ("\nVAL:\t" + std::to_string(this->value<long long>()));
 };
 
 

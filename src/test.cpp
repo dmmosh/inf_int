@@ -22,8 +22,7 @@ int main(void){
     inf_int<unsigned int> b = 40;
 
 
-    a+= b;
-    a = (b + b + b + b);
+    a = b;
 
 
     //a = 2000;

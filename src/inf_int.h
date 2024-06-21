@@ -129,7 +129,7 @@ class inf_int{
     // never call base raw
     inline U get_base(); // outs the base in a data type
 
-    std::string info();
+    inline std::string info();
 
     // OPERATOR OVERLOADING
 
@@ -253,12 +253,8 @@ inline U inf_int<T>::value() {
 };
 
 template <class T>
-std::string inf_int<T>::info(){
-    return  ("\nVAL:\t" + std::to_string(this->value<int>()) +
-            "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
-            "\nBASE:\t" + std::to_string(this->get_base<int>()) +
-            "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
-            "\n");
+inline std::string inf_int<T>::info(){
+    return  std::to_string(this->value<int>());
 };
 
 

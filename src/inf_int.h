@@ -139,7 +139,8 @@ class inf_int{
 
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
-    inf_int<T>& operator+=(const inf_int& value); 
+    template<typename U>
+    inf_int<T>& operator+=(const inf_int<U>& add);
 
 
     template<typename U>
@@ -181,8 +182,8 @@ extra_base(nullptr)
 
 template <class T>
 inf_int<T>::inf_int(const inf_int& init_val):
-buffer(init_val.get_buffer()),
-base(init_val.get_base()),
+buffer(init_val.buffer),
+base(init_val.base),
 extra_base(nullptr)
 {   
     return;
@@ -275,6 +276,12 @@ inf_int<T>& inf_int<T>::operator+=(const U& add){
     return *this +add;
 }; 
 
+template<class T>
+template<typename U>
+inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
+    return *this + add;
+}; 
+
 template<class T> template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
     
@@ -306,7 +313,7 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
     if(this->get_base<T>() != value.get_base()) // if the bases dont match, convert
         value.buffer = base_convert<U>(value.buffer, value.get_base(), this->get_base<U>());
 
-    this->buffer += value.buffer;
+    this->buffer += value.buffer; //add the bases
 
     return *this;
 }; 

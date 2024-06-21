@@ -279,9 +279,9 @@ inf_int<T>& inf_int<T>::operator+(U value) {
     if (this->get_base() != 2) // if the base ISNT 2
         value = base_convert(value, static_cast<U>(2), this->get_base<U>());
     
-    if(overflow(this->buffer, static_cast<T>(value))) { // if theres an overflow, move bases up
-        this->buffer = base_convert(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
-        value = base_convert(value, this->get_base<U>(), this->get_base<U>()+1);
+    if(overflow<T>(this->buffer, value)) { // if theres an overflow, move bases up
+        this->buffer = base_convert<T>(this->buffer, this->get_base<T>(), this->get_base<T>()+1);
+        value = base_convert<U>(value, this->get_base<U>(), this->get_base<U>()+1);
         this->base++;
     }
     this->buffer += value;

@@ -135,21 +135,21 @@ class inf_int{
     // OPERATOR OVERLOADING
 
     template<typename U>
-    inf_int<T>& operator+=(U add); 
+    inf_int<T>& operator+=(U& add); 
     template<class U>
-    inf_int<T>& operator+=(inf_int<U> add);
+    inf_int<T>& operator+=(inf_int<U>& add);
 
 
     template<typename U>
-    inf_int<T>& operator+(U value); 
+    inf_int<T>& operator+(U& value); 
     template<class U>
-    inf_int<T>& operator+(inf_int<U> value);
+    inf_int<T>& operator+(inf_int<U>& value);
 
 
     template<typename U>
-    inf_int<T>& operator=(U value); 
+    inf_int<T>& operator=(U& value); 
     template<class U>
-    inf_int<T>& operator=(inf_int<U> value); 
+    inf_int<T>& operator=(inf_int<U>& value); 
     
 };  
 
@@ -256,18 +256,18 @@ std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
 
 template<class T>
 template<typename U>
-inf_int<T>& inf_int<T>::operator+=( U add){
+inf_int<T>& inf_int<T>::operator+=( U& add){
     return (*this +(add));
 }; 
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+=( inf_int<U> add){
+inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
     return (*this + (add));
 }; 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator+(U value) {
+inf_int<T>& inf_int<T>::operator+(U& value) {
     
     if(overflow<T, U>(this->buffer, value)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
@@ -285,7 +285,7 @@ inf_int<T>& inf_int<T>::operator+(U value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
+inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
     
     if(overflow<T>(this->buffer, value.buffer)) { // if theres an overflow, move bases up
         this->buffer = base_convert<T>(this->buffer, this->get_base(), this->get_base()+1);
@@ -303,7 +303,7 @@ inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
 
 
 template<class T> template<typename U>
-inf_int<T>& inf_int<T>::operator=(U value) {
+inf_int<T>& inf_int<T>::operator=(U& value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
     this->buffer = 0;
@@ -332,7 +332,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator=(inf_int<U> value){
+inf_int<T>& inf_int<T>::operator=(inf_int<U>& value){
     this->base = value.get_base();
     this->buffer = value.get_buffer();
     this->base_breach = value.base_breach;

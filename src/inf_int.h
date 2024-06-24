@@ -133,7 +133,7 @@ class inf_int{
     inf_int(U value);
 
     template <class U>
-    inf_int(inf_int<U> init_val);
+    inf_int(inf_int<U>& init_val);
 
     // FUNCTIONS    
     void bound_check();
@@ -196,11 +196,11 @@ base(2)
 
 template <class T>
 template <class U>
-inf_int<T>::inf_int(inf_int<U> init_val):
+inf_int<T>::inf_int(inf_int<U>& init_val):
 buffer(init_val.get_buffer()),
-base(init_val.get_base())
+base(init_val.get_base()),
+base_breach(init_val.base_breach)
 {   
-    *this = init_val;
     return;
 };
 
@@ -288,10 +288,11 @@ inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
 template<class T> 
 template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
-    inf_int<T> out = *this;
+    inf_int<T> out(*this);
     
 
     value = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+
     while(!valid::add<T>(out.buffer, value)){ // while its invalid to add them
         value = base_convert<U>(value, out.get_base(), out.get_base()+1);
         out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);

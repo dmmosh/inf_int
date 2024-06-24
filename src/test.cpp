@@ -23,7 +23,7 @@ int main(void){
     inf_int<int8_t> b = 40;
 
     std::cout << a.info();
-    a += 10;
+    a += 99999999999999;
 
 
     std::cout << a.info();

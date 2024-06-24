@@ -32,6 +32,6 @@ int main(void){
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
     int8_t c = -127;
 
-    std::cout << (int)min(c) << N << valid_subtract<int8_t>(c, -100);
+    std::cout << (int)min(c) << N << valid_subtract<int8_t>(c, 10);
 
 }

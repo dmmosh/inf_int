@@ -26,7 +26,7 @@ int main(void){
     a += 10;
 
 
-    std::cout << valid::add<int8_t, int>(100,100000);
+    std::cout << a.info();
 
 
 

@@ -76,6 +76,10 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+
+    if (base_cur == base_new) // base case, if bases match
+        return val;
+
     T out = 0;
     //ONLY BASE UP FOR NOW
 
@@ -152,22 +156,45 @@ class inf_int{
 
     // OPERATOR OVERLOADING
 
+
     template<typename U>
     inf_int<T>& operator+=(const U& add); 
     template<class U>
     inf_int<T>& operator+=(const inf_int<U>& add);
 
 
-    template<typename U>
-    inf_int<T> operator+(U value); 
-    template<class U>
-    inf_int<T> operator+(inf_int<U> value);
 
 
     template<typename U>
     inf_int<T>& operator=(U& value); 
     template<class U>
     inf_int<T>& operator=(inf_int<U>& value); 
+
+
+    template<typename U>
+    friend inf_int<T> operator+(inf_int<T> out, const U& from) {
+
+
+        U add = base_convert<U>(from, 2, out.get_base()); // converts bases from 2 to inf int's
+
+        while(!valid::add<T>(out.buffer, add)){ // while its invalid to add them
+            add = base_convert<U>(from, out.get_base(), out.get_base()+1);
+            out.buffer = base_convert<T>(out.get_buffer(), out.get_base(), out.get_base()+1);
+            out.base++;
+        };
+
+        out.buffer+=add;
+
+        return out;
+    }; 
+
+
+    template<class U>
+    friend inf_int<T> operator+(inf_int<T> to, const inf_int<U>& value) {
+
+
+        return to;
+    }; 
     
 };  
 
@@ -285,36 +312,6 @@ inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
     return *this + add;
 }; 
 
-template<class T> 
-template<typename U>
-inf_int<T> inf_int<T>::operator+(U value) {
-    inf_int<T> out(*this);
-    
-    value = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
-
-    while(!valid::add<T>(out.buffer, value)){ // while its invalid to add them
-        value = base_convert<U>(value, out.get_base(), out.get_base()+1);
-        out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        out.base++;
-    };
-    
-    out.buffer+=value;
-
-    out.buffer+=base_convert<U>(value, 2, out.get_base());
-    
-
-    return out;
-}; 
-
-
-template<class T>
-template<class U>
-inf_int<T> inf_int<T>::operator+(inf_int<U> value) {
-    inf_int<T> out = *this;
-
-
-    return out;
-}; 
 
 
 template<class T> 

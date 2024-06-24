@@ -39,28 +39,6 @@ inline constexpr T min(const T& input){
 }
 
 
-
-
-namespace valid{
-    template<class I>
-    inline constexpr bool add( I to, I from ) {
-        if( from > 0 && to > std::numeric_limits<I>::max() - from ) return false;
-        if( from < 0 && to < std::numeric_limits<I>::min() - from ) return false;
-
-        return true;
-    }
-
-    // valid subtract note: from has to be unsigned to substract, otherwise would be - - aka + 
-    template<class I>
-    inline constexpr bool subtract( I to, I from ) {
-      if ((from < 0) && (to > std::numeric_limits<I>::max() + from)) return false;
-      if ((from > 0) && (to < std::numeric_limits<I>::min() + from)) return false;
-
-      return true;
-    }
-
-}
-
 template <typename T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
@@ -103,6 +81,29 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 
     return out;
 };
+
+namespace valid{
+    template<typename T, typename U>
+    inline constexpr bool add( T to, U from ) {
+        if (LEFT_BIT(from) > sizeof(T)*8-1) return false;
+        if( from > 0 && to > std::numeric_limits<T>::max() - from ) return false;
+        if( from < 0 && to < std::numeric_limits<T>::min() - from ) return false;
+
+        return true;
+    }
+
+    // valid subtract note: from has to be unsigned to substract, otherwise would be - - aka + 
+    template<typename T, typename U>
+    inline constexpr bool subtract( T to, U from ) {
+        if (LEFT_BIT(from) > sizeof(T)*8-1) return false;
+      if ((from < 0) && (to > std::numeric_limits<T>::max() + from)) return false;
+      if ((from > 0) && (to < std::numeric_limits<T>::min() + from)) return false;
+
+      return true;
+    }
+
+}
+
 
 
 // FUNCTION DECLARATIONS
@@ -190,7 +191,7 @@ class inf_int{
         //     out.buffer = base_convert<T>(out.get_buffer(), out.get_base(), out.get_base()+1);
         //     out.base++;
         // };
-        
+
 
         out.buffer+=add;
 

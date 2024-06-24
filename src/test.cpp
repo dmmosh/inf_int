@@ -30,9 +30,9 @@ int main(void){
 
     //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
-    int8_t c = 127;
+    int8_t c = -128;
     
 
-    std::cout << (int)min(c) << N << overflow(c, 1);
+    std::cout << (int)min(c) << N << overflow(c, -1);
 
 }

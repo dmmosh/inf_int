@@ -19,13 +19,13 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<int> a = 10;
+    inf_int<int> a = 999999999999;
     // the int limit is: 2147483647
-    inf_int<int8_t> b = 20;
+    inf_int<int8_t> b = 999999999999999;
 
     std::cout << a.info();
 
-    a = a +10 + b + a + 10 + 10 ;
+    a +=b ;
 
 
     std::cout << a.info();

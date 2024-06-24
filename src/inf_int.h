@@ -51,12 +51,13 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 // checks if theres been an overflow
 template <typename T, typename U>
 inline constexpr bool overflow(T to, U from){
-    if ((to+from > max(to)) || 
-        (to > 0 && from > 0 && to+from <0) || 
-        (to < 0 && from < 0 && to+from > 0)){
+    // if ((to+from > max(to)) || 
+    //     (to > 0 && from > 0 && to+from <0) || 
+    //     (to < 0 && from < 0 && to+from > 0)){
+    //     return true;
+    // } 
+    if (__builtin_add_overflow(to, from, &to))
         return true;
-    } 
-
 
     return false;
 };

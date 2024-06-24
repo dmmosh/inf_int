@@ -288,12 +288,11 @@ inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
 template<class T> 
 template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
-    inf_int<T> out(*this);
-    
-    
     
 
-    return out;
+    
+
+    return *this;
 }; 
 
 

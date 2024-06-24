@@ -115,7 +115,12 @@ uT testing(T num){
 
 };
 
-void test();
+// prints the values
+template<class T>
+std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
+    cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
+    return cout;
+};
 
 
 template<class T>
@@ -130,7 +135,9 @@ class inf_int{
     // always use base() function when dealing with the base
     bool base_breach; // if base has been overflowed itself
     // TODO: change some code to utilize base breach for true super duper infinity and beyond
-    //constructors
+
+    // CONSTRUCTORS
+
     inf_int();
 
     template <typename U>
@@ -139,37 +146,38 @@ class inf_int{
     template <class U>
     inf_int(inf_int<U>& init_val);
 
+
+
+
     // FUNCTIONS    
-    void bound_check();
-    inline void base_up(); // moves bases up
-    inline void base_down();  // moves bases down
 
     template <typename U>
-    inline U value();
+    inline U value(); // gets the value from buffer
 
     inline T get_buffer(); // outs the buffer in a data type
 
-    // never call base raw
-    inline constexpr uT get_base();
+    inline constexpr uT get_base(); // gets the base
 
-    inline std::string info();
+    inline std::string info(); // prints info
+
+
+
 
     // OPERATOR OVERLOADING
 
+    template<typename U>
+    inf_int<T>& operator+=(const U& add);  // overloads += operator with value
+
+    template<class U>
+    inf_int<T>& operator+=(const inf_int<U>& add);  // overloads += operator with another inf int
 
     template<typename U>
-    inf_int<T>& operator+=(const U& add); 
+    inf_int<T>& operator=(U& value);  // overloads = operator with another inf int
+
     template<class U>
-    inf_int<T>& operator+=(const inf_int<U>& add);
+    inf_int<T>& operator=(inf_int<U>& value);  // overloads = operator with another inf int
 
-
-
-
-    template<typename U>
-    inf_int<T>& operator=(U& value); 
-    template<class U>
-    inf_int<T>& operator=(inf_int<U>& value); 
-
+    // friend functions w templates cant be declared and defined later 
 
     template<typename U>
     friend inf_int<T> operator+(inf_int<T> out, const U& from) {
@@ -187,7 +195,6 @@ class inf_int{
 
         return out;
     }; 
-
 
     template<class U>
     friend inf_int<T> operator+(inf_int<T> to, const inf_int<U>& value) {
@@ -232,22 +239,7 @@ base_breach(init_val.base_breach)
 };
 
 
-
 // FUNCTIONS
-
-template <class T>
-inline void inf_int<T>::base_up() {
-    this->buffer = base_convert(this->buffer, this->base, this->base+1);
-    this->base++;
-};
-
-template <class T>
-inline void inf_int<T>::base_down() {
-    if (this->base >2) {
-        this->buffer = base_convert(this->buffer, this->base, this->base-1);
-        this->base--;
-    };
-};
 
 
 template <class T>
@@ -290,26 +282,18 @@ inline std::string inf_int<T>::info(){
             "\n";
 };
 
-
-// prints the values
-template<class T>
-std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
-    cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
-    return cout;
-};
-
 template<class T>
 template<typename U>
 inf_int<T>& inf_int<T>::operator+=(const U& add){
-    
-    return *this + add;
+    *this = *this + add;
+    return *this;
 }; 
 
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
-
-    return *this + add;
+    *this = *this + add;    
+    return *this;
 }; 
 
 

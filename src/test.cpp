@@ -25,7 +25,7 @@ int main(void){
 
     std::cout << a.info();
 
-    a = a +10;
+    a = a +10 + b + a + 10 + 10 ;
 
 
     std::cout << a.info();

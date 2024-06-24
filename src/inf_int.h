@@ -56,11 +56,12 @@ inline constexpr bool overflow(T to, U from){
     //     (to < 0 && from < 0 && to+from > 0)){
     //     return true;
     // } 
-    if (__builtin_add_overflow(static_cast<unsigned T>(to), static_cast<unsigned T>(from), &to))
-        return true;
+    
+    return ((from > 0 && __builtin_add_overflow(to, from, &to)) || (from < 0 && __builtin_sub_overflow(to,from,&to))) ? true : false;
 
-    return false;
 };
+
+
 
 
 

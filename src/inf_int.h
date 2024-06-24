@@ -190,6 +190,7 @@ class inf_int{
         //     out.buffer = base_convert<T>(out.get_buffer(), out.get_base(), out.get_base()+1);
         //     out.base++;
         // };
+        
 
         out.buffer+=add;
 

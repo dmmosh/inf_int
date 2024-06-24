@@ -22,9 +22,11 @@ int main(void){
     inf_int<int8_t> a = 10000;
     inf_int<int8_t> b = 40;
 
+    std::cout << a.info();
     a += 10;
 
-    std::cout << a.info() << BITS(base_convert<int>(10, 2, 5));
+
+    std::cout << a.info();
 
 
 

@@ -264,7 +264,7 @@ inline std::string inf_int<T>::info(){
 };
 
 
-
+// prints the values
 template<class T>
 std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
     cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
@@ -290,13 +290,14 @@ template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
     inf_int<T> out = *this;
     
-    uT base = 2;
-    while(base != out.base){ // get value to the right base
-        base++;
-    }; 
-    // while(!valid::add(out.buffer, value)){ // while its invalid to add them
 
-    // };
+    value = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+    while(!valid::add<T>(out.buffer, value)){ // while its invalid to add them
+        value = base_convert<U>(value, out.get_base(), out.get_base()+1);
+        out.buffer = base_convert<U>(out.buffer, out.get_base(), out.get_base()+1);
+        out.base++;
+    };
+    out.buffer+=value;
 
     return out;
 }; 

@@ -61,7 +61,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    int8_t i = LEFT_BIT(val); // length of the bits
+    uint8_t i = LEFT_BIT(val); // length of the bits
     // since the biggest data type is 64 bits, 1 byte int is enough
     // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
     // the numbers will also never increase in bit length, 
@@ -185,14 +185,8 @@ class inf_int{
 
         U add = base_convert<U>(from, 2, out.get_base()); // converts bases from 2 to inf int's
 
-        while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
-            add = base_convert<U>(add, out.get_base(), out.get_base()+1);
-            out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-            out.base++;
 
-        }
-
-        out.buffer += add;
+        out.buffer = out.get_base();
         return out;
     }; 
 

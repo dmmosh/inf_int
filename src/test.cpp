@@ -19,14 +19,10 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<int8_t> a;
+    inf_int<int8_t> a = 10000;
     inf_int<int8_t> b = 40;
 
     a += 10;
-    a += 100;
-    a += 14;
-    a += 300;
-
 
     std::cout << a.info();
 

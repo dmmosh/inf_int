@@ -199,7 +199,8 @@ class inf_int{
     template<class U>
     friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) {
 
-        U add = base_convert<U>(value.get_buffer(), value.get_base(), out.get_base()); // converts bases from 2 to inf int's
+
+        U add = base_convert<U>(value.buffer, value.base, out.base); // converts bases from 2 to inf int's
 
         while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
             add = base_convert<U>(add, out.get_base(), out.get_base()+1);

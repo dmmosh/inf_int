@@ -290,7 +290,7 @@ template<typename U>
 inf_int<T>& inf_int<T>::operator+(U value) {
     inf_int<T> out(*this);
     
-
+    
     value = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
     

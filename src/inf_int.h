@@ -294,7 +294,7 @@ inf_int<T>& inf_int<T>::operator+(U value) {
     value = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
     
-    out.buffer+=base_convert<U>(value, 2, out.get_base());
+    out.buffer+=base_convert<T>(value, 2, out.get_base());
 
     return out;
 }; 

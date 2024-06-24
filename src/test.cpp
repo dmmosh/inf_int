@@ -32,6 +32,6 @@ int main(void){
     int8_t c = 255;
     
 
-    std::cout << overflow(c, 10000);
+    std::cout << max(c) << N << overflow(c, 10000);
 
 }

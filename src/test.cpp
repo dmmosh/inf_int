@@ -22,7 +22,9 @@ int main(void){
     inf_int<int8_t> a = 20;
     inf_int<int8_t> b = 40;
 
-    a = 10;    
+    a = 10;
+
+    a += 100;    
 
     std::cout << a.info() << b.info();
 

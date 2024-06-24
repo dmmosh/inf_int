@@ -30,9 +30,9 @@ int main(void){
 
     //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
-    int8_t c = 255;
+    int8_t c = 127;
     
 
-    std::cout << (int)max(c) << N << overflow(c, 10000);
+    std::cout << (int)max(c) << N << overflow(c, 1);
 
 }

@@ -23,17 +23,13 @@ int main(void){
     inf_int<int8_t> b = 40;
 
 
-    a = b;
-
-    b = a + a;
-
 
     //a = 2000;vd
     //std::cout << BITS(a.get_buffer()) << N <<  a.value<int>() << N ;
     int c = -5;
 
     //std::cout << (int)min(c) << N << valid_subtract<int8_t>(c, 1);
-    std::cout << testing(c);
-    
+    std::cout << a << N << b;
+
 
 }

@@ -10,10 +10,10 @@ COMMAND LIST
 g++ -linf_int -std=c++20 ./src/test.cpp -o test
 
     everything:
- sudo cp ./src/inf_int.h /usr/include && g++ -linf_int -std=c++20 ./src/test.cpp -o test
+sudo cp ./src/inf_int.h /usr/include && g++ -linf_int -std=c++20 ./src/test.cpp -o test
 
     everything but for dmytro only:
- sudo cp ./src/inf_int.h /usr/include && g++ -linf_int -std=c++20 ./src/test.cpp -o test && git-all && ./test
+sudo cp ./src/inf_int.h /usr/include && g++ -linf_int -std=c++20 ./src/test.cpp -o test && git-all && ./test
 
 
 
@@ -21,16 +21,16 @@ g++ -linf_int -std=c++20 ./src/test.cpp -o test
     CLANG++
 
     copy:
- sudo cp ./src/inf_int.h /usr/include
+sudo cp ./src/inf_int.h /usr/include
     
     compile test code:
 clang++ -linf_int -std=c++20 ./src/test.cpp -o test
 
     everything:
- sudo cp ./src/inf_int.h /usr/include && clang++ -linf_int -std=c++20 ./src/test.cpp -o test
+sudo cp ./src/inf_int.h /usr/include && clang++ -linf_int -std=c++20 ./src/test.cpp -o test
 
     everything but for dmytro only:
- sudo cp ./src/inf_int.h /usr/include && clang++ -linf_int -std=c++20 ./src/test.cpp -o test && git-all && ./test
+sudo cp ./src/inf_int.h /usr/include && clang++ -linf_int -std=c++20 ./src/test.cpp -o test && git-all && ./test
 
 
 

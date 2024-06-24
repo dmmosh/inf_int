@@ -146,7 +146,7 @@ class inf_int{
     inline T get_buffer(); // outs the buffer in a data type
 
     // never call base raw
-    inline T get_base(); // outs the base in a data type
+    inline constexpr uT get_base();
 
     inline std::string info();
 
@@ -230,9 +230,10 @@ inline T inf_int<T>::get_buffer(){
 
 
 // NEVER CALL BASE RAW
+// todo: change some stuff here
 template <class T>
-inline T inf_int<T>::get_base() {
-    return static_cast<T>(this->base);
+inline constexpr uT inf_int<T>::get_base() {
+    return static_cast<uT>(this->base);
 };
 
 template <typename T>
@@ -265,12 +266,9 @@ inline std::string inf_int<T>::info(){
 
 
 template<class T>
-std::ostream& operator<<(std::ostream& cout, const inf_int<T>& inf){
-    if (inf.get_base() == 2){
-        cout << inf.buffer;
-        return cout;
-    }
-
+std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
+    cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
+    return cout;
 };
 
 template<class T>
@@ -308,7 +306,7 @@ template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
     inf_int<T> out = *this;
-    
+
 
     return out;
 }; 

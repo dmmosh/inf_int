@@ -183,18 +183,15 @@ class inf_int{
     template<typename U>
     friend inf_int<T> operator+(inf_int<T> out, const U& from) {
 
-        uT temp = out.get_base();
-        U add = static_cast<U>(out.buffer + base_convert<U>(from, 2, out.get_base())); // converts bases from 2 to inf int's
+        U add = base_convert<U>(from, 2, out.get_base()); // converts bases from 2 to inf int's
 
-        //  while(!valid::add<T, U>(out.buffer, add)){ // while its invalid to add them
-        //      add = base_convert<U>(from, out.get_base(), out.get_base()+1);
-        //      out.buffer = base_convert<T>(out.get_buffer(), out.get_base(), out.get_base()+1);
-        //      out.base++;
-        //  };
-        out = add;
-        out.base = temp;
+        while(!valid::add<T, U>(out.buffer, add)){ // while its invalid to add them
+            add = base_convert<U>(add, out.get_base(), out.get_base()+1);
+            out.buffer = base_convert<T>(out.get_buffer(), out.get_base(), out.get_base()+1);
+            out.base++;
+        };
 
-
+        out.buffer += add;
         return out;
     }; 
 

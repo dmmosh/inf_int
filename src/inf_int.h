@@ -185,7 +185,7 @@ class inf_int{
 
         U add = base_convert<U>(from, 2, out.get_base()); // converts bases from 2 to inf int's
 
-        while (!valid::add(out.buffer, add) || LEFT_BIT(add) < sizeof(out.buffer)*8-1){
+        while (!valid::add<T,U>(out.buffer, add) || LEFT_BIT(add) < sizeof(out.buffer)*8-1){
             add = base_convert<U>(add, out.get_base(), out.get_base()+1);
             out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
             out.base++;

@@ -24,6 +24,7 @@ int main(void){
 
     a += 100;
     a += 10;
+    a += 1000;
 
 
     std::cout << a.info() << b.info();

@@ -61,7 +61,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    uint8_t i = LEFT_BIT(val); // length of the bits
+    int8_t i = LEFT_BIT(val); // length of the bits
     // since the biggest data type is 64 bits, 1 byte int is enough
     // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
     // the numbers will also never increase in bit length, 

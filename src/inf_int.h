@@ -157,7 +157,7 @@ class inf_int{
 
     inline T get_buffer(); // outs the buffer in a data type
 
-    inline constexpr uT get_base(); // gets the base
+    inline uT get_base(); // gets the base
 
     inline std::string info(); // prints info
 
@@ -181,9 +181,9 @@ class inf_int{
     // friend functions w templates cant be declared and defined later 
 
     template<typename U>
-    friend inf_int<T> operator+(inf_int<T> out, const U& from) {
+    friend inf_int<T> operator+(inf_int<T> out, const U& value) {
 
-        U add = base_convert<U>(from, 2, out.get_base()); // converts bases from 2 to inf int's
+        U add = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
         while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
             add = base_convert<U>(add, out.get_base(), out.get_base()+1);
@@ -197,10 +197,20 @@ class inf_int{
     }; 
 
     template<class U>
-    friend inf_int<T> operator+(inf_int<T> to, const inf_int<U>& value) {
+    friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) {
 
+        U add = base_convert<U>(value.get_buffer(), value.get_base(), out.get_base()); // converts bases from 2 to inf int's
 
-        return to;
+        while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
+            add = base_convert<U>(add, out.get_base(), out.get_base()+1);
+            out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+            out.base++;
+            
+        }
+
+        out.buffer += add;
+
+        return out;
     }; 
     
 };  
@@ -251,7 +261,7 @@ inline T inf_int<T>::get_buffer(){
 // NEVER CALL BASE RAW
 // todo: change some stuff here
 template <class T>
-inline constexpr uT inf_int<T>::get_base() {
+inline uT inf_int<T>::get_base() {
     return static_cast<uT>(this->base);
 };
 

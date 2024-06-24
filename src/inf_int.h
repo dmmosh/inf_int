@@ -61,6 +61,17 @@ inline constexpr bool overflow(T to, U from){
 
 };
 
+template<class I>
+bool valid_subtract( I lhs, I rhs ) {
+  static constexpr I max = std::numeric_limits<I>::max();
+  static constexpr I min = std::numeric_limits<I>::min();
+
+  if ((rhs < 0) && (lhs > max + rhs)) return false;
+  if ((rhs > 0) && (lhs < min + rhs)) return false;
+
+  return true;
+}
+
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>

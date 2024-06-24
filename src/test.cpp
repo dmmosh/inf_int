@@ -24,7 +24,7 @@ int main(void){
 
     a += 10;
 
-    std::cout << a.info();
+    std::cout << a.info() << BITS(base_convert<int>(10, 2, 5));
 
 
 

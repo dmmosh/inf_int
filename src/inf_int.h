@@ -287,7 +287,6 @@ inf_int<T>& inf_int<T>::operator+(U& value) {
     return out;
 }; 
 
-
 template<class T>
 template<class U>
 inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {

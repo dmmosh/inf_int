@@ -153,9 +153,9 @@ class inf_int{
     // OPERATOR OVERLOADING
 
     template<typename U>
-    inf_int<T>& operator+=(U& add); 
+    inf_int<T>& operator+=(const U& add); 
     template<class U>
-    inf_int<T>& operator+=(inf_int<U>& add);
+    inf_int<T>& operator+=(const inf_int<U>& add);
 
 
     template<typename U>
@@ -273,14 +273,14 @@ std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
 
 template<class T>
 template<typename U>
-inf_int<T>& inf_int<T>::operator+=( U& add){
-
+inf_int<T>& inf_int<T>::operator+=(const U& add){
+    
     return *this + add;
 }; 
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
+inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
 
     return *this + add;
 }; 

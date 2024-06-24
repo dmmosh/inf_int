@@ -33,6 +33,6 @@ int main(void){
     int8_t c = 127;
     
 
-    std::cout << (int)max(c) << N << overflow(c, 1);
+    std::cout << (int)min(c) << N << overflow(c, 1);
 
 }

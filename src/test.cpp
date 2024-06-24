@@ -19,7 +19,7 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<int> a = 10000;
+    inf_int<int> a = 9999999999999;
     inf_int<int8_t> b = 40;
 
     std::cout << a.info();

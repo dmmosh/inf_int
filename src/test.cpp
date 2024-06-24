@@ -4,6 +4,7 @@
 #include <limits>
 #include <bits/stdc++.h>
 #include <bitset>
+#define N '\n'
 
 
 /*
@@ -32,6 +33,6 @@ int main(void){
     int8_t c = 255;
     
 
-    std::cout << max(c) << N << overflow(c, 10000);
+    std::cout << (int)max(c) << N << overflow(c, 10000);
 
 }

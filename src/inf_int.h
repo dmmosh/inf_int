@@ -4,14 +4,16 @@
 //#include <iostream> //testing purposes, remove on actual release
 #include <limits>
 #include <bits/stdc++.h>
+#include <type_traits>
 #include <bitset>
 #include <memory>
 #include <string>
-#define N '\n'
 
 // macros
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
+#define uT typename std::make_unsigned<T>::type
+#define uU typename std::make_unsigned<U>::type
 
 template<class T> class inf_int; // class definition
 // MAX AND MIN, O(1) time
@@ -20,12 +22,6 @@ template <typename T>
 inline constexpr T max(const T& input){
     return static_cast<T>(std::numeric_limits<T>::max());
 }
-
-template <typename T>
-inline constexpr T min(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::min());
-}
-
 
 // max value of a given infinite integer
 template <class T, typename U>
@@ -38,6 +34,34 @@ inline constexpr U max(inf_int<T>& input){
 
 
 template <typename T>
+inline constexpr T min(const T& input){
+    return static_cast<T>(std::numeric_limits<T>::min());
+}
+
+
+
+
+namespace valid{
+    template<class I>
+    inline constexpr bool add( I to, I from ) {
+        if( from > 0 && to > std::numeric_limits<I>::max() - from ) return false;
+        if( from < 0 && to < std::numeric_limits<I>::min() - from ) return false;
+
+        return true;
+    }
+
+    // valid subtract note: from has to be unsigned to substract, otherwise would be - - aka + 
+    template<class I>
+    inline constexpr bool subtract( I to, I from ) {
+      if ((from < 0) && (to > std::numeric_limits<I>::max() + from)) return false;
+      if ((from > 0) && (to < std::numeric_limits<I>::min() + from)) return false;
+
+      return true;
+    }
+
+}
+
+template <typename T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
@@ -46,30 +70,6 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
         return sizeof(input)*8-1;
     };
     return -1; // if input is 0
-}
-
-// checks if theres been an overflow
-template <typename T, typename U>
-inline constexpr bool overflow(T to, U from){
-    // if ((to+from > max(to)) || 
-    //     (to > 0 && from > 0 && to+from <0) || 
-    //     (to < 0 && from < 0 && to+from > 0)){
-    //     return true;
-    // } 
-    
-    return ((from > 0 && __builtin_add_overflow(to, from, &to)) || (from < 0 && __builtin_sub_overflow(to,from,&to))) ? true : false;
-
-};
-
-template<class I>
-bool valid_subtract( I lhs, I rhs ) {
-  static constexpr I max = std::numeric_limits<I>::max();
-  static constexpr I min = std::numeric_limits<I>::min();
-
-  if ((rhs < 0) && (lhs > max + rhs)) return false;
-  if ((rhs > 0) && (lhs < min + rhs)) return false;
-
-  return true;
 }
 
 
@@ -104,6 +104,13 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword
 
+template <typename T>
+uT testing(T num){
+    uT out = static_cast<uT>(num);
+    return out;
+
+};
+
 void test();
 
 
@@ -111,7 +118,9 @@ template<class T>
 class inf_int{
     public: 
     T buffer; // the buffer 
-    T base; // the base, starting 0 , NEVER CALL RAW
+
+    // unsigned T (macro)
+    uT base; // the base, starting 0 , NEVER CALL RAW
     // why ?
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
@@ -150,9 +159,9 @@ class inf_int{
 
 
     template<typename U>
-    inf_int<T>& operator+(U& value); 
+    inf_int<T>& operator+(U value); 
     template<class U>
-    inf_int<T>& operator+(inf_int<U>& value);
+    inf_int<T>& operator+(inf_int<U> value);
 
 
     template<typename U>
@@ -280,37 +289,26 @@ inf_int<T>& inf_int<T>::operator+=( inf_int<U>& add){
 
 template<class T> 
 template<typename U>
-inf_int<T>& inf_int<T>::operator+(U& value) {
+inf_int<T>& inf_int<T>::operator+(U value) {
     inf_int<T> out = *this;
     
-    if(overflow<T, U>(out.buffer, value)) { // if theres an overflow, move bases up
-        out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        out.base++;
-    }
+    uT base = 2;
+    while(base != out.base){ // get value to the right base
+        base++;
+    }; 
+    // while(!valid::add(out.buffer, value)){ // while its invalid to add them
 
-    if (out.get_base() != 2) // if the base ISNT 2, convert
-        out.buffer+= base_convert<U>(value, 2, out.get_base());
-    else 
-        out.buffer += value;
+    // };
 
     return out;
 }; 
 
+
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(inf_int<U>& value) {
+inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
     inf_int<T> out = *this;
     
-    if(overflow<T, U>(out.buffer, value.buffer)) { // if theres an overflow, move bases up
-        out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        //value = base_convert<U>(value, this->get_base(), this->get_base()+1);
-        out.base++; //dsjkh
-    }
-    
-    if(out.get_base() != value.get_base()) // if the bases dont match, convert
-        out.buffer += base_convert<U>(value.buffer, value.get_base(), out.get_base());
-    else 
-        out.buffer += value.buffer; //add the bases
 
     return out;
 }; 

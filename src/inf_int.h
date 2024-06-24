@@ -159,9 +159,9 @@ class inf_int{
 
 
     template<typename U>
-    inf_int<T>& operator+(U value); 
+    inf_int<T> operator+(U value); 
     template<class U>
-    inf_int<T>& operator+(inf_int<U> value);
+    inf_int<T> operator+(inf_int<U> value);
 
 
     template<typename U>
@@ -287,18 +287,19 @@ inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
 
 template<class T> 
 template<typename U>
-inf_int<T>& inf_int<T>::operator+(U value) {
+inf_int<T> inf_int<T>::operator+(U value) {
+    inf_int<T> out(*this);
+    
+    
     
 
-    
-
-    return *this;
+    return out;
 }; 
 
 
 template<class T>
 template<class U>
-inf_int<T>& inf_int<T>::operator+(inf_int<U> value) {
+inf_int<T> inf_int<T>::operator+(inf_int<U> value) {
     inf_int<T> out = *this;
 
 

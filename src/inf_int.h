@@ -62,10 +62,6 @@ inline constexpr bool overflow(T to, U from){
 };
 
 
-
-
-
-
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){

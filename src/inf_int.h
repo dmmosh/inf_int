@@ -18,26 +18,6 @@
 template<class T> class inf_int; // class definition
 // MAX AND MIN, O(1) time
 
-template <typename T>
-inline constexpr T max(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::max());
-}
-
-// max value of a given infinite integer
-template <class T, typename U>
-inline constexpr U max(inf_int<T>& input){
-    // (base^(bit length - 1) -1 / base -1)
-    // ex x^7 -1 / x-1 
-
-    return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
-};
-
-
-template <typename T>
-inline constexpr T min(const T& input){
-    return static_cast<T>(std::numeric_limits<T>::min());
-}
-
 
 template <typename T>
 inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
@@ -107,11 +87,28 @@ namespace valid{ // bound checking
     inline constexpr bool pow(const T& base, const T& power){ // checks if the power is valid
         return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
     }
+    
+    template <typename T>
+    inline constexpr T max(const T& input){
+        return static_cast<T>(std::numeric_limits<T>::max());
+    }
+    
+    // max value of a given infinite integer
+    template <class T, typename U>
+    inline constexpr U max(inf_int<T>& input){
+        // (base^(bit length - 1) -1 / base -1)
+        // ex x^7 -1 / x-1 
+    
+        return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
+    };
+    
+    
+    template <typename T>
+    inline constexpr T min(const T& input){
+        return static_cast<T>(std::numeric_limits<T>::min());
+    }
 
 }
-
-
-
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword
 
@@ -301,7 +298,7 @@ inline U inf_int<T>::value() {
     U out = 0; //output number
     while (i >= 0) { // while i is 0 or more
         if (!valid::pow<U>(this->get_base<U>(), i)){ // if 
-            return max<U>(out);
+            return valid::max<U>(out);
         }
 
         if (((1<<i) & this->buffer)) 
@@ -329,7 +326,7 @@ inline std::string inf_int<T>::info(){
     return  "\nVAL:\t" + std::to_string(this->value<long long>()) +
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
             "\nBASE:\t" + std::to_string(this->get_base()) +
-            "\nMAX:\t" + std::to_string(max<T, long long>(*this)) + 
+            "\nMAX:\t" + std::to_string(valid::max<T, long long>(*this)) + 
             "\n";
 };
 
@@ -361,10 +358,10 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     if(!value) return *this; // base case, if 0 
 
     // iterates until a base that can hold the number is found
-    U max_val = max<T, U>(*this); // temp max val variable
+    U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
         this->base++; // increases the base
-        max_val = max<T, U>(*this); // makes new max val
+        max_val = valid::max<T, U>(*this); // makes new max val
     }
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer

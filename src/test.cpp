@@ -31,7 +31,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << (int)a.value<int8_t>();
+    std::cout << (int)a.value_safe<int8_t>();
 
 
 

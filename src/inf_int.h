@@ -158,6 +158,9 @@ class inf_int{
     template <typename U>
     inline U value(); // gets the value from buffer
 
+    template <typename U>
+    inline U value_safe(); // gets the value from buffer but SAFE (throws an error)
+
     inline std::vector<T> value(); // returns value as a vector
 
     template<typename U>
@@ -302,7 +305,7 @@ inline U inf_int<T>::value() {
 
         if (((1<<i) & this->buffer)) {
             U tmp = static_cast<U>(std::pow(this->get_base(), i));
-            if (!valid::add(out, tmp))
+            if (!valid::add(out, tmp)) // if adding overflows, return the max value
                 return valid::max<U>(out);
             
             
@@ -310,9 +313,33 @@ inline U inf_int<T>::value() {
         }
         i--;
     }
-
     return out;
+};
 
+template <typename T>
+template <typename U>
+inline U inf_int<T>::value_safe() {
+    if (!this->get_buffer()) return 0; // base case
+    if (this->get_base<U>() == 2) return this->get_buffer<U>();
+
+    int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
+
+    U out = 0; //output number
+
+    while (i >= 0) { // while i is 0 or more
+        
+
+        if (((1<<i) & this->buffer)) {
+            U tmp = static_cast<U>(std::pow(this->get_base(), i));
+            if (!valid::add(out, tmp)) // if adding overflows, return the max value
+                throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
+
+            
+            out+= tmp; //adds the std::power
+        }
+        i--;
+    }
+    return out;
 };
 
 

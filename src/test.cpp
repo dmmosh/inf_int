@@ -30,7 +30,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << a.value<long long>();
+    std::cout << a.value<int>();
 
 
 

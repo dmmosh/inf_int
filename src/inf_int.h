@@ -155,6 +155,7 @@ class inf_int{
     template <typename U>
     inline U value(); // gets the value from buffer
 
+
     inline T get_buffer(); // outs the buffer in a data type
 
     inline uT get_base(); // gets the base
@@ -191,7 +192,7 @@ class inf_int{
             out.base++;
             
         }
-
+ 
         out.buffer += add;
         return out;
     }; 

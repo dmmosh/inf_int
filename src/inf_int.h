@@ -293,6 +293,7 @@ template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
     if (!this->buffer) return 0; // base case
+    if (this->get_base<U>() == 2) return this->get_buffer<U>();
 
     U out = 0; //output number
     int8_t i = LEFT_BIT(this->buffer); // i iterate over bits

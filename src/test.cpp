@@ -31,7 +31,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << a.value<int>();
+    std::cout << a.value<long>();
 
 
 

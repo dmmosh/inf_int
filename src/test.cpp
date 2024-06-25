@@ -34,7 +34,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << pow_bound(3, 99999);
+    std::cout << pow_bound(3, 99);
 
 
 

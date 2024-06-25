@@ -296,13 +296,18 @@ inline U inf_int<T>::value() {
     int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
 
     U out = 0; //output number
-    while (i >= 0) { // while i is 0 or more
-        if (!valid::pow<U>(this->get_base<U>(), i)){ // if 
-            return valid::max<U>(out);
-        }
 
-        if (((1<<i) & this->buffer)) 
-            out+= static_cast<U>(std::pow(this->get_base(), i)); //adds the std::power
+    while (i >= 0) { // while i is 0 or more
+        
+
+        if (((1<<i) & this->buffer)) {
+            U tmp = static_cast<U>(std::pow(this->get_base(), i));
+            if (!valid::add(out, tmp))
+                return valid::max<U>(out);
+            
+            
+            out+= tmp; //adds the std::power
+        }
         i--;
     }
 

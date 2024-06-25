@@ -31,7 +31,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << a.value<long>();
+    std::cout << a.value<int8_t>();
 
 
 

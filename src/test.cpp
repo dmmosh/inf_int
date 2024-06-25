@@ -23,6 +23,7 @@ int main(void){
     inf_int<int> a = 999999999999999999;
     // the int limit is: 2147483647
     inf_int<int> b = 999999999999999;
+    inf_int<int8_t> c = 9999999;
 
     std::cout << a.info();
 
@@ -30,7 +31,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << static_cast<unsigned int>(std::pow<unsigned int, unsigned int>(2,31));
+    std::cout << a.value<int>();
 
 
 

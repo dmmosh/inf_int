@@ -34,7 +34,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << pow_bound(2, 31);
+    std::cout << pow_bound<unsigned int>(2, 31);
 
 
 

@@ -29,7 +29,7 @@ inline constexpr U max(inf_int<T>& input){
     // (base^(bit length - 1) -1 / base -1)
     // ex x^7 -1 / x-1 
 
-    return static_cast<U>((pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
+    return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
 };
 
 
@@ -71,7 +71,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 
     while(val >0 && i >= 0) {
         //std::cout << val << i;
-        auto minus = pow(base_new, i);
+        auto minus = std::pow(base_new, i);
         if(minus <= val){
             val-=minus;
             out += 1<< i;
@@ -277,7 +277,7 @@ inline U inf_int<T>::value() {
 
     while (i >= 0) { // while i is 0 or more
         if ((1<<i) & this->buffer) 
-            out+= static_cast<U>(pow(this->get_base(), i)); //adds the power
+            out+= static_cast<U>(std::pow(this->get_base(), i)); //adds the std::power
         i--;
     }
 

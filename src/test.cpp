@@ -30,7 +30,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << std::pow<unsigned int, unsigned int>(2,31);
+    std::cout << static_cast<unsigned int>(std::pow<unsigned int, unsigned int>(2,31));
 
 
 

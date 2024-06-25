@@ -318,7 +318,7 @@ inline U inf_int<T>::value() {
 
 template <typename T>
 template <typename U>
-inline U inf_int<T>::value_safe() {
+inline U inf_int<T>::value_safe() { // returns the value but safely
     if (!this->get_buffer()) return 0; // base case
     if (this->get_base<U>() == 2) return this->get_buffer<U>();
 

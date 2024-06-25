@@ -15,6 +15,11 @@ if the last bit is a 1 (negative, substract) then use & operator
 if the last bit is 0
 */
 
+template<typename T>
+inline constexpr bool pow_bound(const T& base, const T& power){
+    return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
+}
+
 int main(void){
 
     //inf_int<int8_t> a = 1000;
@@ -29,7 +34,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << ((4 * std::log(2) < std::log(std::numeric_limits<int8_t>::max())) ? 1 : 0);
+    std::cout << pow_bound(3, 99999);
 
 
 

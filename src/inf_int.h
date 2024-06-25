@@ -162,12 +162,15 @@ class inf_int{
 
     inline std::vector<T> value(); // returns value as a vector
 
-    inline T get_buffer(); // outs the buffer in a data type
+    template<typename U>
+    inline U get_buffer();
 
-    inline uT get_base(); // gets the base
+    inline T get_buffer(); // outs the buffer in a data type
 
     template<typename U>
     inline uU get_base(); // gets the base
+
+    inline uT get_base(); // gets the base
 
     inline std::string info(); // prints info
 
@@ -262,10 +265,15 @@ base_breach(init_val.base_breach)
 
 // FUNCTIONS
 
+template <class T>
+template<typename U>
+inline U inf_int<T>::get_buffer(){
+    return static_cast<U>(this->buffer);
+};
 
 template <class T>
 inline T inf_int<T>::get_buffer(){
-    return static_cast<T>(this->buffer);
+    return this->get_buffer<T>();
 };
 
 template <class T>

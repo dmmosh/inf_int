@@ -29,7 +29,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << ((std::pow<int8_t, int8_t>(3,10) == HUGE_VAL) ? 1 : 0);
+    std::cout << ((10 * std::log(3) < std::log(std::numeric_limits<int8_t>::max())) ? 1 : 0);
 
 
 

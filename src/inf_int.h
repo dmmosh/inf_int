@@ -50,10 +50,6 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
-template<typename T>
-inline constexpr bool pow_bound(const T& base, const T& power){ // checks if the power is valid
-    return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
-}
 
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
@@ -87,7 +83,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     return out;
 };
 
-namespace valid{
+namespace valid{ // bound checking
     template<typename T, typename U>
     inline constexpr bool add( T to, U from ) {
         if (LEFT_BIT(from) > sizeof(T)*8-1) return false;
@@ -105,6 +101,11 @@ namespace valid{
       if ((from > 0) && (to < std::numeric_limits<T>::min() + from)) return false;
 
       return true;
+    }
+
+    template<typename T>
+    inline constexpr bool pow(const T& base, const T& power){ // checks if the power is valid
+        return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
     }
 
 }
@@ -292,14 +293,18 @@ inline uT inf_int<T>::get_base() {
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
-    if (!this->buffer) return 0; // base case
+    if (!this->get_buffer()) return 0; // base case
     if (this->get_base<U>() == 2) return this->get_buffer<U>();
 
-    U out = 0; //output number
-    int8_t i = LEFT_BIT(this->buffer); // i iterate over bits
+    int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
 
+    U out = 0; //output number
     while (i >= 0) { // while i is 0 or more
-        if (((1<<i) & this->buffer) && pow_bound<U>(this->get_base<U>(), i)) 
+        if (!valid::pow<U>(this->get_base<U>(), i)){ // if 
+            return max<U>(out);
+        }
+
+        if (((1<<i) & this->buffer)) 
             out+= static_cast<U>(std::pow(this->get_base(), i)); //adds the std::power
         i--;
     }

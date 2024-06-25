@@ -30,7 +30,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << a.value<int>();
+    std::cout << std::pow<unsigned int, unsigned int>(2,31);
 
 
 

@@ -29,7 +29,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << (std::pow(3,999999) == HUGE_VAL) ? 1 : 0;
+    std::cout << ((std::pow(3,999999) == HUGE_VAL) ? 1 : 0);
 
 
 

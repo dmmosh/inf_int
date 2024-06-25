@@ -29,7 +29,7 @@ int main(void){
 
 
     std::cout << a.info();
-    std::cout << ((10 * std::log(3) < std::log(std::numeric_limits<int8_t>::max())) ? 1 : 0);
+    std::cout << ((4 * std::log(2) < std::log(std::numeric_limits<int8_t>::max())) ? 1 : 0);
 
 
 

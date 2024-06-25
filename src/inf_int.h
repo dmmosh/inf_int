@@ -50,6 +50,11 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
+template<typename T>
+inline constexpr bool pow_bound(const T& base, const T& power){ // checks if the power is valid
+    return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
+}
+
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
@@ -155,10 +160,14 @@ class inf_int{
     template <typename U>
     inline U value(); // gets the value from buffer
 
+    inline std::vector<T> value(); // returns value as a vector
 
     inline T get_buffer(); // outs the buffer in a data type
 
     inline uT get_base(); // gets the base
+
+    template<typename U>
+    inline uU get_base(); // gets the base
 
     inline std::string info(); // prints info
 
@@ -259,12 +268,17 @@ inline T inf_int<T>::get_buffer(){
     return static_cast<T>(this->buffer);
 };
 
+template <class T>
+template<typename U>
+inline uU inf_int<T>::get_base(){
+    return static_cast<uU>(this->base);
+}; 
 
 // NEVER CALL BASE RAW
 // todo: change some stuff here
 template <class T>
 inline uT inf_int<T>::get_base() {
-    return static_cast<uT>(this->base);
+    return this->get_base<T>();
 };
 
 template <typename T>
@@ -273,10 +287,10 @@ inline U inf_int<T>::value() {
     if (!this->buffer) return 0; // base case
 
     U out = 0; //output number
-    int i = LEFT_BIT(this->buffer); // i iterate over bits
+    int8_t i = LEFT_BIT(this->buffer); // i iterate over bits
 
     while (i >= 0) { // while i is 0 or more
-        if ((1<<i) & this->buffer) 
+        if (((1<<i) & this->buffer) && pow_bound<U>(this->get_base<U>(), i)) 
             out+= static_cast<U>(std::pow(this->get_base(), i)); //adds the std::power
         i--;
     }
@@ -284,6 +298,17 @@ inline U inf_int<T>::value() {
     return out;
 
 };
+
+
+template <typename T>
+inline std::vector<T> inf_int<T>::value() {
+    std::vector<T> out; 
+
+
+    return out;
+}; 
+
+
 
 template <class T>
 inline std::string inf_int<T>::info(){

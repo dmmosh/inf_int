@@ -312,7 +312,8 @@ inline U inf_int<T>::value() {
 
     U out = 0; //output number
 
-    if(NEGATIVE_SIGN & this->flags_arr){ // if buffer is negative
+    if((NEGATIVE_SIGN & this->flags_arr) && std::is_signed<U>()){ // if buffer is negative & output data type is signed
+        out-=std::pow(this->get_base(), sizeof(this->get_buffer())*8-2);
         i--;
     } 
 

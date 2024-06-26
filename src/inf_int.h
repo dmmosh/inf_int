@@ -94,10 +94,12 @@ namespace valid{ // bound checking
         return ((power * std::log(base) < std::log(std::numeric_limits<T>::max())) ?  true : false);
     }
     
+
     template <typename T>
-    inline constexpr T max(const T& input){
+    inline constexpr T max(){
         return static_cast<T>(std::numeric_limits<T>::max());
     }
+
     
     // max value of a given infinite integer
     template <class T, typename U>
@@ -110,7 +112,7 @@ namespace valid{ // bound checking
     
     
     template <typename T>
-    inline constexpr T min(const T& input){
+    inline constexpr T min(){
         return static_cast<T>(std::numeric_limits<T>::min());
     }
 
@@ -310,13 +312,23 @@ inline U inf_int<T>::value() {
 
     U out = 0; //output number
 
+    if(this->get_buffer() < 0){ // if buffer is negative
+        U tmp = static_cast<U>(std::pow(this->get_base(), sizeof(this->get_buffer())*8-2)) +1;
+        if (!valid::subtract(out, tmp))
+            return valid::min<U>();
+        out-=tmp;
+        i--; 
+    } 
+
+
+
     while (i >= 0) { // while i is 0 or more
         
 
         if (((1<<i) & this->buffer)) {
             U tmp = static_cast<U>(std::pow(this->get_base(), i));
             if (!valid::add(out, tmp)) // if adding overflows, return the max value
-                return valid::max<U>(out);
+                return valid::max<U>();
             
             
             out+= tmp; //adds the std::power

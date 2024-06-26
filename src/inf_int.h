@@ -14,7 +14,7 @@
 #define INT8(x) static_cast<int8_t>(x)
 
  // flags macros
-#define SIGN 1
+#define NEGATIVE_SIGN 1
 #define BASE (1<<1)
 #define BUFFER (1<<2)
 #define uT typename std::make_unsigned<T>::type
@@ -30,7 +30,7 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
         return log2(input);
-    } else if (input <0){ // cant have SIGN logs
+    } else if (input <0){ // cant have NEGATIVE_SIGN logs
         return sizeof(input)*8-1;
     };
     return -1; // if input is 0
@@ -388,7 +388,7 @@ inline std::string inf_int<T>::info(){
 template <class T>
 inline std::string inf_int<T>::flags(){ // prints flags
     return  std::string("The number is: [ ") + 
-            ((SIGN & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
+            ((NEGATIVE_SIGN & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
             ((BASE & this->flags_arr) ? "BASE_UP, " : "BASE_FINE, ") + 
             ((BUFFER & this->flags_arr) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
 
@@ -424,9 +424,9 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     if(!value) return *this; // base case, if 0 
     
     if (value <0 ){ // if value is negative (signed)
-        this->flags_arr |= SIGN; // flip the sign, number is now negative
+        this->flags_arr |= NEGATIVE_SIGN; // flip the sign, number is now negative
         //value ^= (1<<sizeof(value)*8-1);
-        value = ~(value-1);
+        value = ~(value-1); // inverses twos compliment
     }
 
     // iterates until a base that can hold the number is found
@@ -440,6 +440,10 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
+    if (NEGATIVE_SIGN & this->flags_arr) { // if the sign is negative
+        this->buffer = ~(this->buffer+1);
+    } 
+
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

@@ -422,10 +422,7 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
-    if (value <0 ){ // if value is negative (signed)
-        this->flags_arr |= SIGN; // flip the sign, number is now negative
-        
-    }
+    
 
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
@@ -433,10 +430,15 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
         this->flags_arr |= BASE; // flips the base up bit
         this->flags_arr |= BUFFER; // flips the buffer up bit
         this->base++; // increases the base
-        max_val = valid::max<T, U>(*this); // makes new max val
+        max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
     }
 
-    this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
+    if (value <0 ){ // if value is negative (signed)
+        this->flags_arr |= SIGN; // flip the sign, number is now negative
+        this->buffer -= static_cast<U>(std::pow(this->get_base(), sizeof(this->get_buffer())*8-2)) +1;
+    }
+
+    this->buffer += base_convert<U>(value, 2, this->get_base()); // makes the buffer
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

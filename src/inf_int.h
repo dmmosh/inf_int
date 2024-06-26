@@ -263,8 +263,7 @@ template <class T>
 template <class U>
 inf_int<T>::inf_int(inf_int<U>& init_val):
 buffer(init_val.get_buffer()),
-base(init_val.get_base()),
-base_breach(init_val.base_breach)
+base(init_val.get_base())
 {   
     return;
 };

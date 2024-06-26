@@ -435,10 +435,9 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
 
     if (value <0 ){ // if value is negative (signed)
         this->flags_arr |= SIGN; // flip the sign, number is now negative
-        this->buffer -= static_cast<U>(std::pow(this->get_base(), sizeof(this->get_buffer())*8-2)) +1;
     }
 
-    this->buffer += base_convert<U>(value, 2, this->get_base()); // makes the buffer
+    this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
 
 
     // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){

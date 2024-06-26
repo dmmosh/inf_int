@@ -120,6 +120,9 @@ namespace valid{ // bound checking
     inline constexpr U min(inf_int<T>& input){
         // (base^(bit length - 1) -1 / base -1)
         // ex x^7 -1 / x-1 
+
+        if (!std::is_signed<T>()) // if the number is unsigned
+            return 0;
     
         return -(valid::max<T, U>(input))-1;
     };

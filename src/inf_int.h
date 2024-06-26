@@ -386,7 +386,7 @@ inline std::string inf_int<T>::info(){
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
             "\nBASE:\t" + std::to_string(this->get_base()) +
             "\nMAX:\t" + std::to_string(valid::max<T, long long>(*this)) +
-            "\nMIN:\t" + std::to_string(-(valid::max<T, long long>(*this) +1)) + 
+            "\nMIN:\t" + std::to_string(valid::min<T, long long>(*this)) + 
             "\n" + this->flags() + "\n";
 };
 

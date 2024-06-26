@@ -426,7 +426,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     if (value <0 ){ // if value is negative (signed)
         this->flags_arr |= NEGATIVE_SIGN; // flip the sign, number is now negative
         //value ^= (1<<sizeof(value)*8-1);
-        value = ~(value-1); // inverses twos compliment
+        value = ~(value)-1; // inverses twos compliment
     }
 
     // iterates until a base that can hold the number is found
@@ -441,7 +441,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
     if (NEGATIVE_SIGN & this->flags_arr) { // if the sign is negative
-        this->buffer = ~(this->buffer);
+        this->buffer = ~(this->buffer)+1;
     } 
 
 

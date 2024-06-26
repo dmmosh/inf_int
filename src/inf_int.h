@@ -442,7 +442,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
     if (NEGATIVE_SIGN & this->flags_arr) { // if the sign is negative
         this->buffer = ~(this->buffer)+1;
-        this->buffer |= sizeof(this->buffer)*8-1;
+        //this->buffer |= sizeof(this->buffer)*8-1;
     } 
 
 

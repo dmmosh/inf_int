@@ -424,7 +424,7 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     if(!value) return *this; // base case, if 0 
 
     // iterates until a base that can hold the number is found
-    T max_val = valid::max<T, U>(*this); // temp max val variable
+    U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
         this->flags_arr |= BASE; // flips the base up bit
         this->flags_arr |= BUFFER; // flips the buffer up bit

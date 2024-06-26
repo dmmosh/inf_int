@@ -262,6 +262,7 @@ flags_arr(0)
     if(!value) return;
 
     *this = value;
+    return;
 };
 
 
@@ -321,7 +322,7 @@ inline U inf_int<T>::value() {
     while (i >= 0) { // while i is 0 or more
         
 
-        if (((1<<i) & this->buffer)) {
+        if ((1<<i) & this->buffer) {
             U tmp = static_cast<U>(std::pow(this->get_base(), i));
             if (!valid::add(out, tmp)) // if adding overflows, return the max value
                 return valid::max<U>();

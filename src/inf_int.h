@@ -375,9 +375,9 @@ inline std::string inf_int<T>::info(){
 template <class T>
 inline std::string inf_int<T>::flags(){ // prints flags
     return  std::string("The number is: [ ") + 
-            ((SIGN & this->flags_arr) ? "SIGN, " : "POSITIVE, ") +
-            ((BASE & this->flags_arr) ? "BASE, " : "BASE_FINE, ") + 
-            ((BUFFER & this->flags_arr) ? "BUFFER ]" : "BUFFER_FINE ]" );
+            ((SIGN & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
+            ((BASE & this->flags_arr) ? "BASE_UP, " : "BASE_FINE, ") + 
+            ((BUFFER & this->flags_arr) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
 
 }; 
 

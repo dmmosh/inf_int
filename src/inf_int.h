@@ -107,7 +107,7 @@ namespace valid{ // bound checking
         // (base^(bit length - 1) -1 / base -1)
         // ex x^7 -1 / x-1 
     
-        return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-1)-1)/(input.get_base()-1));
+        return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-((std::is_signed<T>()) ? 1 : 0))-1)/(input.get_base()-1));
     };
     
     
@@ -115,6 +115,14 @@ namespace valid{ // bound checking
     inline constexpr T min(){
         return static_cast<T>(std::numeric_limits<T>::min());
     }
+
+    template <class T, typename U>
+    inline constexpr U min(inf_int<T>& input){
+        // (base^(bit length - 1) -1 / base -1)
+        // ex x^7 -1 / x-1 
+    
+        return -(valid::max<T, U>(input))-1;
+    };
 
 }
 // FUNCTION DECLARATIONS

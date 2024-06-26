@@ -26,7 +26,7 @@ int main(void){
 
     std::cout << a.info() << b.info();
     a +=b;
-    std::cout << a.info();
+    std::cout << a.info() << valid::max<int8_t, int>(a) << N << valid::min<int8_t, int>(a);
 
 
 }

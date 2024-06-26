@@ -14,9 +14,9 @@
 #define INT8(x) static_cast<int8_t>(x)
 
  // flags macros
-#define NEGATIVE 1
-#define BASE_UP (1<<1)
-#define BUFFER_UP (1<<2)
+#define SIGN 1
+#define BASE (1<<1)
+#define BUFFER (1<<2)
 #define uT typename std::make_unsigned<T>::type
 #define uU typename std::make_unsigned<U>::type
 
@@ -30,7 +30,7 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
     if (input >0) { // if input is over 0
         return log2(input);
-    } else if (input <0){ // cant have negative logs
+    } else if (input <0){ // cant have SIGN logs
         return sizeof(input)*8-1;
     };
     return -1; // if input is 0
@@ -375,9 +375,9 @@ inline std::string inf_int<T>::info(){
 template <class T>
 inline std::string inf_int<T>::flags(){ // prints flags
     return  std::string("The number is: [ ") + 
-            ((NEGATIVE & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
-            ((BASE_UP & this->flags_arr) ? "BASE_UP, " : "BASE_FINE, ") + 
-            ((BUFFER_UP & this->flags_arr) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
+            ((SIGN & this->flags_arr) ? "SIGN, " : "POSITIVE, ") +
+            ((BASE & this->flags_arr) ? "BASE, " : "BASE_FINE, ") + 
+            ((BUFFER & this->flags_arr) ? "BUFFER ]" : "BUFFER_FINE ]" );
 
 }; 
 
@@ -409,12 +409,14 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
+    if(LEFT_BIT(value) == sizeof(value)*8-1)
+        this->flags_arr |= SIGN;
 
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-        this->flags_arr |= BASE_UP; // flips the base up bit
-        this->flags_arr |= BUFFER_UP; // flips the buffer up bit
+        this->flags_arr |= BASE; // flips the base up bit
+        this->flags_arr |= BUFFER; // flips the buffer up bit
         this->base++; // increases the base
         max_val = valid::max<T, U>(*this); // makes new max val
     }

@@ -21,8 +21,10 @@ int main(void){
     //inf_int<int8_t> a = 1000;
 
     inf_int<int8_t> a = -2000000;
+    inf_int<int8_t> b = 2000000;
 
-    std::cout << a.info();
+
+    std::cout << a.info() << b.info();
 
 
 }

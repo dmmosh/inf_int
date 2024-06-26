@@ -329,7 +329,7 @@ inline U inf_int<T>::value() {
     }
     if((NEGATIVE_SIGN & this->flags_arr) && std::is_signed<U>()){ // if buffer is negative & output data type is signed
         out = 0;
-        out-= valid::max<T,U>(*this)-1;
+        out-= valid::max<T,U>(*this)+1;
         i--;
     } 
     return out;

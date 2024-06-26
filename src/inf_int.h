@@ -197,7 +197,7 @@ class inf_int{
     inf_int<T>& operator+=(const inf_int<U>& add);  // overloads += operator with another inf int
 
     template<typename U>
-    inf_int<T>& operator=(U& value);  // overloads = operator with another inf int
+    inf_int<T>& operator=(U value);  // overloads = operator with another inf int
 
     template<class U>
     inf_int<T>& operator=(inf_int<U>& value);  // overloads = operator with another inf int
@@ -413,7 +413,7 @@ inf_int<T>& inf_int<T>::operator+=(const inf_int<U>& add){
 
 template<class T> 
 template<typename U>
-inf_int<T>& inf_int<T>::operator=(U& value) {
+inf_int<T>& inf_int<T>::operator=(U value) {
     // loops while the left bit of the value is bigger than the leftmost bit in buffer
     // usually executes once
     
@@ -423,6 +423,10 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
 
     if(!value) return *this; // base case, if 0 
     
+    if (value <0 ){ // if value is negative (signed)
+        this->flags_arr |= SIGN; // flip the sign, number is now negative
+        value -= valid::min<U>();
+    }
 
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
@@ -433,9 +437,6 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
         max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
     }
 
-    if (value <0 ){ // if value is negative (signed)
-        this->flags_arr |= SIGN; // flip the sign, number is now negative
-    }
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
 

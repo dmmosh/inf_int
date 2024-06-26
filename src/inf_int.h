@@ -422,7 +422,7 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
-    if(LEFT_BIT(value) == sizeof(value)*8-1)
+    if(value <0)
         this->flags_arr |= SIGN;
 
     // iterates until a base that can hold the number is found

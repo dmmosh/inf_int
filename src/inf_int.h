@@ -312,11 +312,11 @@ inline U inf_int<T>::value() {
 
     U out = 0; //output number
 
-    if((NEGATIVE_SIGN & this->flags_arr) && std::is_signed<U>()){ // if buffer is negative & output data type is signed
-        out-= valid::max<T,U>(*this)+1;
+    if((NEGATIVE_SIGN & this->flags_arr)){ // if buffer is negative & output data type is signed
+        if (std::is_signed<U>())
+            out-= valid::max<T,U>(*this)+1;
         i--;
     } 
-    
 
     while (i >= 0) { // while i is 0 or more
         

@@ -144,7 +144,7 @@ class inf_int{
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
 
-    int8_t flags_arr; // flags array, each bit acts as a boolean
+    int8_t flags_arr; // flags array, each bit acts as a boolean, 3 filled so far
 
     // CONSTRUCTORS
 

@@ -413,8 +413,8 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-        this->flags_arr |= BASE_UP;
-        this->flags_arr |= BUFFER_UP;
+        this->flags_arr |= BASE_UP; // flips the base up bit
+        this->flags_arr |= BUFFER_UP; // flips the buffer up bit
         this->base++; // increases the base
         max_val = valid::max<T, U>(*this); // makes new max val
     }

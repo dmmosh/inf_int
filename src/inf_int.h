@@ -12,9 +12,11 @@
 // macros
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
-#define NEGATIVE (1 & this->flags_arr)
-#define BASE_OVERFLOW ((1<<1) & this->flags_arr)
-#define BUFFER_OVERFLOW ((1<<2) & this->flags_arr)
+
+ // flags macros
+#define NEGATIVE 1
+#define BASE_UP (1<<1)
+#define BUFFER_UP (1<<2)
 #define uT typename std::make_unsigned<T>::type
 #define uU typename std::make_unsigned<U>::type
 
@@ -242,7 +244,8 @@ class inf_int{
 template <class T>
 inf_int<T>::inf_int():
 buffer(0),
-base(2)
+base(2),
+flags_arr(0)
 {
     return;
 };
@@ -251,7 +254,8 @@ template <class T>
 template <typename U> 
 inf_int<T>::inf_int(U value):
 buffer(0),
-base(2)
+base(2),
+flags_arr(0)
 {
     if(!value) return;
 
@@ -263,7 +267,8 @@ template <class T>
 template <class U>
 inf_int<T>::inf_int(inf_int<U>& init_val):
 buffer(init_val.get_buffer()),
-base(init_val.get_base())
+base(init_val.get_base()),
+flags_arr(init_val.flags_arr)
 {   
     return;
 };
@@ -370,9 +375,9 @@ inline std::string inf_int<T>::info(){
 template <class T>
 inline std::string inf_int<T>::flags(){
     return  std::string("The number is: [ ") + 
-            ((NEGATIVE) ? "NEGATIVE, " : "POSITIVE, ") +
-            ((BASE_OVERFLOW) ? "BASE_OVERFLOW, " : "BASE_FINE, ") + 
-            ((BUFFER_OVERFLOW) ? "BUFFER_OVERFLOW ]" : "BUFFER_FINE ]" );
+            ((NEGATIVE & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
+            ((BASE_UP & this->flags_arr) ? "BASE_UP, " : "BASE_FINE, ") + 
+            ((BUFFER_UP & this->flags_arr) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
 
 }; // prints flags
 
@@ -401,6 +406,7 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     
     this->buffer = 0;
     this->base = 2; // restarts the base
+    this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
 
@@ -428,7 +434,7 @@ template<class U>
 inf_int<T>& inf_int<T>::operator=(inf_int<U>& value){
     this->base = value.get_base();
     this->buffer = value.get_buffer();
-    this->base_breach = value.base_breach;
+    this->flags_arr = value.flags_arr; 
     
     //TODO: add checking to make sure the base itself isnt an inf int
     return *this;

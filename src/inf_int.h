@@ -312,15 +312,13 @@ inline U inf_int<T>::value() {
 
     U out = 0; //output number
 
-    if(this->get_buffer() < 0){ // if buffer is negative
+    if(NEGATIVE_SIGN & this->flags_arr){ // if buffer is negative
         U tmp = static_cast<U>(std::pow(this->get_base(), sizeof(this->get_buffer())*8-2)) +1;
         if (!valid::subtract(out, tmp))
             return valid::min<U>();
         out-=tmp;
         i--; 
     } 
-
-
 
     while (i >= 0) { // while i is 0 or more
         

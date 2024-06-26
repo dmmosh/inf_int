@@ -20,7 +20,7 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<int8_t> a = 130;
+    inf_int<int8_t> a = -10;
 
     std::cout << a.info();
 

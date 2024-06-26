@@ -422,6 +422,10 @@ inf_int<T>& inf_int<T>::operator=(U& value) {
     this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
+    if (value <0 ){ // if value is negative (signed)
+        this->flags_arr |= SIGN; // flip the sign, number is now negative
+        
+    }
 
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable

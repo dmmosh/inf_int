@@ -12,8 +12,12 @@
 // macros
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
+#define NEGATIVE (1 & this->flags_arr)
+#define BASE_OVERFLOW ((1<<1) & this->flags_arr)
+#define BUFFER_OVERFLOW ((1<<2) & this->flags_arr)
 #define uT typename std::make_unsigned<T>::type
 #define uU typename std::make_unsigned<U>::type
+
 
 template<class T> class inf_int; // class definition
 // MAX AND MIN, O(1) time
@@ -137,8 +141,8 @@ class inf_int{
     // why ?
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
-    bool base_breach; // if base has been overflowed itself
-    // TODO: change some code to utilize base breach for true super duper infinity and beyond
+
+    int8_t flags_arr; // flags array, each bit acts as a boolean
 
     // CONSTRUCTORS
 
@@ -174,6 +178,8 @@ class inf_int{
     inline uT get_base(); // gets the base
 
     inline std::string info(); // prints info
+
+    inline std::string flags(); // prints flags
 
 
 
@@ -359,8 +365,18 @@ inline std::string inf_int<T>::info(){
             "\nBITS:\t" + BITS(this->get_buffer()).to_string() + 
             "\nBASE:\t" + std::to_string(this->get_base()) +
             "\nMAX:\t" + std::to_string(valid::max<T, long long>(*this)) + 
-            "\n";
+            "\n" + this->flags() + "\n";
 };
+
+template <class T>
+inline std::string inf_int<T>::flags(){
+    return  std::string("The number is: [ ") + 
+            ((NEGATIVE) ? "NEGATIVE, " : "POSITIVE, ") +
+            ((BASE_OVERFLOW) ? "BASE_OVERFLOW, " : "BASE_FINE, ") + 
+            ((BUFFER_OVERFLOW) ? "BUFFER_OVERFLOW ]" : "BUFFER_FINE ]" );
+
+}; // prints flags
+
 
 template<class T>
 template<typename U>

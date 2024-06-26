@@ -9,7 +9,7 @@ def sum(base, num_bits):
 
     print('BASE', base, sep='\t')
     print('BIT', 'VAL', 'SUM', sep='\t')
-    for i in range(0,num_bits-1):
+    for i in range(0,num_bits):
         out += pow(base, i)        
         print(i, int(pow(base,i)), int(out), sep='\t')
     print(int(out), '\n')

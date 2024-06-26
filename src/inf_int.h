@@ -425,7 +425,8 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     
     if (value <0 ){ // if value is negative (signed)
         this->flags_arr |= SIGN; // flip the sign, number is now negative
-        value ^= (1<<sizeof(value)*8-1);
+        //value ^= (1<<sizeof(value)*8-1);
+        value = ~(value-1);
     }
 
     // iterates until a base that can hold the number is found

@@ -25,52 +25,6 @@ template<class T> class inf_int; // class definition
 // MAX AND MIN, O(1) time
 
 
-template <typename T>
-inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
-    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
-    if (input >0) { // if input is over 0
-        return log2(input);
-    } else if (input <0){ // cant have NEGATIVE_SIGN logs
-        return sizeof(input)*8-1;
-    };
-    return -1; // if input is 0
-}
-
-
-
-// base conversion NOTE: data types of all have to match, make sure to CAST 
-template <typename T>
-constexpr T base_convert(T val, const T& base_cur, const T& base_new){
-
-    if (base_cur == base_new) // base case, if bases match
-        return val;
-
-    T out = 0;
-    //ONLY BASE UP FOR NOW
-
-    int8_t i;
-
-    if (base_cur> base_new){
-        i = sizeof(val)*8-1;
-    } else {
-        i = LEFT_BIT(val);
-    }
-
-
-         
-    while(val => 0 && i >= 0) {
-        //std::cout << val << i;
-        auto minus = std::pow(base_new, i);
-        if(val-minus =>0){
-            val-=minus;
-            out += 1<<i;
-        }
-        i--;
-    }
-
-    return out;
-};
-
 namespace valid{ // bound checking
     template<typename T, typename U>
     inline constexpr bool add( T to, U from ) {
@@ -130,6 +84,54 @@ namespace valid{ // bound checking
     };
 
 }
+
+template <typename T>
+inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
+    // ex 10 would give 3, 1010, leftmost bit is 2^3 aka 8
+    if (input >0) { // if input is over 0
+        return log2(input);
+    } else if (input <0){ // cant have NEGATIVE_SIGN logs
+        return sizeof(input)*8-1;
+    };
+    return -1; // if input is 0
+}
+
+
+
+// base conversion NOTE: data types of all have to match, make sure to CAST 
+template <typename T>
+constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+
+    if (base_cur == base_new) // base case, if bases match
+        return val;
+
+    T out = 0;
+    //ONLY BASE UP FOR NOW
+
+    int8_t i;
+
+    if (base_cur> base_new){
+        i = sizeof(val)*8-1;
+    } else {
+        i = LEFT_BIT(val);
+    }
+
+
+         
+    while(i >= 0) {
+        //std::cout << val << i;
+        auto minus = std::pow(base_new, i);
+        if (!valid::substract(val, minus)) // if cant substract any more, break
+            break;
+        
+        val-=minus;
+        out += 1<<i;
+        i--;
+    }
+
+    return out;
+};
+
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword
 

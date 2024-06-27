@@ -115,6 +115,10 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i = LEFT_BIT(val); // length of the bits
     else 
         i = sizeof(val)*8-1;
+
+    if (val <0) {
+        i--;
+    }
     
     while(val >0 && i >= 0) {
         //std::cout << val << i;

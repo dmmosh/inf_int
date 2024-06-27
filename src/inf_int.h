@@ -115,7 +115,8 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i = LEFT_BIT(val); // length of the bits
     else 
         i = sizeof(val)*8-1;
-    return i;
+
+
     bool negative = false;
     if (val <0){
         val = -val; // makes the value negative
@@ -125,7 +126,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     
     while(val >0 && i >= 0) {
         //std::cout << val << i;
-        auto minus = std::pow(base_new, i);
+        auto minus = std::pow(std::max(base_cur, base_new), i);
         if(minus <= val){
             val-=minus;
             out += 1<< i;

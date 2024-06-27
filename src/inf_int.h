@@ -134,7 +134,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     }
     if (negative){
         out = -out;
-        out &= 1;
+        out |= 1;
     }
 
     return out;

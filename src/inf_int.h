@@ -117,7 +117,8 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i = sizeof(val)*8-1;
     
     if (val <0)
-        return -1;
+        out += 1<<i; 
+        i--;
     
     while(i >= 0) {
         //std::cout << val << i;

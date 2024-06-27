@@ -20,13 +20,13 @@ int main(void){
 
     //inf_int<int8_t> a = 1000;
 
-    inf_int<uint8_t> a = 200;
+    inf_int<int8_t> a = 200;
     inf_int<int8_t> b = 38192;
 
 
     std::cout << a.info() << b.info();
     a +=b;
-    std::cout << a.info() << valid::max<uint8_t, int>(a) << N << valid::min<uint8_t, int>(a) << N;
+    std::cout << a.info() << valid::max<int8_t, int>(a) << N << valid::min<int8_t, int>(a) << N;
 
     int8_t out = base_convert<int8_t>(0b00001000, 3,4);
     std::cout << N << (int)out << N << BITS(out)<< N;

@@ -119,6 +119,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     if (val<0){
         out -= valid::min<T>(); 
         val = -val;
+        i--;
     }
 
     while(val >0 && i >= 0) {

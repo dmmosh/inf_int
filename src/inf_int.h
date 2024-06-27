@@ -108,13 +108,12 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    int8_t i = LEFT_BIT(val); // length of the bits
-    // since the biggest data type is 64 bits, 1 byte int is enough
-    // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
-    // the numbers will also never increase in bit length, 
-    // therefore new number will always have leftmost turned on bit on/right of the old
-    // clz command runtime is O(1)
-    // iterate through the out number
+    int8_t i;
+    if (base_cur < base_new)
+        i = LEFT_BIT(val); // length of the bits
+    else 
+        i = sizeof(val)*8-1;
+    
 
     while(val >0 && i >= 0) {
         //std::cout << val << i;
@@ -140,12 +139,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 //     //ONLY BASE UP FOR NOW
 
 //     int8_t i = LEFT_BIT(val); // length of the bits
-//     // since the biggest data type is 64 bits, 1 byte int is enough
-//     // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
-//     // the numbers will also never increase in bit length, 
-//     // therefore new number will always have leftmost turned on bit on/right of the old
-//     // clz command runtime is O(1)
-//     // iterate through the out number
+
 
 //     while(val >0 && i >= 0) {
 //         //std::cout << val << i;

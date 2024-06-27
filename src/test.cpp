@@ -28,7 +28,7 @@ int main(void){
     a +=b;
     std::cout << a.info() << valid::max<int8_t, int>(a) << N << valid::min<int8_t, int>(a) << N;
 
-    int8_t out = base_convert<int8_t>(124, 2,3);
+    int8_t out = base_convert<int8_t>(0b00011111, 3,4);
     std::cout << N << (int)out << N << BITS(out)<< N;
 
 

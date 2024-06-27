@@ -117,9 +117,9 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i = sizeof(val)*8-1;
     
     if (val<0){
-        out -= valid::min<T>(); 
-        val = -val;
         i--;
+        out -= std::pow(base_new, i)+1; 
+        val = -val;
     }
 
     while(val >0 && i >= 0) {

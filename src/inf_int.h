@@ -97,6 +97,7 @@ namespace valid{ // bound checking
 }
 
 
+
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_cur, const T& base_new){
@@ -107,27 +108,57 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    int8_t i;
+    int8_t i = LEFT_BIT(val); // length of the bits
+    // since the biggest data type is 64 bits, 1 byte int is enough
+    // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
+    // the numbers will also never increase in bit length, 
+    // therefore new number will always have leftmost turned on bit on/right of the old
+    // clz command runtime is O(1)
+    // iterate through the out number
 
-    if (base_cur> base_new){
-        i = sizeof(val)*8-1;
-    } else {
-        i = LEFT_BIT(val);
-    }
-
-    while(i >= 0) {
+    while(val >0 && i >= 0) {
         //std::cout << val << i;
-
         auto minus = std::pow(base_new, i);
-        if (!valid::subtract(val, minus)) // if cant substract any more, break
-            break;
-        val-=minus;
-        out += 1<<i;
+        if(minus <= val){
+            val-=minus;
+            out += 1<< i;
+        }
         i--;
     }
 
     return out;
 };
+
+// // base conversion NOTE: data types of all have to match, make sure to CAST 
+// template <typename T>
+// constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+
+//     if (base_cur == base_new) // base case, if bases match
+//         return val;
+
+//     T out = 0;
+//     //ONLY BASE UP FOR NOW
+
+//     int8_t i = LEFT_BIT(val); // length of the bits
+//     // since the biggest data type is 64 bits, 1 byte int is enough
+//     // note: base conversions will ALWAYS round down, meaning numbers will either get floored or remain the same
+//     // the numbers will also never increase in bit length, 
+//     // therefore new number will always have leftmost turned on bit on/right of the old
+//     // clz command runtime is O(1)
+//     // iterate through the out number
+
+//     while(val >0 && i >= 0) {
+//         //std::cout << val << i;
+//         auto minus = std::pow(base_new, i);
+//         if(minus <= val){
+//             val-=minus;
+//             out += 1<< i;
+//         }
+//         i--;
+//     }
+
+//     return out;
+// };
 
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword

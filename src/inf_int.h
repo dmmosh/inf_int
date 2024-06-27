@@ -118,7 +118,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     
     bool negative = false;
     if (val <0){
-        val = -val;
+        val = ~(val-1); // makes the value negative
         negative = true;
         i--;
     }
@@ -133,7 +133,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i--;
     }
     if (negative){
-        out = ~(out)+1;
+        out = -out;
     }
 
     return out;

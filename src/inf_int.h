@@ -133,7 +133,7 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 
         auto minus = std::pow(base_new, i);
         if(minus <= val){
-            val-=std::pow(base_new, i);
+            val-=minus;
             out += 1<< i;
         }
         i--;

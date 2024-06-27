@@ -58,12 +58,14 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
          
     while(val => 0 && i >= 0) {
         //std::cout << val << i;
+        if ((1<<i) & val) {
         auto minus = std::pow(base_new, i);
         if(val-minus =>0){
             val-=minus;
             out += 1<<i;
         }
         i--;
+        }
     }
 
     return out;

@@ -116,9 +116,11 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     else 
         i = sizeof(val)*8-1;
     
+    bool negative = false;
     if (val <0){
-        i--;
         val = -val;
+        negative = true;
+        i--;
     }
     
     while(val >0 && i >= 0) {
@@ -129,6 +131,9 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
             out += 1<< i;
         }
         i--;
+    }
+    if (negative){
+        out = -out;
     }
 
     return out;

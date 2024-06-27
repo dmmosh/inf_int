@@ -104,6 +104,8 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
 
     if (base_cur == base_new) // base case, if bases match
         return val;
+    if (val == 0)
+        return 0;
 
     T out = 0;
     //ONLY BASE UP FOR NOW
@@ -114,6 +116,10 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     else 
         i = sizeof(val)*8-1;
     
+    if (val<0){
+        out -= valid::min<T>(); 
+        val = -val;
+    }
 
     while(val >0 && i >= 0) {
         //std::cout << val << i;

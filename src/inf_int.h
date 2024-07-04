@@ -160,8 +160,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
             then removes that bit from the value
             */
-           std::cout << (int)cur << '\n';
             if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
+                std::cout << (int)cur << '\n';
                 BIT_SET(out, cur);
                 BIT_CLEAR(val, i);
             }

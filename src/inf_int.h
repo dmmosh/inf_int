@@ -36,6 +36,11 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
+template <typename T> // log base
+inline constexpr T log_base(const T& val, const T& base){
+    return static_cast<T>(log2(val)) / static_cast<T>(log2(base)); 
+}
+
 namespace valid{ // bound checking
     template<typename T, typename U>
     inline constexpr bool add( T to, U from ) {
@@ -100,9 +105,9 @@ namespace valid{ // bound checking
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
-constexpr T base_convert(T val, const T& base_cur, const T& base_new){
+constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
-    if (base_cur == base_new) // base case, if bases match
+    if (base_old == base_new) // base case, if bases match
         return val;
     if (val == 0)
         return 0;
@@ -110,13 +115,14 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    int8_t i;
-    if (base_cur < base_new)
-        i = LEFT_BIT(val); // length of the bits
-    else 
-        i = sizeof(val)*8-1;
+    // int8_t i;  // i starts at leftmost bit in the value
+    // if (base_old < base_new)
+    //     i = LEFT_BIT(val); // length of the bits
+    // else 
+    //     i = sizeof(val)*8-1;
 
-
+    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
+    
     bool negative = false;
     if (val <0){
         val = -val; // makes the value negative
@@ -124,17 +130,40 @@ constexpr T base_convert(T val, const T& base_cur, const T& base_new){
         i--;
     }
     
-    while(val >0 && i >= 0) {
-        //std::cout << val << i;
+    // while(val >0 && i >= 0) {
+    //     //std::cout << val << i;
     
-    
-        auto minus = std::pow(base_new, i);
-        if(minus <= val){
-            val-=minus;
-            out += 1<< i;
+
+    //     auto minus = std::pow(base_new, i);
+    //     if(minus <= val){
+    //         val-=minus;
+    //         out += 1<< i;
+    //     }
+    //     i--;
+    // }
+
+    while(val > 0 && i >=0){
+        if (val & (1<<i)) { // if the bit in index i is on
+            auto cur = log_base<T>(std::pow(base_old, i), base_new); // bit index to insert
+            //  log base new value's actual value at a given index
+            /*
+            ex.
+            base 3 -> 2 with value 121
+            log(121, 2) = 6 (bit index 6 aka 2^6 aka 64)
+
+            base 2 -> with value 121
+            log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
+
+            then removes that bit from the value
+            */
+
+            if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
+                out |= cur; // adds the index
+                val ^= (1<<i); //removes the bit from the value
+            }
         }
         i--;
-    }
+    }   
 
     if (negative){
         out = -out;

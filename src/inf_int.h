@@ -145,7 +145,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     while(val > 0 && i >=0){
         if (val & (1<<i)) {
-        int8_t cur = log_base<T>(std::pow(base_old, i), base_new); // bit index to insert
+        int8_t cur = log_base<T>(32, base_new); // bit index to insert
         //  log base new value's actual value at a given index
         /*
         ex.

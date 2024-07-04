@@ -24,9 +24,7 @@ int main(void){
     inf_int<int8_t> b = 38192;
 
 
-    std::cout << a.info() << b.info();
     a +=b;
-    std::cout << a.info() << valid::max<int8_t, int>(a) << N << valid::min<int8_t, int>(a) << N;
 
     int8_t out1 = base_convert<int8_t>(0b00011111, 3,2); //-120
     int8_t out2 = base_convert<int8_t>(0b01111001, 2,3); //120

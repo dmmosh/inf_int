@@ -27,9 +27,9 @@ int main(void){
 
     //a +=b;
 
-    int8_t in1 = 0b00011111;
+    int8_t in1 = 0b00001111;
     int8_t in2 = 121;
-    int8_t out1 = base_convert<int8_t>(in1, 3,2);
+    int8_t out1 = base_convert<int8_t>(in1, 4,2);
     int8_t out2 = base_convert<int8_t>(in2,2,3);
 
     std::cout << N << BITS(in1) << T << (int)in1 << N << BITS(out1) << T << (int)out1 << N;

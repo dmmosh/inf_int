@@ -43,7 +43,7 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 }
 
 inline constexpr auto log_base(const auto& val, const auto& base){
-    return round(log2(val) / log2(base)); 
+    return log2(val) / log2(base); 
 }
 
 

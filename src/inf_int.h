@@ -42,8 +42,7 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
-template <typename T> // log base
-inline constexpr T log_base(const T& val, const T& base){
+inline constexpr auto log_base(const auto& val, const auto& base){
     return log2(val) / log2(base); 
 }
 
@@ -151,7 +150,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     while(val > 0 && i >=0){
         if (val & (1<<i)) {
-            int8_t cur = log2(std::pow(base_old, i)) / log2(base_new); // bit index to insert
+            auto minus = std::pow(base_old, i);
+            int8_t cur = log_base(minus, base_new); // bit index to insert
             //  log base new value's actual value at a given index
             /*
             ex.

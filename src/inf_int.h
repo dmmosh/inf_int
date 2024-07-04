@@ -163,8 +163,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
            std::cout << (int)cur;
             if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
                 BIT_SET(out, cur);
-                BIT_CLEAR(val, i);
             }
+            BIT_CLEAR(val, i);
         }
         i--;
     }   

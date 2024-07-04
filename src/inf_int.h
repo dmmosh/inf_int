@@ -156,8 +156,11 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
             then removes that bit from the value
             */
+           return cur;
+            if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
                 out |= cur; // adds the index
                 val ^= (1<<i); //removes the bit from the value
+            }
         i--;
     }   
 

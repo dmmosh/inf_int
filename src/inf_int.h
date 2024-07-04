@@ -155,7 +155,6 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
         log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
         then removes that bit from the value
         */
-        return i;
         if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
             out |= (1<<cur); // adds the index
             val ^= (1<<i); //removes the bit from the value

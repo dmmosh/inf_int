@@ -41,14 +41,6 @@ inline constexpr T log_base(const T& val, const T& base){
     return static_cast<T>(log2(val)) / static_cast<T>(log2(base)); 
 }
 
-template <typename T>
-inline constexpr T turn_off_bit(const T& n, int8_t k)
-{
- 
-    // Do & of n with a number with all set bits except
-    // the k'th bit
-    return (n & ~(1 << (k - 1)));
-}
 
 namespace valid{ // bound checking
     template<typename T, typename U>
@@ -164,10 +156,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
             then removes that bit from the value
             */
-            if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
                 out |= cur; // adds the index
-                val = turn_off_bit(val, i);
-            }
+                val ^= (1<<i); //removes the bit from the value
         i--;
     }   
 

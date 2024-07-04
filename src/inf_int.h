@@ -13,6 +13,12 @@
 #define BITS(x) std::bitset<sizeof(x)*8>(x)
 #define INT8(x) static_cast<int8_t>(x)
 
+/* a=target variable, b=bit number to act upon 0-n */
+#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
+#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
+#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
+#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))        // '!!' to make sure this returns 0 or 1
+
  // flags macros
 #define NEGATIVE_SIGN 1
 #define BASE (1<<1)
@@ -156,8 +162,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
         then removes that bit from the value
         */
         if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
-            out |= (1<<cur); // adds the index
-            val ^= (1<<i); //removes the bit from the value
+            BIT_SET(out, cur);
+            BIT_CLEAR(val, i);
         }
         }
         i--;
@@ -391,8 +397,7 @@ inline U inf_int<T>::value() {
     int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
 
     U out = 0; //output number
-
-    if((NEGATIVE_SIGN & this->flags_arr)){ // if buffer is negative & output data type is signed
+    if((BIT_CHECK(this->flags_arr, NEGATIVE_SIGN))){ // if buffer is negative & output data type is signed
         if (std::is_signed<U>())
             out-= valid::max<T,U>(*this)+1;
         i--;
@@ -464,9 +469,9 @@ inline std::string inf_int<T>::info(){
 template <class T>
 inline std::string inf_int<T>::flags(){ // prints flags
     return  std::string("The number is: [ ") + 
-            ((NEGATIVE_SIGN & this->flags_arr) ? "NEGATIVE, " : "POSITIVE, ") +
-            ((BASE & this->flags_arr) ? "BASE_UP, " : "BASE_FINE, ") + 
-            ((BUFFER & this->flags_arr) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
+            (BIT_CHECK(this->flags_arr, NEGATIVE_SIGN) ? "NEGATIVE, " : "POSITIVE, ") +
+            (BIT_CHECK(this->flags_arr, BASE) ? "BASE_UP, " : "BASE_FINE, ") + 
+            (BIT_CHECK(this->flags_arr, BUFFER) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
 
 }; 
 
@@ -500,7 +505,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     if(!value) return *this; // base case, if 0 
     
     if (value <0 ){ // if value is negative (signed)
-        this->flags_arr |= NEGATIVE_SIGN; // flip the sign, number is now negative
+        BIT_SET(this->flags_arr, NEGATIVE_SIGN);
         //value ^= (1<<sizeof(value)*8-1);
         value = -value; // inverses twos compliment
     }
@@ -508,15 +513,15 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-        this->flags_arr |= BASE; // flips the base up bit
-        this->flags_arr |= BUFFER; // flips the buffer up bit
+        BIT_SET(this->flags_arr, BASE); // flips the base bit
+        BIT_SET(this->flags_arr, BUFFER); // flips the buffer bit
         this->base++; // increases the base
         max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
     }
 
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
-    if (NEGATIVE_SIGN & this->flags_arr) { // if the sign is negative
+    if (BIT_CHECK(this->flags_arr, NEGATIVE_SIGN)) { // if the sign is negative
         this->buffer = -this->buffer;
         //this->buffer |= sizeof(this->buffer)*8-1;
     } 

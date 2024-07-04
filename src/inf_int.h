@@ -38,7 +38,7 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
 
 template <typename T> // log base
 inline constexpr T log_base(const T& val, const T& base){
-    return static_cast<T>(log2(val)) / static_cast<T>(log2(base)); 
+    return log2(val) / log2(base); 
 }
 
 

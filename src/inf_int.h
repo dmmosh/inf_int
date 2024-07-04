@@ -164,7 +164,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
                 BIT_SET(out, cur);
                 //BIT_CLEAR(val, i);
             }
-            std::cout << cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
+            std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
         }
         i--;
     }   

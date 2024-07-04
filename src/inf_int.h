@@ -115,12 +115,13 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-     int8_t i;  // i starts at leftmost bit in the value
-     if (base_old < base_new)
-         i = LEFT_BIT(val); // length of the bits
-     else 
-         i = sizeof(val)*8-1;
+    // int8_t i;  // i starts at leftmost bit in the value
+    // if (base_old < base_new)
+    //     i = LEFT_BIT(val); // length of the bits
+    // else 
+    //     i = sizeof(val)*8-1;
 
+    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
 
     bool negative = false;
     if (val <0){
@@ -142,8 +143,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     // }
 
     while(val > 0 && i >=0){
-        if (val & (1<<i)) { // if the bit in index i is on
-            auto cur = log_base<T>(std::pow(base_old, i), base_new); // bit index to insert
+            int8_t cur = log_base<T>(std::pow(base_old, i), base_new); // bit index to insert
             //  log base new value's actual value at a given index
             /*
             ex.
@@ -159,7 +159,6 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
                 out |= cur; // adds the index
                 val ^= (1<<i); //removes the bit from the value
             }
-        }
         i--;
     }   
 

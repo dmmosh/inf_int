@@ -128,7 +128,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     // else 
     //     i = sizeof(val)*8-1;
 
-    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
+    int8_t i = sizeof(val)*8-1;  // i starts at leftmost bit in the value
 
     bool negative = false;
     if (val <0){
@@ -149,7 +149,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     //     i--;
     // }
 
-    while(val > 0){
+    while(val > 0 && i >=0){
         if (val & (1<<i)) {
         int8_t cur = log_base<T>(32, base_new); // bit index to insert
         //  log base new value's actual value at a given index

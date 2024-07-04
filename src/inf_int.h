@@ -115,13 +115,12 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     T out = 0;
     //ONLY BASE UP FOR NOW
 
-    // int8_t i;  // i starts at leftmost bit in the value
-    // if (base_old < base_new)
-    //     i = LEFT_BIT(val); // length of the bits
-    // else 
-    //     i = sizeof(val)*8-1;
+     int8_t i;  // i starts at leftmost bit in the value
+     if (base_old < base_new)
+         i = LEFT_BIT(val); // length of the bits
+     else 
+         i = sizeof(val)*8-1;
 
-    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
 
     bool negative = false;
     if (val <0){

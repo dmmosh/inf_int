@@ -24,7 +24,7 @@ int main(void){
     inf_int<int8_t> b = 38192;
 
 
-    a +=b;
+    //a +=b;
 
     int8_t out1 = base_convert<int8_t>(0b00011111, 3,2);
     int8_t out2 = 3;

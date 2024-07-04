@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include <bitset>
 #define N '\n'
+#define T '\t'
 
 
 /*
@@ -31,7 +32,8 @@ int main(void){
     int8_t out1 = base_convert<int8_t>(in1, 3,2);
     int8_t out2 = base_convert<int8_t>(in2,2,3);
 
-    std::cout << BITS(in1) << N << BITS(out1) << N << N << BITS(in2) << N << BITS(out2) << N;
+    std::cout << N << BITS(in1) << T << (int)in1 << N << BITS(out1) << T << (int)out1 << N;
+    std::cout << N << BITS(in2) << T << (int)in2 << N << BITS(out2) << T << (int)out2 << N;
 
 
 }

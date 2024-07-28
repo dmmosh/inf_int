@@ -307,6 +307,9 @@ class inf_int{
 
     template<typename U>
     friend inf_int<T> operator+(inf_int<T> out, const U& value) {
+        if (value == 0){ //if the value is 0, nothing to add
+            return out; 
+        }
 
         U add = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
@@ -323,7 +326,9 @@ class inf_int{
 
     template<class U>
     friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) {
-
+        if (value.buffer == 0){ // if the value is 0, nothing to add
+            return out;
+        }
 
         U add = base_convert<U>(value.buffer, value.base, out.base); // converts bases from 2 to inf int's
 

@@ -303,7 +303,7 @@ class inf_int{
             base++;
         }
 
-        std::cout << value;
+        std::cout << BITS(::base_convert<T>(value, 2, base));
         out.base_convert(base);
         out.buffer = ::base_convert<T>(value, 2, base);
         return out;

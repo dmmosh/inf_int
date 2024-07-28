@@ -21,7 +21,7 @@ typedef struct test{ //testing struct
 }test;
 
 void debug(const test& in){
-    std::cout << N << BITS(in.val) << T << (int)base_convert<int8_t>(in.val, in.base, 2);
+    std::cout << N << BITS(in.val) << "  " << (int)base_convert<int8_t>(in.val, in.base, 2);
     std::cout << "  (base " << (int)in.base << ")" << N;
     //std::cout << N << BITS(in.val_convert) << T << (int)base_convert<int8_t>(in.val_convert, in.val_convert_base, 2) << N;
 }

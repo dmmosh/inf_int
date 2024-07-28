@@ -109,8 +109,8 @@ namespace valid{ // bound checking
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 // function has a safety option for value_safe function 
-template <typename T>
-constexpr T base_convert(T val, const T& base_old, const T& base_new){
+template <typename T, typename U>
+constexpr T base_convert(U val, const T& base_old, const T& base_new){
 
     if (base_old == base_new) // base case, if bases match
         return val;

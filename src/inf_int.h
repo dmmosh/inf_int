@@ -288,16 +288,16 @@ class inf_int{
             return out; 
         }
 
-        value= ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+        U temp = ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
 
 
-        while (!valid::add<T,U>(out.buffer, value) || LEFT_BIT(value) > sizeof(out.buffer)*8-1){
+        while (!valid::add<T,U>(out.buffer, temp) || LEFT_BIT(temp) > sizeof(out.buffer)*8-1){
             out.base_convert(out.get_base()+1); // increments the base in the function
-            value = ::base_convert<U>(value, out.get_base()-1, out.get_base());
+            temp = ::base_convert<U>(temp, out.get_base()-1, out.get_base());
             std::cout << value << '\n';
-        }
-
+        }  
+        
 
  
         out.buffer += value; //add value to the buffer

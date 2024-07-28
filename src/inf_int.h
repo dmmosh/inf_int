@@ -299,10 +299,7 @@ class inf_int{
         // }  
 
         uU base = out.get_base(); //starting base 
-        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){ // iterates until proper base to fit 
-            base++; // iterates base 
-        }
-
+        
         value = ::base_convert<T>(value, 2, base);
         while(!valid::add(value, out.buffer)){
             value = ::base_convert<T>(value, base, base+1);

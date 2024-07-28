@@ -17,8 +17,14 @@ if the last bit is 0
 */
 
 typedef struct test{ //testing struct
-    int8_t val, base, val_convert, val_convert_base;
+    int8_t val, base;
 }test;
+
+void debug(const test& in){
+    std::cout << N << BITS(in.val) << T << (int)base_convert<int8_t>(in.val, in.base, 2) << T;
+    std::cout << "( base " << (int)in.base << " )" << N;
+    //std::cout << N << BITS(in.val_convert) << T << (int)base_convert<int8_t>(in.val_convert, in.val_convert_base, 2) << N;
+}
 
 int main(void){
 
@@ -32,13 +38,20 @@ int main(void){
     test in1 = {0b00001111, 2}; // 15
     test in2 = {0b00010000, 3}; // 121
 
-    in1.val_convert_base = 3;
-    in2.val_convert_base = 4;
-
-    in1.val_convert = base_convert<int8_t>(in1.val, in1.base, in1.val_convert_base);
-    in2.val_convert = base_convert<int8_t>(in2.val, in2.base, in2.val_convert_base);
+    int8_t in1_new_base = 3;
+    int8_t in2_new_base = 4;
 
 
-    std::cout << N << BITS(in2.val) << T << (int)base_convert<int8_t>(in2.val, in2.base, 2);
-    std::cout << N << BITS(in2.val_convert) << T << (int)base_convert<int8_t>(in2.val_convert, in2.val_convert_base, 2) << N;
+    test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
+    test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
+
+
+    //debug(in1);
+    //debug(out1);
+
+    debug(in2);
+    debug(out2);
+
+
+    
 }

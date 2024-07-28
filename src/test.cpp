@@ -36,7 +36,7 @@ int main(void){
 
     //a +=b;
     test in1 = {0b00001111, 2}; // 15
-    test in2 = {0b00010000, 3}; // 121
+    test in2 = {0b00010100, 3}; // 121
 
     int8_t in1_new_base = 3;
     int8_t in2_new_base = 4;

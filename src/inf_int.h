@@ -299,7 +299,7 @@ class inf_int{
         // }  
 
         uU base = 2; 
-        while (log_base(value, base) > sizeof(T)*8-1){
+        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){
             base++;
         }
 

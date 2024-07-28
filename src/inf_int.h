@@ -19,10 +19,7 @@
 #define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b))) // flips a bit at position b
 #define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) //checks if a bit is at the position, true or false
 
- // flags macros
-#define NEGATIVE_SIGN 1 //is negative?
-#define BASE (1<<1) // is base NOT 2?
-#define BUFFER (1<<2) // is cross the buffer ? 
+// unsinged 
 #define uT typename std::make_unsigned<T>::type // unsigned typename T
 #define uU typename std::make_unsigned<U>::type // unsigned typename U
 
@@ -131,6 +128,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
     
     if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
+
     // old conversion (only wokrs base 2 to x)
         while(val >0 && i >= 0) {
             //std::cout << val << i 
@@ -141,7 +139,9 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             }
             i--;
         }
+
     } else if (base_new == 2){ // if the new base is 2 (infinite int to normal number)
+
         while(i>=0){ // iterates through the bits in the value (O(log(n)))
             if (BIT_CHECK(val, i)) {  // if theres a bit
                 auto cur = std::pow(base_old, i); // current digit value
@@ -184,38 +184,13 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     }
 
-    if (negative){
+    if (negative){ //if negative number
         out = -out;
     }
 
     return out;
 };
 
-// // base conversion NOTE: data types of all have to match, make sure to CAST 
-// template <typename T>
-// constexpr T base_convert(T val, const T& base_cur, const T& base_new){
-
-//     if (base_cur == base_new) // base case, if bases match
-//         return val;
-
-//     T out = 0;
-//     //ONLY BASE UP FOR NOW
-
-//     int8_t i = LEFT_BIT(val); // length of the bits
-
-
-//     while(val >0 && i >= 0) {
-//         //std::cout << val << i;
-//         auto minus = std::pow(base_new, i);
-//         if(minus <= val){
-//             val-=minus;
-//             out += 1<< i;
-//         }
-//         i--;
-//     }
-
-//     return out;
-// };
 
 // FUNCTION DECLARATIONS
 // if theres another template other than T, then dont use friend keyword
@@ -247,17 +222,16 @@ class inf_int{
     // possibility the base itself will overflow , hence shifting to extra base 
     // always use base() function when dealing with the base
 
-    int8_t flags_arr; // flags array, each bit acts as a boolean, 3 filled so far
 
     // CONSTRUCTORS
 
-    inf_int();
+    inf_int(); //empty (0)
 
     template <typename U>
-    inf_int(U value);
+    inf_int(U value); // initialized value
 
     template <class U>
-    inf_int(inf_int<U>& init_val);
+    inf_int(inf_int<U>& init_val); // initialized with another infinite integer 
 
 
 
@@ -273,19 +247,16 @@ class inf_int{
     inline std::vector<T> value(); // returns value as a vector
 
     template<typename U>
-    inline U get_buffer();
+    inline U get_buffer(); // gets the buffer but with a data type
 
     inline T get_buffer(); // outs the buffer in a data type
 
     template<typename U>
-    inline uU get_base(); // gets the base
+    inline U get_base(); // gets the base but with a data type
 
     inline uT get_base(); // gets the base
 
     inline std::string info(); // prints info
-
-    inline std::string flags(); // prints flags
-
 
 
 
@@ -320,12 +291,12 @@ class inf_int{
             
         }
  
-        out.buffer += add;
+        out.buffer += add; //add value to the buffer
         return out;
     }; 
 
     template<class U>
-    friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) {
+    friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) { //adds another infinite integer
         if (value.buffer == 0){ // if the value is 0, nothing to add
             return out;
         }
@@ -343,6 +314,8 @@ class inf_int{
 
         return out;
     }; 
+
+
     
 };  
 
@@ -352,8 +325,7 @@ class inf_int{
 template <class T>
 inf_int<T>::inf_int():
 buffer(0),
-base(2),
-flags_arr(0)
+base(2)
 {
     return;
 };
@@ -362,8 +334,7 @@ template <class T>
 template <typename U> 
 inf_int<T>::inf_int(U value):
 buffer(0),
-base(2),
-flags_arr(0)
+base(2)
 {
     if(!value) return;
 
@@ -376,8 +347,7 @@ template <class T>
 template <class U>
 inf_int<T>::inf_int(inf_int<U>& init_val):
 buffer(init_val.get_buffer()),
-base(init_val.get_base()),
-flags_arr(init_val.flags_arr)
+base(init_val.get_base())
 {   
     return;
 };
@@ -398,8 +368,8 @@ inline T inf_int<T>::get_buffer(){
 
 template <class T>
 template<typename U>
-inline uU inf_int<T>::get_base(){
-    return static_cast<uU>(this->base);
+inline U inf_int<T>::get_base(){
+    return static_cast<U>(this->base);
 }; 
 
 // NEVER CALL BASE RAW
@@ -455,17 +425,8 @@ inline std::string inf_int<T>::info(){
             "\nBASE:\t" + std::to_string(this->get_base()) +
             "\nMAX:\t" + std::to_string(valid::max<T, long long>(*this)) +
             "\nMIN:\t" + std::to_string(valid::min<T, long long>(*this)) + 
-            "\n" + this->flags() + "\n";
+            "\n";
 };
-
-template <class T>
-inline std::string inf_int<T>::flags(){ // prints flags
-    return  std::string("The number is: [ ") + 
-            (BIT_CHECK(this->flags_arr, NEGATIVE_SIGN) ? "NEGATIVE, " : "POSITIVE, ") +
-            (BIT_CHECK(this->flags_arr, BASE) ? "BASE_UP, " : "BASE_FINE, ") + 
-            (BIT_CHECK(this->flags_arr, BUFFER) ? "BUFFER_UP ]" : "BUFFER_FINE ]" );
-
-}; 
 
 
 template<class T>
@@ -492,39 +453,28 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     
     this->buffer = 0;
     this->base = 2; // restarts the base
-    this->flags_arr = 0;
 
     if(!value) return *this; // base case, if 0 
     
+    bool negative = false;
     if (value <0 ){ // if value is negative (signed)
-        BIT_SET(this->flags_arr, NEGATIVE_SIGN);
-        //value ^= (1<<sizeof(value)*8-1);
+        negative = true;
         value = -value; // inverses twos compliment
     }
 
     // iterates until a base that can hold the number is found
     U max_val = valid::max<T, U>(*this); // temp max val variable
     while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-        BIT_SET(this->flags_arr, BASE); // flips the base bit
-        BIT_SET(this->flags_arr, BUFFER); // flips the buffer bit
         this->base++; // increases the base
         max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
     }
 
 
     this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
-    if (BIT_CHECK(this->flags_arr, NEGATIVE_SIGN)) { // if the sign is negative
+    if (negative) { // if the sign is negative, flip it back to negative
         this->buffer = -this->buffer;
         //this->buffer |= sizeof(this->buffer)*8-1;
     } 
-
-
-
-    // while(LEFT_BIT<U>(value) > static_cast<U>(sizeof(this->buffer)*8-2)){
-    //     value = base_convert(value, static_cast<U>(this->base), static_cast<U>(this->base+1));
-    //     this->base++;
-    // }
-    //this->buffer = value; 
 
     return *this;
 }; 
@@ -534,7 +484,6 @@ template<class U>
 inf_int<T>& inf_int<T>::operator=(inf_int<U>& value){
     this->base = value.get_base();
     this->buffer = value.get_buffer();
-    this->flags_arr = value.flags_arr; 
     
     //TODO: add checking to make sure the base itself isnt an inf int
     return *this;

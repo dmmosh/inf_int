@@ -135,49 +135,50 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
         i--;
     }
     
-    
+    if (base_old == 2){
     // old conversion (only wokrs base 2 to x)
-    // while(val >0 && i >= 0) {
-    //     //std::cout << val << i;
-    
-
-    //     auto minus = std::pow(base_new, i);
-    //     if(minus <= val){
-    //         val-=minus;
-    //         out += 1<< i;
-    //     }
-    //     i--;
-    // }
-
-    while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
-        if (BIT_CHECK(val, i)) { // if theres a bit at i 
-            auto cur = std::pow(base_old, i); // current digit value
-            int8_t bit = static_cast<int8_t>(log_base(cur, base_new)); // bit index to insert
-            std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
-            //  log base new value's actual value at a given index
-            /*
-            ex.
-            base 3 -> 2 with value 121
-            log(121, 2) = 6 (bit index 6 aka 2^6 aka 64)
-            base 2 -> with value 121
-            log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
-            then removes that bit from the value
-            */
-            if (bit < sizeof(val)*8-1){ // bit index doesnt overflow
-
-                while(bit >= 0 && cur >0){ //iterate backwards in the bits
-                    BIT_SET(out, bit); //sets bit at current
-                    cur -= std::pow(base_new, bit);
-                    bit--;
-                }
-
-                //BIT_CLEAR(val, i); //doesnt need to
+        while(val >0 && i >= 0) {
+            //std::cout << val << i 
+            auto minus = std::pow(base_new, i);
+            if(minus <= val){
+                val-=minus;
+                out += 1<< i;
             }
-            //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
+            i--;
         }
-        i--;
-    }   
 
+    } else {
+
+        while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
+            if (BIT_CHECK(val, i)) { // if theres a bit at i 
+                auto cur = std::pow(base_old, i); // current digit value
+                int8_t bit = static_cast<int8_t>(log_base(cur, base_new)); // bit index to insert
+                std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
+                //  log base new value's actual value at a given index
+                /*
+                ex.
+                base 3 -> 2 with value 121
+                log(121, 2) = 6 (bit index 6 aka 2^6 aka 64)
+                base 2 -> with value 121
+                log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
+                then removes that bit from the value
+                */
+                if (bit < sizeof(val)*8-1){ // bit index doesnt overflow
+    
+                    while(bit >= 0 && cur >0){ //iterate backwards in the bits
+                        BIT_SET(out, bit); //sets bit at current
+                        cur -= std::pow(base_new, bit);
+                        bit--;
+                    }
+    
+                    //BIT_CLEAR(val, i); //doesnt need to
+                }
+                //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
+            }
+            i--;
+        }   
+
+    }
 
     if (negative){
         out = -out;

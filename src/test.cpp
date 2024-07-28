@@ -49,7 +49,7 @@ int main(void){
 
     a+=1000;
 
-    std::cout << a << N << b;
+    std::cout << a << N << b << base_convert<int>(1000,2,3);
 
 
 }

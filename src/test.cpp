@@ -47,7 +47,7 @@ int main(void){
     inf_int<int8_t> a = 100;
     inf_int<int8_t> b = -10000;
 
-    a+=2;
+    a+=100000;
 
     std::cout << a.info() << N << b.info() ;
 

@@ -298,7 +298,7 @@ class inf_int{
         //     std::cout << value << '\n';
         // }  
 
-        uU base = 2; //starting base 
+        uU base = out.get_base(); //starting base 
         while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){ // iterates until proper base to fit 
             base++; // iterates base 
         }

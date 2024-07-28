@@ -17,7 +17,7 @@ if the last bit is 0
 */
 
 typedef struct test{ //testing struct
-    int8_t val, base, val_convert;
+    int8_t val, base, val_convert, val_convert_base;
 }test;
 
 int main(void){
@@ -31,10 +31,14 @@ int main(void){
     //a +=b;
     test in1 = {0b00001111, 2};
     test in2 = {0b00011111, 3};
-    in1.val_convert = base_convert<int8_t>(in1.val, in1.base, 3);
-    in2.val_convert = base_convert<int8_t>(in2.val, in2.base, 4);
+
+    in1.val_convert_base = 3;
+    in2.val_convert_base = 4;
+
+    in1.val_convert = base_convert<int8_t>(in1.val, in1.base, in1.val_convert_base);
+    in2.val_convert = base_convert<int8_t>(in2.val, in2.base, in2.val_convert_base);
 
 
-    std::cout << N << BITS(in1.val) << T << base_convert<int>(in1.val, in1.base, 2);
-
+    std::cout << N << BITS(in2.val) << T << base_convert<int8_t>(in2.val, in2.base, 2) << N;
+    std::cout << N << BITS(in2.val_convert) << T << base_convert<int8_t>(in2.val_convert, in2.val_convert_base, 2) << N;
 }

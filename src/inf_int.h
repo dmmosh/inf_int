@@ -166,7 +166,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
                 while(bit >= 0 && cur >0){ //iterate backwards in the bits
                     BIT_SET(out, bit); //sets bit at current
-                    cur -= std::pow(base_new, cur);
+                    cur -= std::pow(base_new, bit);
                     bit--;
                 }
 

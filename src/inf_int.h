@@ -297,10 +297,10 @@ class inf_int{
             temp = ::base_convert<U>(temp, out.get_base()-1, out.get_base());
             std::cout << value << '\n';
         }  
-        
+
 
  
-        out.buffer += value; //add value to the buffer
+        out.buffer += ::base_convert<U>(value, 2, out.get_base()); //add value to the buffer
         return out;
     }; 
 

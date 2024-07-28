@@ -44,12 +44,12 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int> a = 128;
-    inf_int<int> b = -10;
+    inf_int<int8_t> a = 200;
+    inf_int<int8_t> b = -10;
 
     a+=b;
 
-    std::cout << (int)a.value_safe<uint8_t>() << N << b;
+    std::cout << a << N << b;
 
 
 }

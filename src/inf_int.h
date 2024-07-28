@@ -158,7 +158,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             if (BIT_CHECK(val, i)) { // if theres a bit at i 
                 auto cur = std::pow(base_old, i); // current digit value
                 int8_t bit = static_cast<int8_t>(log_base(cur, base_new)); // bit index to insert
-                std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
+                //std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
                 //  log base new value's actual value at a given index
                 /*
                 ex.
@@ -166,7 +166,6 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
                 log(121, 2) = 6 (bit index 6 aka 2^6 aka 64)
                 base 2 -> with value 121
                 log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
-                then removes that bit from the value
                 */
                 if (bit < sizeof(val)*8-1){ // bit index doesnt overflow
 

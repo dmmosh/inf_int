@@ -299,15 +299,13 @@ class inf_int{
         // }  
 
         
-        uU base = out.get_base();
-        U temp_val = ::base_convert<U>(value, 2, base);
-        T temp_buffer = out.buffer;
 
+        value = ::base_convert<U>(value, 2, out.get_base());
 
-        while (!valid::add(temp_val, temp_buffer)){
-            base++;
-            temp_val = ::base_convert<U>(value, 2, base);
-            temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
+        while (!valid::add(out.buffer, value)){
+            out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+            value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
+            out.base++;
             
         };
 
@@ -317,9 +315,8 @@ class inf_int{
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
         
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
-        out.buffer = temp_buffer | temp_val;
-        out.base = base;
-
+        out.buffer |= value;
+        
         return out;
     }; 
 

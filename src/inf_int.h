@@ -286,12 +286,13 @@ class inf_int{
 
 
 
-        // while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
-        //     value = base_convert<U>(value, out.get_base(), out.get_base()+1);
-        //     out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        //     out.base++;
- 
-        // }
+        while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
+            value = base_convert<U>(value, out.get_base(), out.get_base()+1);
+            out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+            out.base++;
+        }
+
+
  
         out.buffer += value; //add value to the buffer
         out.buffer = -out.buffer;

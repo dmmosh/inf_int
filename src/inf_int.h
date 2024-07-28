@@ -292,15 +292,20 @@ class inf_int{
 
 
 
-        while (!valid::add<T,U>(out.buffer, temp) || LEFT_BIT(temp) > sizeof(out.buffer)*8-1){
-            out.base_convert(out.get_base()+1); // increments the base in the function
-            temp = ::base_convert<U>(temp, out.get_base()-1, out.get_base());
-            std::cout << value << '\n';
-        }  
+        // while (!valid::add<T,U>(out.buffer, temp) || LEFT_BIT(temp) > sizeof(out.buffer)*8-1){
+        //     out.base_convert(out.get_base()+1); // increments the base in the function
+        //     temp = ::base_convert<U>(temp, out.get_base()-1, out.get_base());
+        //     std::cout << value << '\n';
+        // }  
+
+        uU base = 2; 
+        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1 : 0)){
+            base++;
+        }
 
 
- 
-        out.buffer += ::base_convert<U>(value, 2, out.get_base()); //add value to the buffer
+        out.base_convert(base);
+        out.buffer += ::base_convert<U>(value, 2, base); //add value to the buffer
         return out;
     }; 
 

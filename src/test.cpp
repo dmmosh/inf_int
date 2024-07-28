@@ -47,7 +47,7 @@ int main(void){
     inf_int<int8_t> a = 5;
     inf_int<int8_t> b = 200;
 
-    std::cout << a << b;
+    std::cout << a << N << b;
 
 
     

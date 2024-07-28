@@ -305,9 +305,9 @@ class inf_int{
 
 
         while (!valid::add(temp_val, temp_buffer)){
+            base++;
             temp_val = ::base_convert<U>(value, 2, base);
             temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
-            base++;
             
         };
 

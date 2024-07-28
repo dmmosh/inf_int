@@ -299,16 +299,16 @@ class inf_int{
         // }  
 
         uU base = out.get_base(); //starting base 
-        
-        value = ::base_convert<T>(value, 2, base);
-        while(!valid::add(value, out.buffer)){
-            value = ::base_convert<T>(value, base, base+1);
-            out.buffer = ::base_convert<T>(out.buffer, base, base+1);
-            base++;
+        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){ // iterates until proper base to fit 
+            base++; // iterates base 
         }
-        out.base = base;
 
-        out.buffer+= value;
+        value = ::base_convert<T>(value, 2, base);
+        if (!valid::add(out.buffer, value)){
+            out.buffer = 0;
+            out.base = base;
+            return out;
+        }
 
         //std::cout << BITS(::base_convert<T>(value, 2, base));
         //out.base_convert(base); //converts the base
@@ -316,7 +316,8 @@ class inf_int{
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
         
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
-        //out.buffer |= ::base_convert<T>(value, 2, base);
+        out.buffer = value;
+        out.base = base;
         
         return out;
     }; 

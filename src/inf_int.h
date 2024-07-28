@@ -298,14 +298,14 @@ class inf_int{
         //     std::cout << value << '\n';
         // }  
 
-        uU base = 2; 
-        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){
-            base++;
+        uU base = 2; //starting base 
+        while (log_base(value, base) > sizeof(T)*8-((std::is_signed<T>()) ? 1: 0)){ // iterates until proper base to fit 
+            base++; // iterates base 
         }
 
-        std::cout << BITS(::base_convert<T>(value, 2, base));
-        out.base_convert(base);
-        out.buffer = ::base_convert<T>(value, 2, base);
+        //std::cout << BITS(::base_convert<T>(value, 2, base));
+        out.base_convert(base); //converts the base
+        out.buffer += ::base_convert<T>(value, 2, base); // adds to the buffer
         return out;
     }; 
 

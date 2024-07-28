@@ -49,7 +49,7 @@ int main(void){
 
     a+=b;
 
-    std::cout << a << N << b;
+    std::cout << a.value<int>() << N << b;
 
 
     

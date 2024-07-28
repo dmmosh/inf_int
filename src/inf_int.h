@@ -1,7 +1,7 @@
 
 #ifndef __INF_INT_H__
 #define __INF_INT_H__
-//#include <iostream> //testing purposes, remove on actual release
+#include <iostream> //testing purposes, remove on actual release
 #include <limits>
 #include <bits/stdc++.h>
 #include <type_traits>

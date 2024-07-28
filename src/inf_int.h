@@ -423,7 +423,7 @@ inline U inf_int<T>::value_safe() { // returns the value but safely
 
 
     if (this->buffer<0){
-        if (-std::pow(this->base, LEFT_BIT(-this->buffer))-1 < valid::min<U>()){
+        if (-std::pow(this->base, LEFT_BIT(-this->buffer)) < valid::min<U>()){
             throw std::invalid_argument("Value underflow. Consider putting the value in a bigger data type.");
         } 
     } else {

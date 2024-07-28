@@ -292,7 +292,7 @@ class inf_int{
 
 
 
-        while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
+        while (!valid::add<T,U>(out.buffer, value) || LEFT_BIT(value) > sizeof(out.buffer)*8-1){
             out.base_convert(out.get_base()+1); // increments the base in the function
             value = ::base_convert<U>(value, out.get_base()-1, out.get_base());
             std::cout << value << '\n';

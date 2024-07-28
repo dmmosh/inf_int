@@ -16,6 +16,9 @@ if the last bit is a 1 (negative, substract) then use & operator
 if the last bit is 0
 */
 
+typedef struct test{ //testing struct
+    int8_t val, base, val_convert;
+}test;
 
 int main(void){
 
@@ -26,14 +29,12 @@ int main(void){
 
 
     //a +=b;
+    test in1 = {0b00001111, 2};
+    test in2 = {0b00011111, 3};
+    in1.val_convert = base_convert<int8_t>(in1.val, in1.base, 3);
+    in2.val_convert = base_convert<int8_t>(in1.val, in1.base, 4);
 
-    int8_t in1 = 0b00001111;
-    int8_t in2 = 0b00011111; //121
-    //int8_t out1 = base_convert<int8_t>(in1, 2,3);
-    int8_t out2 = base_convert<int8_t>(in2,3,4);
 
-    //std::cout << N << BITS(in1) << T << (int)in1 << N << BITS(out1) << T << (int)out1 << N;
-    std::cout << N << BITS(in2) << T << (int)in2 << N << BITS(out2) << T << (int)out2 << N;
-
+    std::cout << N << BITS(in2.val) << T << base_convert<int>(in2.val, in2.base, 2);
 
 }

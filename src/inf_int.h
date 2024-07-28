@@ -424,11 +424,11 @@ inline U inf_int<T>::value_safe() { // returns the value but safely
 
     if (this->buffer<0){
         if (-std::pow(this->base, LEFT_BIT(-this->buffer)) < valid::min<U>()){
-            throw std::invalid_argument("Value underflow. Consider putting the value in a bigger data type.");
+            throw std::invalid_argument("Value underflow. Consider putting the value in a bigger data type. Value in question:" + this->info());
         } 
     } else {
         if (std::pow(this->base, LEFT_BIT(this->buffer)) > valid::max<U>()){
-            throw std::invalid_argument("Value overflow. Consider putting the value in a bigger data type.");
+            throw std::invalid_argument("Value overflow. Consider putting the value in a bigger data type. Value in question:" + this->info());
 
         }
     }

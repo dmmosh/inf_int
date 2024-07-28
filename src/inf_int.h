@@ -420,12 +420,19 @@ template <typename T>
 template <typename U>
 // convert ONLY if it's safe to do so
 inline U inf_int<T>::value_safe() { // returns the value but safely
-    
 
-    if (std::pow(this->base, LEFT_BIT(((this->buffer <0) ? -this->buffer+1 : this->buffer))) > valid::max<U>()){
-        throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
+
+    if (this->buffer<0){
+        if (-std::pow(this->base, LEFT_BIT(-this->buffer))-1 < valid::min<U>()){
+            throw std::invalid_argument("Value underflow. Consider putting the value in a bigger data type.");
+        } 
+    } else {
+        if (std::pow(this->base, LEFT_BIT(this->buffer)) > valid::max<U>()){
+            throw std::invalid_argument("Value overflow. Consider putting the value in a bigger data type.");
+
+        }
     }
-    
+
     return base_convert<U>(this->buffer, this->base, 2);
 
 };

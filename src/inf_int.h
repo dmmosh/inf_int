@@ -107,18 +107,10 @@ namespace valid{ // bound checking
 
 }
 
-template <typename T>
-constexpr T base_convert(T val, const T& base_old, const T& base_new, const bool safe);
-
-template <typename T>
-constexpr T base_convert(T val, const T& base_old, const T& base_new){
-    return base_convert<T>(val, base_old, base_new, false); // not safe by default
-}
-
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 // function has a safety option for value_safe function 
 template <typename T>
-constexpr T base_convert(T val, const T& base_old, const T& base_new, const bool safe){
+constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     if (base_old == base_new) // base case, if bases match
         return val;
@@ -155,8 +147,6 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new, const bool
                 auto cur = std::pow(base_old, i); // current digit value
                 if(valid::add(out, cur)){
                     out+=cur;
-                } else if (safe){ // if value_safe is on, when the number overflows, it throws an error
-                    throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
                 }
             }
             i--;
@@ -424,7 +414,14 @@ inline U inf_int<T>::value() {
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value_safe() { // returns the value but safely
-    return base_convert<U>(this->buffer, this->base, 2, true);
+
+
+    if (std::pow(this->base, LEFT_BIT(((this->buffer <0) ? -this->buffer : this->buffer))) > valid::max<U>()){
+        throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
+    }
+    
+    return base_convert<U>(this->buffer, this->base, 2);
+
 };
 
 

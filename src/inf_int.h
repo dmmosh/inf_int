@@ -293,6 +293,9 @@ class inf_int{
 
 
         while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
+            out.base_convert(out.get_base()+1);
+            value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
+            out.base++;
             std::cout << value << '\n';
         }
 
@@ -438,7 +441,7 @@ inline std::string inf_int<T>::info(){
 template <class T>
 template<typename U>
 inline void inf_int<T>::base_convert(const U& base_new){
-    this->buffer = ::base_convert(this->buffer, this->base, base_new);
+    this->buffer = ::base_convert<T>(this->buffer, this->base, base_new);
     this->base = base_new;
 };
 

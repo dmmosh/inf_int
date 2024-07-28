@@ -303,8 +303,9 @@ class inf_int{
             base++;
         }
 
-
+        
         out.base_convert(base);
+        out += ::base_convert<T>(value, 2, base);
         return out;
     }; 
 

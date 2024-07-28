@@ -28,29 +28,26 @@ void debug(const test& in){
 
 int main(void){
 
-    //inf_int<int8_t> a = 1000;
+    // // BASE CONVERSION TESTING
+    // test in1 = {60, 2}; // 81
+    // test in2 = {0b00010100, 3}; // 90
 
-    //inf_int<int8_t> a = -200;
-    //inf_int<int8_t> b = 38192;
+    // int8_t in1_new_base =6;
+    // int8_t in2_new_base = 4;
 
+    // test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
+    // test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
 
-    //a +=b;
-    test in1 = {60, 2}; // 81
-    test in2 = {0b00010100, 3}; // 90
+    // debug(in2);
+    // debug(out2);
 
-    int8_t in1_new_base =6;
-    int8_t in2_new_base = 4;
+    // debug(in1);
+    // debug(out1);
 
+    inf_int<int8_t> a = 5;
+    inf_int<int8_t> b = 200;
 
-    test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
-    //test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
-
-
-    //debug(in2);
-    //debug(out2);
-
-    debug(in1);
-    debug(out1);
+    std::cout << a << b;
 
 
     

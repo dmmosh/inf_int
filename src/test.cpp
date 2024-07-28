@@ -45,7 +45,9 @@ int main(void){
     // debug(out1);
 
     inf_int<int8_t> a = 5;
-    inf_int<int8_t> b = -200;
+    inf_int<int8_t> b = 200;
+
+    a+=b;
 
     std::cout << a << N << b;
 

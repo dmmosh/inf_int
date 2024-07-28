@@ -442,7 +442,7 @@ template <class T>
 template<typename U>
 inline void inf_int<T>::base_convert(const U& base_new){
     this->buffer = ::base_convert<T>(this->buffer, this->base, base_new);
-    this->base = base_new;
+    this->base = static_cast<uT>(base_new);
 };
 
 

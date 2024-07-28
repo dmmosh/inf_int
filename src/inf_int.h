@@ -163,7 +163,12 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             then removes that bit from the value
             */
             if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
-                BIT_SET(out, cur); //sets bit at current
+
+                while(cur >= 0 && bit >0){
+                    BIT_SET(out, cur); //sets bit at current
+                    bit -= std::pow(base_new, cur);
+                    cur--;
+                }
 
                 //BIT_CLEAR(val, i); //doesnt need to
             }

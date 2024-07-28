@@ -44,7 +44,7 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int> a = -128;
+    inf_int<int> a = 128;
     inf_int<int> b = 0;
 
     a+=b;

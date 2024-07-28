@@ -277,22 +277,24 @@ class inf_int{
     // friend functions w templates cant be declared and defined later 
 
     template<typename U>
-    friend inf_int<T> operator+(inf_int<T> out, const U& value) {
+    friend inf_int<T> operator+(inf_int<T> out, U value) {
         if (value == 0){ //if the value is 0, nothing to add
             return out; 
         }
 
-        U add = base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
-        return add;
+        value= base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+        return value;
 
-        while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
-            add = base_convert<U>(add, out.get_base(), out.get_base()+1);
+
+
+        while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
+            value = base_convert<U>(value, out.get_base(), out.get_base()+1);
             out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
             out.base++;
-            
+ 
         }
  
-        out.buffer += add; //add value to the buffer
+        out.buffer += value; //add value to the buffer
         return out;
     }; 
 

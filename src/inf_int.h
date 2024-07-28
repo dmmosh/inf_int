@@ -296,7 +296,6 @@ class inf_int{
 
  
         out.buffer += value; //add value to the buffer
-        out.buffer = -out.buffer;
         return out;
     }; 
 

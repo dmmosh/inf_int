@@ -44,7 +44,7 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int> a = 100;
+    inf_int<int> a = -400;
     inf_int<int> b = 0;
 
     a+=b;

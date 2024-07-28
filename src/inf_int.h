@@ -10,21 +10,21 @@
 #include <string>
 
 // macros
-#define BITS(x) std::bitset<sizeof(x)*8>(x)
-#define INT8(x) static_cast<int8_t>(x)
+#define BITS(x) std::bitset<sizeof(x)*8>(x) // the bit representation (debug only)
+#define INT8(x) static_cast<int8_t>(x) // casts to int8 (debug only)
 
 /* a=target variable, b=bit number to act upon 0-n */
-#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))        // '!!' to make sure this returns 0 or 1
+#define BIT_SET(a,b) ((a) |= (1ULL<<(b))) // sets a bit at position b 
+#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b))) // clears a bit at position b
+#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b))) // flips a bit at position b
+#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) //checks if a bit is at the position, true or false
 
  // flags macros
-#define NEGATIVE_SIGN 1
-#define BASE (1<<1)
-#define BUFFER (1<<2)
-#define uT typename std::make_unsigned<T>::type
-#define uU typename std::make_unsigned<U>::type
+#define NEGATIVE_SIGN 1 //is negative?
+#define BASE (1<<1) // is base NOT 2?
+#define BUFFER (1<<2) // is cross the buffer ? 
+#define uT typename std::make_unsigned<T>::type // unsigned typename T
+#define uU typename std::make_unsigned<U>::type // unsigned typename U
 
 
 template<class T> class inf_int; // class definition
@@ -115,10 +115,10 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     if (base_old == base_new) // base case, if bases match
         return val;
-    if (val == 0)
+    if (val == 0) // if value is 0, return 0
         return 0;
 
-    T out = 0;
+    T out = 0; // output variable
     //ONLY BASE UP FOR NOW
 
     // int8_t i;  // i starts at leftmost bit in the value
@@ -131,11 +131,12 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     bool negative = false;
     if (val <0){
-        val = -val; // makes the value negative
+        val = -val; // makes the value positive 
         negative = true;
         i--;
     }
     
+    // old conversion (only wokrs base 2 to x)
     // while(val >0 && i >= 0) {
     //     //std::cout << val << i;
     
@@ -149,7 +150,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     // }
 
     while(val > 0 && i >=0){
-        if (BIT_CHECK(val, i)) {
+        if (BIT_CHECK(val, i)) { // if theres a bit at i 
             int8_t cur = log_base(std::pow(base_old, i), base_new); // bit index to insert
             //  log base new value's actual value at a given index
             /*
@@ -161,8 +162,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             then removes that bit from the value
             */
             if (cur < sizeof(val)*8-1){ // bit index doesnt overflow
-                BIT_SET(out, cur);
-                //BIT_CLEAR(val, i);
+                BIT_SET(out, cur); //sets bit at current
+                //BIT_CLEAR(val, i); //doesnt need to
             }
             //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
         }

@@ -306,8 +306,9 @@ class inf_int{
         //std::cout << BITS(::base_convert<T>(value, 2, base));
         //out.base_convert(base); //converts the base
 
-        out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
+        //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
         
+        out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
         out.base = base;
         
         return out;

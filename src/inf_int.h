@@ -120,22 +120,17 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     T out = 0; // output variable
     //ONLY BASE UP FOR NOW
 
-    // int8_t i;  // i starts at leftmost bit in the value
-    // if (base_old < base_new)
-    //     i = LEFT_BIT(val); // length of the bits
-    // else 
-    //     i = sizeof(val)*8-1;
-
-    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
+   
 
     bool negative = false; // is negative boolean
     if (val <0){
         val = -val; // makes the value positive 
-        negative = true;
-        i--;
+        negative = true; //makes sure to flip later 
     }
+
+    int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
     
-    if (base_old == 2){
+    if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
     // old conversion (only wokrs base 2 to x)
         while(val >0 && i >= 0) {
             //std::cout << val << i 
@@ -146,8 +141,18 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             }
             i--;
         }
-    
-    } else {
+    } else if (base_new == 2){ // if the new base is 2 (infinite int to normal number)
+        while(i>=0){ // iterates through the bits in the value (O(log(n)))
+            if (BIT_CHECK(val, i)) {  // if theres a bit
+                auto cur = std::pow(base_old, i); // current digit value
+                if(valid::add(out, cur)){
+                    out+=cur;
+                }
+            }
+            i--;
+        }
+
+    } else { // if neither base is 2
 
         while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
             if (BIT_CHECK(val, i)) { // if theres a bit at i 
@@ -167,8 +172,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
                     while(bit >= 0 && cur >0){ //iterate backwards in the bits
                         BIT_SET(out, bit); //sets bit at current
-                        cur -= std::pow(base_new, bit);
-                        bit--;
+                        cur -= std::pow(base_new, bit); //substracts from current
+                        bit--; // moves bit down
                     }
 
                     //BIT_CLEAR(val, i); //doesnt need to

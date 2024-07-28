@@ -230,7 +230,8 @@ uT testing(T num){
 // prints the values
 template<class T>
 std::ostream& operator<<(std::ostream& cout, inf_int<T>& input){
-    cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
+    //cout << ((std::is_signed<T>::value) ? input.template value<int>() : input.template value<unsigned int>());
+    cout << input.template value<int>();
     return cout;
 };
 
@@ -406,32 +407,32 @@ inline uT inf_int<T>::get_base() {
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
-    if (!this->get_buffer()) return 0; // base case
-    if (this->get_base<U>() == 2) return this->get_buffer<U>();
+    // if (!this->get_buffer()) return 0; // base case
+    // if (this->get_base<U>() == 2) return this->get_buffer<U>();
 
-    int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
+    // int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
 
-    U out = 0; //output number
-    if((BIT_CHECK(this->flags_arr, NEGATIVE_SIGN))){ // if buffer is negative & output data type is signed
-        if (std::is_signed<U>())
-            out-= valid::max<T,U>(*this)+1;
-        i--;
-    } 
+    // U out = 0; //output number
+    // if((BIT_CHECK(this->flags_arr, NEGATIVE_SIGN))){ // if buffer is negative & output data type is signed
+    //     if (std::is_signed<U>())
+    //         out-= valid::max<T,U>(*this)+1;
+    //     i--;
+    // } 
 
-    while (i >= 0) { // while i is 0 or more
+    // while (i >= 0) { // while i is 0 or more
         
 
-        if ((1<<i) & this->buffer) {
-            U tmp = static_cast<U>(std::pow(this->get_base(), i));
-            if (!valid::add(out, tmp)) // if adding overflows, return the max value
-                return valid::max<U>();
+    //     if ((1<<i) & this->buffer) {
+    //         U tmp = static_cast<U>(std::pow(this->get_base(), i));
+    //         if (!valid::add(out, tmp)) // if adding overflows, return the max value
+    //             return valid::max<U>();
             
             
-            out+= tmp; //adds the std::power
-        }
-        i--;
-    }
-    return out;
+    //         out+= tmp; //adds the std::power
+    //     }
+    //     i--;
+    // }
+    return base_convert<U>(this->buffer, this->base, 2);
 };
 
 template <typename T>

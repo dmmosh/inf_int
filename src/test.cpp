@@ -32,9 +32,9 @@ int main(void){
     test in1 = {0b00001111, 2};
     test in2 = {0b00011111, 3};
     in1.val_convert = base_convert<int8_t>(in1.val, in1.base, 3);
-    in2.val_convert = base_convert<int8_t>(in1.val, in1.base, 4);
+    in2.val_convert = base_convert<int8_t>(in2.val, in2.base, 4);
 
 
-    std::cout << N << BITS(in2.val) << T << base_convert<int>(in2.val, in2.base, 2);
+    std::cout << N << BITS(in1.val) << T << base_convert<int>(in1.val, in1.base, 2);
 
 }

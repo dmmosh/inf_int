@@ -49,7 +49,7 @@ int main(void){
 
     a+=b;
 
-    std::cout << a.value<int8_t>() << N << b;
+    std::cout << (int)a.value<int8_t>() << N << b;
 
 
     

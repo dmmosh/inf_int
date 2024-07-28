@@ -303,9 +303,9 @@ class inf_int{
             base++;
         }
 
+        std::cout << value;
         out.base_convert(base);
         out.buffer = ::base_convert<T>(value, 2, base);
-        std::cout << ::base_convert<int>(out.buffer, base, 2);
         return out;
     }; 
 

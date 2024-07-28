@@ -261,6 +261,9 @@ class inf_int{
 
     inline std::string info(); // prints info
 
+    template<typename U>
+    inline void base_convert(const U& base_new);
+
 
 
     // OPERATOR OVERLOADING
@@ -285,14 +288,12 @@ class inf_int{
             return out; 
         }
 
-        value= base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+        value= ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
 
 
         while (!valid::add<T,U>(out.buffer, value) && LEFT_BIT(value) > sizeof(out.buffer)*8-1){
-            value = base_convert<U>(value, out.get_base(), out.get_base()+1);
-            out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-            out.base++;
+            std::cout << value << '\n';
         }
 
 
@@ -307,14 +308,14 @@ class inf_int{
             return out;
         }
 
-        U add = base_convert<U>(value.buffer, value.base, out.base); // converts bases from 2 to inf int's
+        U add = ::base_convert<U>(value.buffer, value.base, out.base); // converts bases from 2 to inf int's
 
-        while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
-            add = base_convert<U>(add, out.get_base(), out.get_base()+1);
-            out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-            out.base++;
+        // while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
+        //     add = base_convert<U>(add, out.get_base(), out.get_base()+1);
+        //     out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+        //     out.base++;
             
-        }
+        // }
 
         out.buffer += add;
 
@@ -389,7 +390,7 @@ template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
     
-    return base_convert<U>(this->buffer, this->base, 2);
+    return ::base_convert<U>(this->buffer, this->base, 2);
 };
 
 template <typename T>
@@ -409,7 +410,7 @@ inline U inf_int<T>::value_safe() { // returns the value but safely
         }
     }
 
-    return base_convert<U>(this->buffer, this->base, 2);
+    return ::base_convert<U>(this->buffer, this->base, 2);
 
 };
 
@@ -432,6 +433,13 @@ inline std::string inf_int<T>::info(){
             "\nMAX:\t" + std::to_string(valid::max<T, long long>(*this)) +
             "\nMIN:\t" + std::to_string(valid::min<T, long long>(*this)) + 
             "\n";
+};
+
+template <class T>
+template<typename U>
+inline void inf_int<T>::base_convert(const U& base_new){
+    this->buffer = ::base_convert(this->buffer, this->base, base_new);
+    this->base = base_new;
 };
 
 
@@ -476,7 +484,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     }
 
 
-    this->buffer = base_convert<U>(value, 2, this->get_base()); // makes the buffer
+    this->buffer = ::base_convert<U>(value, 2, this->get_base()); // makes the buffer
     if (negative) { // if the sign is negative, flip it back to negative
         this->buffer = -this->buffer;
         //this->buffer |= sizeof(this->buffer)*8-1;

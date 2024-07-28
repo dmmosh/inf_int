@@ -288,7 +288,7 @@ class inf_int{
             return out; 
         }
 
-        U temp = ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
+        //U temp = ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
 
 
 
@@ -305,7 +305,7 @@ class inf_int{
 
 
         out.base_convert(base);
-        out.buffer += ::base_convert<U>(value, 2, base); //add value to the buffer
+        out.buffer += ::base_convert<T>(value, 2, base); //add value to the buffer
         return out;
     }; 
 

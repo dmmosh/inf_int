@@ -39,6 +39,6 @@ int main(void){
     in2.val_convert = base_convert<int8_t>(in2.val, in2.base, in2.val_convert_base);
 
 
-    std::cout << N << BITS(in2.val) << T << base_convert<int8_t>(in2.val, in2.base, 2);
-    std::cout << N << BITS(in2.val_convert) << T << base_convert<int8_t>(in2.val_convert, in2.val_convert_base, 2) << N;
+    std::cout << N << BITS(in2.val) << T << (int)base_convert<int8_t>(in2.val, in2.base, 2);
+    std::cout << N << BITS(in2.val_convert) << T << (int)base_convert<int8_t>(in2.val_convert, in2.val_convert_base, 2) << N;
 }

@@ -35,22 +35,22 @@ int main(void){
 
 
     //a +=b;
-    test in1 = {81, 2}; // 79
+    test in1 = {81, 2}; // 81
     test in2 = {0b00010100, 3}; // 90
 
     int8_t in1_new_base =4;
     int8_t in2_new_base = 4;
 
 
-    //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
-    test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
+    test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
+    //test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
 
 
-    debug(in2);
-    debug(out2);
+    //debug(in2);
+    //debug(out2);
 
-    //debug(in1);
-    //debug(out1);
+    debug(in1);
+    debug(out1);
 
 
     

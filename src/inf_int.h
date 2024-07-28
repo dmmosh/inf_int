@@ -128,7 +128,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
 
     int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
 
-    bool negative = false;
+    bool negative = false; // is negative boolean
     if (val <0){
         val = -val; // makes the value positive 
         negative = true;
@@ -146,7 +146,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
             }
             i--;
         }
-
+    
     } else {
 
         while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
@@ -164,13 +164,13 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
                 then removes that bit from the value
                 */
                 if (bit < sizeof(val)*8-1){ // bit index doesnt overflow
-    
+
                     while(bit >= 0 && cur >0){ //iterate backwards in the bits
                         BIT_SET(out, bit); //sets bit at current
                         cur -= std::pow(base_new, bit);
                         bit--;
                     }
-    
+
                     //BIT_CLEAR(val, i); //doesnt need to
                 }
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';

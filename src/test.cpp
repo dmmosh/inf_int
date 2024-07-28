@@ -50,7 +50,7 @@ int main(void){
     std::cout << a.info();
     a +=400;
 
-    std::cout << a.info() << N << b.info() ;
+    std::cout << a.info() ;
 
 
 }

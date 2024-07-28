@@ -107,7 +107,6 @@ namespace valid{ // bound checking
 
 }
 
-#include <iostream> // debug
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>

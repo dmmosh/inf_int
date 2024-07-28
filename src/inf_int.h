@@ -81,7 +81,9 @@ namespace valid{ // bound checking
     inline constexpr U max(inf_int<T>& input){
         // (base^(bit length - 1) -1 / base -1)
         // ex x^7 -1 / x-1 
-    
+        if (input.base ==2) {
+            return valid::max<T>();
+        }
 
         return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-((std::is_signed<T>()) ? 1 : 0)))/(input.get_base()-1));
     };

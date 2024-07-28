@@ -38,7 +38,7 @@ int main(void){
     test in1 = {81, 2}; // 79
     test in2 = {0b00010100, 3}; // 90
 
-    int8_t in1_new_base = 3;
+    int8_t in1_new_base = 5;
     int8_t in2_new_base = 4;
 
 

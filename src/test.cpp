@@ -44,10 +44,10 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 200;
+    inf_int<int8_t> a = 100;
     inf_int<int8_t> b = -10000;
 
-    a+=50000;
+    a+=2;
 
     std::cout << a.info() << N << b.info() ;
 

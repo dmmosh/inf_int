@@ -45,7 +45,7 @@ int main(void){
     // debug(out1);
 
     inf_int<int8_t> a = 200;
-    inf_int<int8_t> b = -10;
+    inf_int<int8_t> b = -10000;
 
     a+=b;
 

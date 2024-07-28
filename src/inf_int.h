@@ -418,8 +418,8 @@ inline U inf_int<T>::value() {
 
 template <typename T>
 template <typename U>
+// convert ONLY if it's safe to do so
 inline U inf_int<T>::value_safe() { // returns the value but safely
-
 
     if (std::pow(this->base, LEFT_BIT(((this->buffer <0) ? -this->buffer : this->buffer))) > valid::max<U>()){
         throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");

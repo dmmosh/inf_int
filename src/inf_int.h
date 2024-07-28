@@ -305,7 +305,6 @@ class inf_int{
 
 
         out.base_convert(base);
-        out.buffer += ::base_convert<T>(value, 2, base); //add value to the buffer
         return out;
     }; 
 

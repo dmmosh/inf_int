@@ -135,6 +135,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
         i--;
     }
     
+    
     // old conversion (only wokrs base 2 to x)
     // while(val >0 && i >= 0) {
     //     //std::cout << val << i;

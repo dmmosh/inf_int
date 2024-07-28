@@ -303,15 +303,21 @@ class inf_int{
             base++; // iterates base 
         }
 
+        value = ::base_convert<T>(value, 2, base);
+        while(!valid::add(value, out.buffer)){
+            value = ::base_convert<T>(value, base, base+1);
+            out.buffer = ::base_convert<T>(out.buffer, base, base+1);
+            base++;
+        }
+        out.base = base;
+
         //std::cout << BITS(::base_convert<T>(value, 2, base));
         //out.base_convert(base); //converts the base
 
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
         
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
-        out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
-        out.buffer |= ::base_convert<T>(value, 2, base);
-        out.base = base;
+        //out.buffer |= ::base_convert<T>(value, 2, base);
         
         return out;
     }; 

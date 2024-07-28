@@ -29,8 +29,8 @@ int main(void){
 
 
     //a +=b;
-    test in1 = {0b00001111, 2};
-    test in2 = {0b00011111, 3};
+    test in1 = {0b00001111, 2}; // 15
+    test in2 = {0b00010000, 3}; // 121
 
     in1.val_convert_base = 3;
     in2.val_convert_base = 4;

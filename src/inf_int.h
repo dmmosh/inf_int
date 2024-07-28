@@ -107,10 +107,18 @@ namespace valid{ // bound checking
 
 }
 
+template <typename T>
+constexpr T base_convert(T val, const T& base_old, const T& base_new, const bool safe);
 
-// base conversion NOTE: data types of all have to match, make sure to CAST 
 template <typename T>
 constexpr T base_convert(T val, const T& base_old, const T& base_new){
+    return base_convert<T>(val, base_old, base_new, false); // not safe by default
+}
+
+// base conversion NOTE: data types of all have to match, make sure to CAST 
+// function has a safety option for value_safe function 
+template <typename T>
+constexpr T base_convert(T val, const T& base_old, const T& base_new, const bool safe){
 
     if (base_old == base_new) // base case, if bases match
         return val;
@@ -147,6 +155,8 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
                 auto cur = std::pow(base_old, i); // current digit value
                 if(valid::add(out, cur)){
                     out+=cur;
+                } else if (safe){ // if value_safe is on, when the number overflows, it throws an error
+                    throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
                 }
             }
             i--;
@@ -407,58 +417,14 @@ inline uT inf_int<T>::get_base() {
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value() {
-    // if (!this->get_buffer()) return 0; // base case
-    // if (this->get_base<U>() == 2) return this->get_buffer<U>();
-
-    // int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
-
-    // U out = 0; //output number
-    // if((BIT_CHECK(this->flags_arr, NEGATIVE_SIGN))){ // if buffer is negative & output data type is signed
-    //     if (std::is_signed<U>())
-    //         out-= valid::max<T,U>(*this)+1;
-    //     i--;
-    // } 
-
-    // while (i >= 0) { // while i is 0 or more
-        
-
-    //     if ((1<<i) & this->buffer) {
-    //         U tmp = static_cast<U>(std::pow(this->get_base(), i));
-    //         if (!valid::add(out, tmp)) // if adding overflows, return the max value
-    //             return valid::max<U>();
-            
-            
-    //         out+= tmp; //adds the std::power
-    //     }
-    //     i--;
-    // }
+    
     return base_convert<U>(this->buffer, this->base, 2);
 };
 
 template <typename T>
 template <typename U>
 inline U inf_int<T>::value_safe() { // returns the value but safely
-    if (!this->get_buffer()) return 0; // base case
-    if (this->get_base<U>() == 2) return this->get_buffer<U>();
-
-    int8_t i = LEFT_BIT(this->get_buffer()); // i iterate over bits
-
-    U out = 0; //output number
-
-    while (i >= 0) { // while i is 0 or more
-        
-
-        if (((1<<i) & this->buffer)) {
-            U tmp = static_cast<U>(std::pow(this->get_base(), i));
-            if (!valid::add(out, tmp)) // if adding overflows, return the max value
-                throw std::invalid_argument("Value overflow. Consider increasing the returning value size or changing the function to the other version.");
-
-            
-            out+= tmp; //adds the std::power
-        }
-        i--;
-    }
-    return out;
+    return base_convert<U>(this->buffer, this->base, 2, true);
 };
 
 

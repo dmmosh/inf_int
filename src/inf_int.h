@@ -152,7 +152,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
         if (BIT_CHECK(val, i)) { // if theres a bit at i 
             auto bit = std::pow(base_old, i); // current digit value
             int8_t cur = static_cast<int8_t>(log_base(bit, base_new)); // bit index to insert
-            std::cout << (int)i << '\t' << (int)bit << '\n';
+            std::cout << (int)i << '\t' << (int)cur << '\t' << (int)bit << '\n';
             //  log base new value's actual value at a given index
             /*
             ex.

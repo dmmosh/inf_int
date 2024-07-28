@@ -49,7 +49,7 @@ int main(void){
 
     a+=50000;
 
-    std::cout << a << N << b ;
+    std::cout << a.info() << N << b.info() ;
 
 
 }

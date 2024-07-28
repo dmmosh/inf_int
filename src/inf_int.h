@@ -148,7 +148,7 @@ constexpr T base_convert(T val, const T& base_old, const T& base_new){
     //     i--;
     // }
 
-    while(val > 0 && i >=0){
+    while(i >=0 && val >0){
         if (BIT_CHECK(val, i)) { // if theres a bit at i 
             int8_t cur = static_cast<int8_t>(log_base(std::pow(base_old, i), base_new)); // bit index to insert
             std::cout << (int)i << '\t' << (int)cur << '\n';

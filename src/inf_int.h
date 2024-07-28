@@ -82,7 +82,7 @@ namespace valid{ // bound checking
         // (base^(bit length - 1) -1 / base -1)
         // ex x^7 -1 / x-1 
     
-        return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-((std::is_signed<T>()) ? 1 : 0))-1)/(input.get_base()-1));
+        return static_cast<U>((std::pow(input.get_base(), sizeof(input.buffer)*8-((std::is_signed<T>()) ? 1 : 0)))/(input.get_base()-1));
     };
     
     

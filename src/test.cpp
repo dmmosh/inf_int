@@ -44,12 +44,12 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 5;
-    inf_int<int8_t> b = 200;
+    inf_int<int> a = 1000000;
+    inf_int<int> b = 100000;
 
     a+=b;
 
-    std::cout << a.value<int>() << N << b;
+    std::cout << a.value<int8_t>() << N << b;
 
 
     

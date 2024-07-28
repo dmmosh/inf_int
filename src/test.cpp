@@ -44,7 +44,7 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 1090;
+    inf_int<int8_t> a = 200000;
     inf_int<int8_t> b = -10000;
 
     std::cout << a.info();

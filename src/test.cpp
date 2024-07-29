@@ -30,7 +30,7 @@ int main(void){
 
     // BASE CONVERSION TESTING
     test in1 = {60, 2}; // 81
-    test in2 = {0b00110000, 4}; // 90
+    test in2 = {0b00111110, 4}; // 90
     // 01111111 base 3 to base 4
 
 

@@ -28,31 +28,31 @@ void debug(const test& in){
 
 int main(void){
 
-    // // BASE CONVERSION TESTING
-    // test in1 = {60, 2}; // 81
-    // test in2 = {0b00010100, 3}; // 90
+    // BASE CONVERSION TESTING
+    test in1 = {60, 2}; // 81
+    test in2 = {0b01101001, 3}; // 90
 
-    // int8_t in1_new_base =6;
-    // int8_t in2_new_base = 4;
+    int8_t in1_new_base =6;
+    int8_t in2_new_base = 4;
 
-    // test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
-    // test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
+    //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
+    test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
 
-    // debug(in2);
-    // debug(out2);
+    debug(in2);
+    debug(out2);
 
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 1000;
-    inf_int<int8_t> b = -10000;
+    //inf_int<int8_t> a = 1000;
+    //inf_int<int8_t> b = -10000;
 
     //std::cout << a.info();
-    a +=400;
+    //a +=400;
 
     //std::cout << a.info() ;
 
-    std::cout << base_convert<int>(1000, 3, 4);
+    //std::cout << base_convert<int>(1000, 3, 4);
 
 
 }

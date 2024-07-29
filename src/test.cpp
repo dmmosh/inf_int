@@ -52,6 +52,8 @@ int main(void){
     inf_int<int8_t> a = 256;
     inf_int<int8_t> b = -10000;
 
+    a.base_convert(4);
+
     std::cout << a.info();
     a += 4096;
 

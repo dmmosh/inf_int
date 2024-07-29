@@ -30,11 +30,12 @@ int main(void){
 
     // BASE CONVERSION TESTING
     test in1 = {60, 2}; // 81
-    test in2 = {0b01000000, 3}; // 90
+    test in2 = {0b00111000, 4}; // 90
     // 01111111 base 3 to base 4
-    
+
+
     int8_t in1_new_base =6;
-    int8_t in2_new_base = 4;
+    int8_t in2_new_base = 6;
 
     //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
     test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};

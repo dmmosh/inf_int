@@ -295,31 +295,6 @@ class inf_int{
             return out; 
         }
 
-        //U temp = ::base_convert<U>(value, 2, out.get_base()); // converts bases from 2 to inf int's
-
-
-
-        // while (!valid::add<T,U>(out.buffer, temp) || LEFT_BIT(temp) > sizeof(out.buffer)*8-1){
-        //     out.base_convert(out.get_base()+1); // increments the base in the function
-        //     temp = ::base_convert<U>(temp, out.get_base()-1, out.get_base());
-        //     std::cout << value << '\n';
-        // }  
-
-        
-
-        // value = ::base_convert<U>(value, 2, out.get_base());
-
-
-        // while (!valid::add(out.buffer, value)){
-
-        //     out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        //     value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
-
-        //     //std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
-        //     out.base++;
-            
-        // };
-
         uT temp_base = out.get_base();
         T temp_buffer = out.buffer;
         U temp_val = ::base_convert<U>(value,2, temp_base);
@@ -329,13 +304,6 @@ class inf_int{
             temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
             temp_val = ::base_convert<U>(value, 2, temp_base);
         }
-
-        //std::cout << BITS(::base_convert<T>(value, 2, base));
-        //out.base_convert(base); //converts the base
-
-        //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
-        
-        //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
 
 
         for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
@@ -355,16 +323,25 @@ class inf_int{
             return out;
         }
 
-        U add = ::base_convert<U>(value.buffer, value.base, out.base); // converts bases from 2 to inf int's
+        uT temp_base = out.get_base();
+        T temp_buffer = out.buffer;
+        U temp_val = ::base_convert<U>(value.buffer,value.get_base(), temp_base);
 
-        // while (!valid::add<T,U>(out.buffer, add) && LEFT_BIT(add) > sizeof(out.buffer)*8-1){
-        //     add = base_convert<U>(add, out.get_base(), out.get_base()+1);
-        //     out.buffer = base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-        //     out.base++;
-            
-        // }
+        while(!valid::add(temp_buffer, temp_val)){
+            temp_base++;
+            temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
+            temp_val = ::base_convert<U>(value.buffer, value.get_base(), temp_base);
+        }
+        
 
-        out.buffer += add;
+        for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
+        {
+            BIT_SET(out.buffer, i);
+        }
+        
+        out.buffer = temp_buffer | temp_val;
+        out.base = temp_base; 
+
 
         return out;
     }; 

@@ -173,19 +173,18 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
                 */
 
-               
+
                
             
                 while(bit >= 0 && cur>0){ //iterate backwards in the bits
                     auto temp = std::pow(base_new, bit);
-                    if(cur>= temp){
+                    if(cur>= temp){ //if the current is bigger than the temp variable (can substract)
                         BIT_SET(out, bit); //sets bit at current
                         cur -= temp; //substracts from current
                     }
                     bit--; // moves bit down
                 }
 
-                    //BIT_CLEAR(val, i); //doesnt need to
                 }
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
             i--;

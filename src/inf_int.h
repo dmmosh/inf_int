@@ -186,8 +186,8 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                     //BIT_CLEAR(val, i); //doesnt need to
                 }
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
-        }
             i--;
+        }
     }   
 
 

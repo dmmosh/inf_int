@@ -47,7 +47,7 @@ int main(void){
     // debug(out2);
 
     // debug(in1);
-    // debug(out1);
+    // debug(out1); skmklc
 
     inf_int<int8_t> a = 100;
     inf_int<int8_t> b = -10000;

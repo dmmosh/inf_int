@@ -49,11 +49,11 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 100000000;
+    inf_int<int8_t> a = 100;
     inf_int<int8_t> b = -10000;
 
 
-    inf_int<int8_t> c = 50000;
+    inf_int<int8_t> c = 200;
     std::cout << a.info() << c.info();
 
     a += c;

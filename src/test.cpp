@@ -53,8 +53,9 @@ int main(void){
     inf_int<int8_t> b = -10000;
 
 
-    std::cout << a.info();
     inf_int<int8_t> c = 1000000000;
+    std::cout << a.info() << c.info();
+
     a += c;
 
     std::cout << a.info() ;

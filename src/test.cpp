@@ -28,36 +28,35 @@ void debug(const test& in){
 
 int main(void){
 
-    // BASE CONVERSION TESTING
-    test in1 = {60, 2}; // 81
-    test in2 = {0b00111000, 50}; // 90
+    // // BASE CONVERSION TESTING
+    // test in1 = {60, 2}; // 81
+    // test in2 = {0b00111000, 50}; // 90
 
-    // underflow errors TODO: fix
-    // 01111111 base 3 to base 4
-    // 00111000 base 4 to base 6
+    // // underflow errors TODO: fix
+    // // 01111111 base 3 to base 4
+    // // 00111000 base 4 to base 6
 
 
-    int8_t in1_new_base =6;
-    int8_t in2_new_base = 120;
+    // int8_t in1_new_base =6;
+    // int8_t in2_new_base = 120;
 
-    //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
-    test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
+    // //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
+    // test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
 
-    debug(in2);
-    debug(out2);
+    // debug(in2);
+    // debug(out2);
 
     // debug(in1);
     // debug(out1);
 
-    //inf_int<int8_t> a = 1000;
-    //inf_int<int8_t> b = -10000;
+    inf_int<int8_t> a = 1000;
+    inf_int<int8_t> b = -10000;
 
-    //std::cout << a.info();
-    //a +=400;
+    std::cout << a.info();
+    a +=400;
 
-    //std::cout << a.info() ;
+    std::cout << a.info() ;
 
-    //std::cout << base_convert<int>(1000, 3, 4);
 
 
 }

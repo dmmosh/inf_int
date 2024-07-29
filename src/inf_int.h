@@ -325,7 +325,7 @@ class inf_int{
 
         uT temp_base = std::max(out.get_base(), value.base);
         T temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
-        U temp_val = ::base_convert<U>(value.buffer,value.base, temp_base);
+        U temp_val = ::base_convert<U>(value.buffer, value.base, temp_base);
 
         while(!valid::add(temp_buffer, temp_val)){
             temp_base++;

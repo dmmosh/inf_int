@@ -173,10 +173,11 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 if (bit < sizeof(val)*8-1){ // bit index doesnt overflow
 
                     while(bit >= 0 && cur>0){ //iterate backwards in the bits
-                        BIT_SET(out, bit); //sets bit at current
                         auto temp = std::pow(base_new, bit);
-                        if(cur>= temp)
+                        if(cur>= temp){
+                            BIT_SET(out, bit); //sets bit at current
                             cur -= temp; //substracts from current
+                        }
                         bit--; // moves bit down
                     }
 

@@ -54,7 +54,8 @@ int main(void){
 
 
     std::cout << a.info();
-    a += 2374832798724;
+    inf_int<int8_t> c = 2374832798724;
+    a += c;
 
     std::cout << a.info() ;
 

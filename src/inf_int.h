@@ -325,14 +325,14 @@ class inf_int{
 
         uT temp_base = out.get_base();
         T temp_buffer = out.buffer;
-        U temp_val = ::base_convert<U>(value.buffer,value.get_base(), temp_base);
+        U temp_val = ::base_convert<U>(value.buffer,value.base, temp_base);
 
         while(!valid::add(temp_buffer, temp_val)){
             temp_base++;
             temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
-            temp_val = ::base_convert<U>(value.buffer, value.get_base(), temp_base);
+            temp_val = ::base_convert<U>(value.buffer, value.base, temp_base);
         }
-        
+
 
         for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
         {

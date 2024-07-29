@@ -305,18 +305,28 @@ class inf_int{
 
         
 
-        value = ::base_convert<U>(value, 2, out.get_base());
+        // value = ::base_convert<U>(value, 2, out.get_base());
 
 
-        while (!valid::add(out.buffer, value)){
+        // while (!valid::add(out.buffer, value)){
 
-            out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
-            value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
+        //     out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
+        //     value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
 
-            //std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
-            out.base++;
+        //     //std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
+        //     out.base++;
             
-        };
+        // };
+
+        uT temp_base = out.get_base();
+        T temp_buffer = out.buffer;
+        U temp_val = ::base_convert<U>(value,2, temp_base);
+
+        while(!valid::add(temp_buffer, temp_val)){
+            temp_buffer = ::base_convert<U>(value,2, temp_base);
+            temp_val = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
+            temp_base++;
+        }
 
         //std::cout << BITS(::base_convert<T>(value, 2, base));
         //out.base_convert(base); //converts the base
@@ -325,8 +335,9 @@ class inf_int{
         
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
 
+        out.buffer = temp_buffer | temp_val;
+        out.base = temp_base; 
 
-        out.buffer |= value;
         for (int8_t i = LEFT_BIT(out.buffer); i >= 0; i--) // fills the bits tangled before way bigger ones
         {
             BIT_SET(out.buffer, i);

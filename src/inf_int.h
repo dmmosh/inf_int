@@ -308,7 +308,7 @@ class inf_int{
             out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
             value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
 
-            std::cout << BITS(out.buffer) << '\n' << BITS(value) << "\n\n";
+            std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
             out.base++;
             
         };

@@ -160,7 +160,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
         while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
             if (BIT_CHECK(val, i)) { // if theres a bit at i 
                 auto cur = std::pow(base_old, i); // current digit value
-                int8_t bit = static_cast<int8_t>(log_base(cur, base_new)); // bit index to insert
+                int8_t bit = static_cast<int8_t>(log_base(base_old, base_new) * i); // bit index to insert (log properties :)
                 std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
                 //  log base new value's actual value at a given index
                 /*
@@ -173,7 +173,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
 
 
                
-               bit = sizeof(T)*8-((negative)? 2 :1); //resets the bit to the beginning
 
                 while(bit >= 0 && cur>0){ //iterate backwards in the bits
                     auto temp = std::pow(base_new, bit);

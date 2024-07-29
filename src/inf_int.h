@@ -185,6 +185,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                     bit--; // moves bit down
                 }
 
+                    //BIT_CLEAR(val, i); //doesnt need to
                 }
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
             i--;
@@ -234,7 +235,6 @@ class inf_int{
     // CONSTRUCTORS
 
     inf_int(); //empty (0)
-
     template <typename U>
     inf_int(U value); // initialized value
 
@@ -324,7 +324,14 @@ class inf_int{
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base) + ::base_convert<T>(value, 2, base);
         
         //out.buffer = ::base_convert<T>(out.buffer, out.get_base(), base);
+
+
         out.buffer |= value;
+        for (int8_t i = LEFT_BIT(out.buffer); i >= 0; i--) // fills the bits tangled before way bigger ones
+        {
+            BIT_SET(out.buffer, i);
+        }
+        
         
         return out;
     }; 

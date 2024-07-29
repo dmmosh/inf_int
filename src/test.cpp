@@ -53,12 +53,10 @@ int main(void){
     inf_int<int8_t> b = -10000;
 
     std::cout << a.info();
-    //a +=400;
-    a.base_convert(4);
+    a +=100000;
 
     std::cout << a.info() ;
 
-    std::cout<< BITS((int8_t)20) << T << BITS((int8_t)~(20));
 
 
 

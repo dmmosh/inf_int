@@ -302,6 +302,7 @@ class inf_int{
 
         value = ::base_convert<U>(value, 2, out.get_base());
 
+        std::cout << BITS(out.buffer) << '\n' << BITS(value) << '\n\n';
         while (!valid::add(out.buffer, value)){
 
             out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);

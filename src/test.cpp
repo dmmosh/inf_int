@@ -52,5 +52,7 @@ int main(void){
 
     std::cout << a.info() ;
 
+    std::cout << base_convert<int>(1000, 3, 4);
+
 
 }

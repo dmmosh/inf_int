@@ -49,13 +49,13 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 256;
+    inf_int<int8_t> a = 9203029281830321;
     inf_int<int8_t> b = -10000;
 
     a.base_convert(4);
 
     std::cout << a.info();
-    a += 4096;
+    a += 2344324355533432;
 
     std::cout << a.info() ;
 

@@ -502,7 +502,7 @@ inf_int<T>& inf_int<T>::operator=(U value) {
 
 
     // iterates until suitable base is found
-    while(valid::log_base(value, this->base) > sizeof(T)*8-((std::is_signed<T>()) ? 2 : 1)){
+    while(valid::log_base(value, this->base) >= sizeof(T)*8-((std::is_signed<T>()) ? 1 : 0)){
         this->base++;
     }
     this->buffer = ::base_convert<T>(value, 2, this->base);

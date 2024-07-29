@@ -47,10 +47,10 @@ int main(void){
     inf_int<int8_t> a = 1000;
     inf_int<int8_t> b = -10000;
 
-    std::cout << a.info();
+    //std::cout << a.info();
     a +=400;
 
-    std::cout << a.info() ;
+    //std::cout << a.info() ;
 
     std::cout << base_convert<int>(1000, 3, 4);
 

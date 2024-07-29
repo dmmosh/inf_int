@@ -58,7 +58,7 @@ int main(void){
 
     std::cout << a.info() ;
 
-    std::cout<< BITS((int8_t)20) << T << BITS(~((int8_t)20));
+    std::cout<< BITS((int8_t)20) << T << BITS((int8_t)~(20));
 
 
 

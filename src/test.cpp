@@ -54,7 +54,7 @@ int main(void){
 
 
     std::cout << a.info();
-    a += 2344324355533432;
+    a += 10000000000;
 
     std::cout << a.info() ;
 

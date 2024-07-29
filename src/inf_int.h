@@ -39,9 +39,6 @@ inline constexpr T LEFT_BIT(const T& input){ // leftmost bit ( starting from 0)
     return -1; // if input is 0
 }
 
-inline constexpr auto log_base(const auto& val, const auto& base){
-    return log2(val) / log2(base); 
-}
 
 
 namespace valid{ // bound checking
@@ -105,6 +102,11 @@ namespace valid{ // bound checking
         return -(valid::max<T, U>(input))-1;
     };
 
+
+    inline constexpr auto log_base(const auto& val, const auto& base){
+        return log2(val) / log2(base); 
+    }
+
 }
 
 // base conversion NOTE: data types of all have to match, make sure to CAST 
@@ -160,7 +162,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
         while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
             if (BIT_CHECK(val, i)) { // if theres a bit at i 
                 auto cur = std::pow(base_old, i); // current digit value
-                int8_t bit = static_cast<int8_t>(log_base(base_old, base_new) * i); // bit index to insert (log properties :)
+                int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
                 //int8_t bit = std::log(base_old)*i;
                 //std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
@@ -522,25 +524,12 @@ inf_int<T>& inf_int<T>::operator=(U value) {
     }
 
 
-    while(log_base(value, this->base) > sizeof(T)*8-((std::is_signed<T>()) ? 2 : 1)){
+    // iterates until suitable base is found
+    while(valid::log_base(value, this->base) > sizeof(T)*8-((std::is_signed<T>()) ? 2 : 1)){
         this->base++;
     }
     this->buffer = ::base_convert<T>(value, 2, this->base);
 
-
-    // // iterates until a base that can hold the number is found
-    // U max_val = valid::max<T, U>(*this); // temp max val variable
-    // while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-    //     this->base++; // increases the base
-    //     max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
-    // }
-
-
-    // this->buffer = ::base_convert<U>(value, 2, this->get_base()); // makes the buffer
-    // if (negative) { // if the sign is negative, flip it back to negative
-    //     this->buffer = -this->buffer;
-    //     //this->buffer |= sizeof(this->buffer)*8-1;
-    // } 
 
     if (negative){ // if the buffer is tagges as negative, flips the sign
         this->buffer = -this->buffer; 

@@ -49,7 +49,7 @@ int main(void){
     // debug(in1);
     // debug(out1);
 
-    inf_int<int8_t> a = 200;
+    inf_int<int8_t> a = 100000;
     inf_int<int8_t> b = -10000;
 
 

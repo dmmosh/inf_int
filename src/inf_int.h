@@ -521,19 +521,30 @@ inf_int<T>& inf_int<T>::operator=(U value) {
         value = -value; // inverses twos compliment
     }
 
-    // iterates until a base that can hold the number is found
-    U max_val = valid::max<T, U>(*this); // temp max val variable
-    while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
-        this->base++; // increases the base
-        max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
+
+    while(log_base(value, this->base) > sizeof(T)*8-((std::is_signed<T>()) ? 2 : 1)){
+        this->base++;
     }
+    this->buffer = ::base_convert<T>(value, 2, this->base);
 
 
-    this->buffer = ::base_convert<U>(value, 2, this->get_base()); // makes the buffer
-    if (negative) { // if the sign is negative, flip it back to negative
-        this->buffer = -this->buffer;
-        //this->buffer |= sizeof(this->buffer)*8-1;
-    } 
+    // // iterates until a base that can hold the number is found
+    // U max_val = valid::max<T, U>(*this); // temp max val variable
+    // while(max_val < value && max_val >0) { // keep iterating until a base that can hold the value is found or max val overflows
+    //     this->base++; // increases the base
+    //     max_val = valid::max<T, U>(*this); // makes new max val (with  new base)
+    // }
+
+
+    // this->buffer = ::base_convert<U>(value, 2, this->get_base()); // makes the buffer
+    // if (negative) { // if the sign is negative, flip it back to negative
+    //     this->buffer = -this->buffer;
+    //     //this->buffer |= sizeof(this->buffer)*8-1;
+    // } 
+
+    if (negative){ // if the buffer is tagges as negative, flips the sign
+        this->buffer = -this->buffer; 
+    }
 
     return *this;
 }; 

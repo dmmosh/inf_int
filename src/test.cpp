@@ -53,7 +53,7 @@ int main(void){
     inf_int<int8_t> b = -10000;
 
 
-    inf_int<int8_t> c = 200;
+    inf_int<int8_t> c = 243;
     std::cout << a.info() << c.info();
 
     a += c;

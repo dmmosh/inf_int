@@ -47,8 +47,8 @@ int main(void){
     inf_int<int8_t> a = 1000;
     inf_int<int8_t> b = -10000;
 
-    a +=400;
     std::cout << a.info();
+    a +=400;
 
     std::cout << a.info() ;
 

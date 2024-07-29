@@ -163,7 +163,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 int8_t bit = static_cast<int8_t>(log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
                 //int8_t bit = std::log(base_old)*i;
-                std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
+                //std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
                 //  log base new value's actual value at a given index
                 /*
                 ex.
@@ -313,7 +313,7 @@ class inf_int{
             out.buffer = ::base_convert<T>(out.buffer, out.get_base(), out.get_base()+1);
             value = ::base_convert<U>(value, out.get_base(), out.get_base()+1);
 
-            std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
+            //std::cout << BITS(out.buffer) << '\n' << BITS((int8_t)value) << "\n\n";
             out.base++;
             
         };

@@ -143,7 +143,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 out += 1<< i;
             }
 
-            val -= std::pow(2,i);
+            BIT_CLEAR(val, i); // ITERATES THROUGH THE LEFT BITS IN THE VALUE 
             i = LEFT_BIT(val);
         }
 
@@ -156,7 +156,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                     out+=cur;
                 }
             }
-            val -= std::pow(2,i);
+            BIT_CLEAR(val, i);
             i = LEFT_BIT(val);
         }
 
@@ -166,7 +166,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 auto cur = std::pow(base_old, i); // current digit value
                 int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
-                //uint8_t high = LEFT_BIT(val); //highest value
                 
 
 
@@ -187,7 +186,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
 
                     //BIT_CLEAR(val, i); //doesnt need to
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
-            val -= std::pow(2,i);
+            BIT_CLEAR(val, i);
             i = LEFT_BIT(val);
         }
     }   

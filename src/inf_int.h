@@ -146,10 +146,11 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 j = LEFT_BIT(curr); // j is left bit
             }
             double bit = (valid::log_base(sum, base_old)+i)/divide;
-            std::cout << (int)i << '\t' << bit << '\n';
+            //std::cout << (int)i << '\t' << bit << '\n';
             BIT_SET(out, (uint8_t)bit);
            
-        
+            //TODO: make an individual bit reassign MULTIPLE bits with its value alone
+
             // while(bit >= 0 && cur>0){ //iterate backwards in the bits
             //     auto temp = std::pow(base_new, bit);
             //     if(cur>= temp){ //if the current is bigger than the temp variable (can substract)

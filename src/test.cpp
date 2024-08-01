@@ -45,7 +45,7 @@ int main(void){
 
     debug(in2);
     debug(out2);
-    std::cout << std::pow(4,-20);
+    std::cout << std::pow(4,-100);
     // debug(in1);
     // debug(out1); skmklc
 

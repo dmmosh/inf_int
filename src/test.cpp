@@ -30,7 +30,7 @@ int main(void){
 
     // BASE CONVERSION TESTING
     test in1 = {60, 2}; // 81
-    test in2 = {0b01000000, 3}; // 90
+    test in2 = {0b01111111, 3}; // 90
 
     // underflow errors TODO: fix
     // 01111111 base 3 to base 4

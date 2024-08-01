@@ -135,31 +135,34 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
     if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
 
     // old conversion (only wokrs base 2 to x)
-        while(val >0 && i >= 0) {
+        while(val >0 ) {
             //std::cout << val << i 
             auto minus = std::pow(base_new, i);
             if(minus <= val){
                 val-=minus;
                 out += 1<< i;
             }
-            i = LEFT_BIT((i - std::pow(2,i)));
+
+            val -= std::pow(2,i);
+            i = LEFT_BIT(val);
         }
 
     } else if (base_new == 2){ // if the new base is 2 (infinite int to normal number)
 
-        while(i>=0){ // iterates through the bits in the value (O(log(n)))
+        while(val>0){ // iterates through the bits in the value (O(log(n)))
             if (BIT_CHECK(val, i)) {  // if theres a bit
                 auto cur = std::pow(base_old, i); // current digit value
                 if(valid::add(out, cur)){ 
                     out+=cur;
                 }
             }
-            i = LEFT_BIT((i - std::pow(2,i)));
+            val -= std::pow(2,i);
+            i = LEFT_BIT(val);
         }
 
     } else { // if neither base is 2
 
-        while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
+        while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
                 auto cur = std::pow(base_old, i); // current digit value
                 int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
@@ -184,7 +187,8 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
 
                     //BIT_CLEAR(val, i); //doesnt need to
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
-            i = LEFT_BIT((i - std::pow(2,i)));
+            val -= std::pow(2,i);
+            i = LEFT_BIT(val);
         }
     }   
 

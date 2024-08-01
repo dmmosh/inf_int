@@ -50,7 +50,7 @@ int main(void){
     // debug(in1);
     // debug(out1); skmklc
 
-    inf_int<int8_t> a = 9589438983493;
+    inf_int<int8_t> a = 9089438983493;
 
     std::cout << N <<  a.info();
 

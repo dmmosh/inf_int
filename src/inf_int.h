@@ -147,7 +147,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
             i = LEFT_BIT(val);
         }
 
-    } else if (base_new == 2){ // if the new base is 2 (infinite int to normal number)
+    } else if (base_new == 2){ // if the new bfase is 2 (infinite int to normal number)
 
         while(val>0){ // iterates through the bits in the value (O(log(n)))
             if (BIT_CHECK(val, i)) {  // if theres a bit

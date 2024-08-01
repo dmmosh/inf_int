@@ -167,13 +167,13 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 //auto cur = std::pow(base_old, i); // current digit value
                 //int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
-                double sum = 0;
-                U curr = val;
+                double sum = 0; // sum of inverted powers
+                U curr = val; // current value
                 int8_t j = i; // starts at the same index as i (highest power of value)
                 while(curr){ // log(n) runtime
-                    sum += std::pow<double>(base_old,j-i);
-                    BIT_CLEAR(curr, j);
-                    j = LEFT_BIT(curr);
+                    sum += std::pow(base_old,j-i); //adds negative powers 
+                    BIT_CLEAR(curr, j); //clears the bit 
+                    j = LEFT_BIT(curr); // j is left bit
                 }
 
 

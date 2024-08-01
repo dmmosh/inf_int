@@ -49,16 +49,10 @@ int main(void){
     // debug(in1);
     // debug(out1); skmklc
 
-    // inf_int<int8_t> a = 100;
-    // inf_int<int8_t> b = -10000;
+    inf_int<int8_t> a = 274872139729216;
 
+    std::cout << a.info();
 
-    // inf_int<int8_t> c = 243;
-    // std::cout << a.info() << c.info();
-
-    // a += c;
-
-    // std::cout << a.info() ;
 
 
 

@@ -45,13 +45,14 @@ int main(void){
 
     debug(in2);
     debug(out2);
-    std::cout << std::pow(4,-100);
+    //std::cout << std::pow(4,-100);
+
     // debug(in1);
     // debug(out1); skmklc
 
     inf_int<int8_t> a = 9589438983493;
 
-    std::cout << a.info();
+    std::cout << N << N << a.info();
 
 
 

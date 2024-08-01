@@ -161,28 +161,38 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
         }
 
     } else { // if neither base is 2
+        double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
 
         while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
-                auto cur = std::pow(base_old, i); // current digit value
-                int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
+                //auto cur = std::pow(base_old, i); // current digit value
+                //int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
-                
+                double sum = 0;
+                U curr = val;
+                int8_t j = i; // starts at the same index as i (highest power of value)
+                while(curr){ // log(n) runtime
+                    sum += std::pow<double>(base_old,j-i);
+                    BIT_CLEAR(curr, j);
+                    j = LEFT_BIT(curr);
+                }
 
 
+                uint8_t bit = (valid::log_base(sum, base_old)+i)/divide;
 
-                std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
 
+                std::cout << (int)i << '\t' << (int)bit << '\t';
 
+                BIT_SET(out, bit);
                
             
-                while(bit >= 0 && cur>0){ //iterate backwards in the bits
-                    auto temp = std::pow(base_new, bit);
-                    if(cur>= temp){ //if the current is bigger than the temp variable (can substract)
-                        BIT_SET(out, bit); //sets bit at current
-                        cur -= temp; //substracts from current
-                    }
-                    bit--; // moves bit down
-                }
+                // while(bit >= 0 && cur>0){ //iterate backwards in the bits
+                //     auto temp = std::pow(base_new, bit);
+                //     if(cur>= temp){ //if the current is bigger than the temp variable (can substract)
+                //         BIT_SET(out, bit); //sets bit at current
+                //         cur -= temp; //substracts from current
+                //     }
+                //     bit--; // moves bit down
+                // }
 
                     //BIT_CLEAR(val, i); //doesnt need to
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';

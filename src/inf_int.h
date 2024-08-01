@@ -180,7 +180,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 uint8_t bit = (valid::log_base(sum, base_old)+i)/divide;
 
 
-                std::cout << (int)i << '\t' << (int)bit << '\t';
+                std::cout << (int)i << '\t' << (int)bit << '\n';
 
                 BIT_SET(out, bit);
                

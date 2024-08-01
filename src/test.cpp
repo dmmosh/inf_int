@@ -52,7 +52,7 @@ int main(void){
 
     inf_int<int8_t> a = 9589438983493;
 
-    std::cout << N << N << a.info();
+    std::cout << N <<  a.info();
 
 
 

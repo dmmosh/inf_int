@@ -132,35 +132,35 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
 
     int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
     
-    if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
+    // if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
 
-    // old conversion (only wokrs base 2 to x)
-        while(val >0 ) {
-            //std::cout << val << i 
-            auto minus = std::pow(base_new, i);
-            if(minus <= val){
-                val-=minus;
-                out += 1<< i;
-            }
+    // // old conversion (only wokrs base 2 to x)
+    //     while(val >0 ) {
+    //         //std::cout << val << i 
+    //         auto minus = std::pow(base_new, i);
+    //         if(minus <= val){
+    //             val-=minus;
+    //             out += 1<< i;
+    //         }
 
-            BIT_CLEAR(val, i); // ITERATES THROUGH THE LEFT BITS IN THE VALUE 
-            i = LEFT_BIT(val);
-        }
+    //         BIT_CLEAR(val, i); // ITERATES THROUGH THE LEFT BITS IN THE VALUE 
+    //         i = LEFT_BIT(val);
+    //     }
 
-    } else if (base_new == 2){ // if the new bfase is 2 (infinite int to normal number)
+    // } else if (base_new == 2){ // if the new bfase is 2 (infinite int to normal number)
 
-        while(val>0){ // iterates through the bits in the value (O(log(n)))
-            if (BIT_CHECK(val, i)) {  // if theres a bit
-                auto cur = std::pow(base_old, i); // current digit value
-                if(valid::add(out, cur)){ 
-                    out+=cur;
-                }
-            }
-            BIT_CLEAR(val, i);
-            i = LEFT_BIT(val);
-        }
+    //     while(val>0){ // iterates through the bits in the value (O(log(n)))
+    //         if (BIT_CHECK(val, i)) {  // if theres a bit
+    //             auto cur = std::pow(base_old, i); // current digit value
+    //             if(valid::add(out, cur)){ 
+    //                 out+=cur;
+    //             }
+    //         }
+    //         BIT_CLEAR(val, i);
+    //         i = LEFT_BIT(val);
+    //     }
 
-    } else { // if neither base is 2
+    // } else { // if neither base is 2
         double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
 
         while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
@@ -199,7 +199,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
             BIT_CLEAR(val, i);
             i = LEFT_BIT(val);
         }
-    }   
 
 
     if (negative){ //if negative number

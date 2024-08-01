@@ -165,7 +165,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
                 //int8_t bit = std::log(base_old)*i;
-                //std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
+                std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
                 //  log base new value's actual value at a given index
                 /*
                 ex.

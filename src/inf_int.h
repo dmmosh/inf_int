@@ -142,7 +142,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 val-=minus;
                 out += 1<< i;
             }
-            i--;
+            i = LEFT_BIT((i - std::pow(2,i)));
         }
 
     } else if (base_new == 2){ // if the new base is 2 (infinite int to normal number)
@@ -154,26 +154,21 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                     out+=cur;
                 }
             }
-            i--;
+            i = LEFT_BIT((i - std::pow(2,i)));
         }
 
     } else { // if neither base is 2
 
         while(i >=0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
-            if (BIT_CHECK(val, i)) { // if theres a bit at i 
                 auto cur = std::pow(base_old, i); // current digit value
                 int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
 
-                //int8_t bit = std::log(base_old)*i;
+                //uint8_t high = LEFT_BIT(val); //highest value
+                
+
+
+
                 std::cout << (int)i << '\t' << (int)bit << '\t' << (int)cur << '\n';
-                //  log base new value's actual value at a given index
-                /*
-                ex.
-                base 3 -> 2 with value 121
-                log(121, 2) = 6 (bit index 6 aka 2^6 aka 64)
-                base 2 -> with value 121
-                log(121, 3) = 4 (bit index 4 aka 3^4 aka 81)
-                */
 
 
                
@@ -188,9 +183,8 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
                 }
 
                     //BIT_CLEAR(val, i); //doesnt need to
-                }
                 //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
-            i--;
+            i = LEFT_BIT((i - std::pow(2,i)));
         }
     }   
 

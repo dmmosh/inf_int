@@ -50,6 +50,7 @@ int main(void){
     // debug(in1);
     // debug(out1); skmklc
 
+    std::cout << BITS((int16_t)1000) << N;
     inf_int<int8_t> a = 1000;
 
     std::cout << a.info();

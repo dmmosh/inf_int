@@ -51,7 +51,7 @@ int main(void){
     // debug(out1); skmklc
 
     std::cout << BITS((int16_t)1000) << N;
-    inf_int<int8_t> a = 1000000;
+    inf_int<int8_t> a = 9897977987;
     
     std::cout << a.info();
 

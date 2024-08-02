@@ -109,6 +109,8 @@ namespace valid{ // bound checking
 
 }
 
+
+
 // base conversion NOTE: data types of all have to match, make sure to CAST 
 // function has a safety option for value_safe function 
 template <typename T, typename U>
@@ -122,7 +124,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
     T out = 0; // output variable
     //ONLY BASE UP FOR NOW
 
-
     bool negative = false; // is negative boolean
     if (val <0){
         val = -val; // makes the value positive 
@@ -133,8 +134,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
     double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
     
     while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
-            //auto cur = std::pow(base_old, i); // current digit value
-            //int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)
             double sum = 0; // sum of inverted powers
             U curr = val; // current value
             int8_t j = i; // starts at the same index as i (highest power of value)
@@ -147,20 +146,8 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
             //std::cout << (int)i << '\t' << bit << '\n';
             BIT_SET(out, (uint8_t)bit);
            
-            //TODO: make an individual bit reassign MULTIPLE bits with its value alone
-
-            // while(bit >= 0 && cur>0){ //iterate backwards in the bits
-            //     auto temp = std::pow(base_new, bit);
-            //     if(cur>= temp){ //if the current is bigger than the temp variable (can substract)
-            //         BIT_SET(out, bit); //sets bit at current
-            //         cur -= temp; //substracts from current
-            //     }
-            //     bit--; // moves bit down
-            // }
-                //BIT_CLEAR(val, i); //doesnt need to
-            //std::cout << (int)cur << '\t' << BITS(val) << '\t' << BITS(out) <<'\n';
-        BIT_CLEAR(val, i);
-        i = LEFT_BIT(val);
+            BIT_CLEAR(val, i); //iterate
+            i = LEFT_BIT(val);
     }
 
     if (negative){ //if negative number
@@ -263,24 +250,27 @@ class inf_int{
             return out; 
         }
 
-        uT temp_base = out.get_base();
-        T temp_buffer = out.buffer;
-        U temp_val = ::base_convert<U>(value,2, temp_base);
-
-        while(!valid::add(temp_buffer, temp_val)){
-            temp_base++;
-            temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
-            temp_val = ::base_convert<U>(value, 2, temp_base);
-        }
-
-
-        for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
-        {
-            BIT_SET(out.buffer, i);
-        }
+        doule sum = 0;
         
-        out.buffer = temp_buffer | temp_val;
-        out.base = temp_base; 
+
+
+
+         uT temp_base = out.get_base();
+         T temp_buffer = out.buffer;
+         U temp_val = ::base_convert<U>(value,2, temp_base)
+         while(!valid::add(temp_buffer, temp_val)){
+             temp_base++;
+             temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
+             temp_val = ::base_convert<U>(value, 2, temp_base);
+         
+         for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
+         {
+             BIT_SET(out.buffer, i);
+         }
+
+         out.buffer = temp_buffer | temp_val;
+         out.base = temp_base; 
+        
         
         return out;
     }; 

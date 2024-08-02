@@ -132,8 +132,6 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
     int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
     double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
     
-    
-
     while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
             //auto cur = std::pow(base_old, i); // current digit value
             //int8_t bit = static_cast<int8_t>(valid::log_base(base_old, base_new) * i); // bit index to insert (log properties :)

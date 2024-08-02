@@ -54,7 +54,7 @@ int main(void){
 
     a+= 4000;
 
-    std::cout << base_convert(4000, 2,4);
+    std::cout << BITS(base_convert(4000, 2,4));
 
 
 

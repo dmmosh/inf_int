@@ -144,7 +144,7 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
             }
             double bit = (valid::log_base(sum, base_old)+i)/divide;
             //std::cout << (int)i << '\t' << bit << '\n';
-            BIT_SET(out, (uint8_t)bit);
+            BIT_SET(out, (uint8_t)round(bit));
            
             BIT_CLEAR(val, i); //iterate
             i = LEFT_BIT(val);
@@ -250,30 +250,27 @@ class inf_int{
             return out; 
         }
 
-        doule sum = 0;
-        
-
-
-
          uT temp_base = out.get_base();
          T temp_buffer = out.buffer;
-         U temp_val = ::base_convert<U>(value,2, temp_base)
+         U temp_val = ::base_convert<U>(value,2, temp_base);
          while(!valid::add(temp_buffer, temp_val)){
              temp_base++;
              temp_buffer = ::base_convert<T>(out.buffer, out.get_base(), temp_base);
              temp_val = ::base_convert<U>(value, 2, temp_base);
+        }; 
          
          for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
          {
-         }
              BIT_SET(out.buffer, i);
+         }
 
          out.buffer = temp_buffer | temp_val;
          out.base = temp_base; 
         
         
         return out;
-    }; 
+    }
+
 
     template<class U>
     friend inf_int<T> operator+(inf_int<T> out, const inf_int<U>& value) { //adds another infinite integer

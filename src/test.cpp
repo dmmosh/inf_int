@@ -53,9 +53,7 @@ int main(void){
     inf_int<uint8_t> a = 1000;
 
     std::cout << a.info();
-    a+= 4000;
 
-    std::cout << a.info();
 
 
 

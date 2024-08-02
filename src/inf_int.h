@@ -265,8 +265,8 @@ class inf_int{
          
          for (int8_t i = LEFT_BIT((temp_buffer & temp_val)); i >= 0; i--) // fills the bits tangled before way bigger ones
          {
-             BIT_SET(out.buffer, i);
          }
+             BIT_SET(out.buffer, i);
 
          out.buffer = temp_buffer | temp_val;
          out.base = temp_base; 

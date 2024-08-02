@@ -50,7 +50,7 @@ int main(void){
     // debug(in1);
     // debug(out1); skmklc
 
-    inf_int<uint8_t> a = 1000;
+    inf_int<int8_t> a = 1000;
 
     std::cout << a.info();
 

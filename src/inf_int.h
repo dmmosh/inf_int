@@ -131,53 +131,22 @@ constexpr T base_convert(U val, const T& base_old, const T& base_new){
     }
 
     int8_t i = LEFT_BIT(val);  // i starts at leftmost bit in the value
-
-    if (base_old == 2){ // if the old base is 2 (normal number to an infinite integer)
-
-    // old conversion (only wokrs base 2 to x)
-        while(val >0 ) {
-            //std::cout << val << i 
-            auto minus = std::pow(base_new, i);
-            if(minus <= val){
-                val-=minus;
-                out += 1<< i;
+    double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
+    
+    while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
+            double sum = 0; // sum of inverted powers
+            U curr = val; // current value
+            int8_t j = i; // starts at the same index as i (highest power of value)
+            while(curr){ // log(n) runtime
+                sum += std::pow(base_old,j-i); //adds negative powers 
+                BIT_CLEAR(curr, j); //clears the bit 
+                j = LEFT_BIT(curr); // j is left bit
             }
-
-            BIT_CLEAR(val, i); // ITERATES THROUGH THE LEFT BITS IN THE VALUE 
+            //std::cout << (int)i << '\t' << bit << '\n';
+            BIT_SET(out, (uint8_t)((valid::log_base(sum, base_old)+i)/divide));
+           
+            BIT_CLEAR(val, i); //iterate
             i = LEFT_BIT(val);
-        }
-
-    } else if (base_new == 2){ // if the new bfase is 2 (infinite int to normal number)
-
-        while(val>0){ // iterates through the bits in the value (O(log(n)))
-            if (BIT_CHECK(val, i)) {  // if theres a bit
-                auto cur = std::pow(base_old, i); // current digit value
-                if(valid::add(out, cur)){ 
-                    out+=cur;
-                }
-            }
-            BIT_CLEAR(val, i);
-            i = LEFT_BIT(val);
-        }
-    } else {
-
-        double divide = valid::log_base(base_new, base_old); // log base new (old), constant here
-        
-        while(val >0){ // iterates through the bits in the value (O(log(n)) where n is the number being input) 
-                double sum = 0; // sum of inverted powers
-                U curr = val; // current value
-                int8_t j = i; // starts at the same index as i (highest power of value)
-                while(curr){ // log(n) runtime
-                    sum += std::pow(base_old,j-i); //adds negative powers 
-                    BIT_CLEAR(curr, j); //clears the bit 
-                    j = LEFT_BIT(curr); // j is left bit
-                }
-                //std::cout << (int)i << '\t' << bit << '\n';
-                BIT_SET(out, (uint8_t)((valid::log_base(sum, base_old)+i)/divide));
-               
-                BIT_CLEAR(val, i); //iterate
-                i = LEFT_BIT(val);
-        }
     }
 
     if (negative){ //if negative number

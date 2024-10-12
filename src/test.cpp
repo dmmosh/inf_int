@@ -54,7 +54,7 @@ int main(void){
     //inf_int<int8_t> a = 9897977987;
     
     //std::cout << a.info();
-    inf_int<int8_t> a = 200;
+    inf_int<int8_t> a = 543;
     std::cout<<a.info();
 
 

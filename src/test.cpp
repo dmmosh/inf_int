@@ -43,18 +43,19 @@ int main(void){
     //test out1 = {base_convert<int8_t>(in1.val, in1.base, in1_new_base), in1_new_base};
     test out2 = {base_convert<int8_t>(in2.val, in2.base, in2_new_base), in2_new_base};
 
-    debug(in2);
-    debug(out2);
+    //debug(in2);
+    //debug(out2);
     //std::cout << std::pow(4,-100);
 
     // debug(in1);
     // debug(out1); skmklc
 
-    std::cout << BITS((int16_t)1000) << N;
-    inf_int<int8_t> a = 9897977987;
+    //std::cout << BITS((int16_t)1000) << N;
+    //inf_int<int8_t> a = 9897977987;
     
-    std::cout << a.info();
-
+    //std::cout << a.info();
+    inf_int<int8_t> a = 200;
+    std::cout<<a.info();
 
 
 

@@ -48,7 +48,7 @@ int main(void){
     //std::cout << std::pow(4,-100);
 
     // debug(in1);
-    // debug(out1); skmklc
+    // debug(out1); skmklcre
 
     //std::cout << BITS((int16_t)1000) << N;
     //inf_int<int8_t> a = 9897977987;
